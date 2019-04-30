@@ -1,10 +1,11 @@
 <template>
     <div class="header">
         <!-- 折叠按钮 -->
+
+        <div class="logo"><img src="../../assets/img/中集冷云.png" alt=""></div>
         <div class="collapse-btn" @click="collapseChage">
             <i class="el-icon-menu"></i>
         </div>
-        <div class="logo">后台管理系统</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->
@@ -13,36 +14,101 @@
                         <i class="el-icon-rank"></i>
                     </el-tooltip>
                 </div>
-                <!-- 消息中心 -->
+                <!-- 账号设置 -->
                 <div class="btn-bell">
-                    <el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">
-                        <router-link to="/tabs">
-                            <i class="el-icon-bell"></i>
-                        </router-link>
+                    <el-tooltip effect="dark" :content="message?`账号设置`:`账号设置`" placement="bottom">
+
+                            <i class="el-icon-setting"></i>
+
                     </el-tooltip>
-                    <span class="btn-bell-badge" v-if="message"></span>
+
+                </div>
+              <!--   搜索-->
+                <div class="btn-bell">
+                    <el-tooltip effect="dark" :content="search" placement="bottom">
+
+                        <i class="el-icon-search"></i>
+
+                    </el-tooltip>
+
                 </div>
                 <!-- 用户头像 -->
-                <div class="user-avator"><img src="../../assets/img/img.jpg"></div>
+                <div class="user-avator"><img src="../../assets/img/user.jpg"></div>
                 <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
                         {{username}} <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <a href="http://blog.gdfengshuo.com/about/" target="_blank">
-                            <el-dropdown-item>关于作者</el-dropdown-item>
+                        <a href="javascript:;" target="_blank">
+                            <el-dropdown-item>工号：123</el-dropdown-item>
                         </a>
-                        <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
-                            <el-dropdown-item>项目仓库</el-dropdown-item>
+                        <a href="avascript:;" target="_blank">
+                            <el-dropdown-item>员工姓名：孟健康</el-dropdown-item>
+                        </a>
+                        <a  @click="handleAdd()">
+                            <el-dropdown-item>手机号：15001015750 <i class="el-icon-mobile-phone" style="color: blue"></i></el-dropdown-item>
+                        </a>
+                        <a href="avascript:;" target="_blank">
+                            <el-dropdown-item>所属网站：财经 </el-dropdown-item>
+                        </a>
+                        <a href="avascript:;" target="_blank">
+                            <el-dropdown-item>部门：技术部 </el-dropdown-item>
+                        </a>
+                        <a href="avascript:;" target="_blank">
+                            <el-dropdown-item>职位：前端开发 </el-dropdown-item>
                         </a>
                         <el-dropdown-item divided  command="loginout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
+
         </div>
+      <!--  绑定手机号弹框页面-->
+        <el-dialog :title="title" :visible.sync="editVisible" width="25%">
+            <el-form   ref="form" :model="form" label-width="0px" >
+                <el-form-item>
+                    <el-input  v-model="form.accout" placeholder="请输入手机号"  >
+                        <el-button slot="prepend" icon="el-icon-mobile-phone"></el-button>
+                    </el-input>
+                </el-form-item>
+                <el-form-item >
+                    <el-input  placeholder="请输入短信验证码" v-model="form.pwd" >
+                        <el-button slot="prepend" icon="el-icon-message"></el-button>
+                        <el-button type="button"  slot="append"  >发送验证码 </el-button>
+                    </el-input>
+                </el-form-item>
+
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+
+            <el-button type="primary" @click="saveEdit">ok</el-button>
+          </span>
+        </el-dialog>
+    <!--    绑定成功页面弹框-->
+        <el-dialog  :visible.sync="successDialog" width="25%">
+            <div style="text-align: center">
+                <h2 style="font-family: cursive">绑定成功</h2>
+                <img src="../../assets/img/成功.png" alt=""  style="margin: 30px 0px">
+                <p style="font-family: cursive">修改后请重新登录账户，谢谢。</p>
+            </div>
+
+        </el-dialog>
+        <!--    绑定失败页面弹框-->
+        <el-dialog  :visible.sync="falieDialog" width="25%">
+            <div style="text-align: center">
+                <h2 style="font-family: cursive">绑定失败</h2>
+                <img src="../../assets/img/失败.png" alt=""  style="margin: 30px 0px">
+                <p style="font-family: cursive">该手机已被绑定</p>
+            </div>
+
+        </el-dialog>
     </div>
+
+
 </template>
+<!-- 编辑弹出框 -->
+
 <script>
     import bus from '../common/bus';
     export default {
@@ -51,7 +117,19 @@
                 collapse: false,
                 fullscreen: false,
                 name: 'linxin',
-                message: 2
+                message:'账号设置',
+                search:'搜索',
+                editVisible:false,
+                successDialog:false,
+                falieDialog:false,
+                title: "绑定手机号",
+                title1:"bangding",
+                form: {
+                    accout: "",
+                    pwd: "",
+
+                },
+
             }
         },
         computed:{
@@ -67,6 +145,15 @@
                     localStorage.removeItem('ms_username')
                     this.$router.push('/login');
                 }
+            },
+            saveEdit(){
+
+            },
+            handleAdd() {
+
+
+                this.editVisible = true;
+
             },
             // 侧边栏折叠
             collapseChage(){
@@ -126,7 +213,7 @@
     .header .logo{
         float: left;
         width:250px;
-        line-height: 70px;
+        line-height: 90px;
     }
     .header-right{
         float: right;
@@ -180,6 +267,9 @@
         cursor: pointer;
     }
     .el-dropdown-menu__item{
-        text-align: center;
+        text-align: left;
+    }
+    ul#dropdown-menu-9624{
+        min-width: 300px;
     }
 </style>

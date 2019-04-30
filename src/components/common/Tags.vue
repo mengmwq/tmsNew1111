@@ -114,11 +114,14 @@
 <style>
     .tags {
         position: relative;
-        height: 30px;
+        height: 45px;
         overflow: hidden;
         background: #fff;
         padding-right: 120px;
         box-shadow: 0 5px 10px #ddd;
+    }
+    .el-button--mini, .el-button--mini.is-round{
+        padding: 12px 15px;
     }
 
     .tags ul {
@@ -134,8 +137,8 @@
         font-size: 12px;
         overflow: hidden;
         cursor: pointer;
-        height: 23px;
-        line-height: 23px;
+        height: 35px;
+        line-height: 35px;
         border: 1px solid #e9eaec;
         background: #fff;
         padding: 0 5px 0 12px;
