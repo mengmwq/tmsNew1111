@@ -48,11 +48,17 @@ export default new Router({
                     meta: { title: '收支统计' }
                 },
                 {
-                    // 客户收入统计
+                    // 客户收入统计 
                     path: '/CustomerRevenue',
                     component: resolve => require(['../components/page/CustomerRevenue.vue'], resolve),
                     meta: { title: '客户收入统计' },
 
+                },
+                {
+                    // 客户收入明细
+                    path: '/customeDatails',
+                    component: resolve => require(['../components/page/customeDatails.vue'], resolve),
+                    meta: { title: '客户收入明细' },
                 },
                 {
                     // 客户支出统计组件
