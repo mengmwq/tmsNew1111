@@ -26,3 +26,12 @@
 .collapse-btn:hover{
     background: rgb(40,52,70);
 }
+.tags-li-title {
+    float: left;
+    max-width: 85px!important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-right: 5px;
+    color: #666;
+}

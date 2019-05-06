@@ -47,11 +47,6 @@
 
                                 </el-col>
                             </el-row>
-
-
-
-
-
                         </el-tab-pane>
                         <el-tab-pane label="EXCEL" name="second"  >
                             <div >
@@ -64,7 +59,15 @@
                                                 <el-col>
 
                                                     <el-form-item label="客户账号">
-                                                        <el-input ></el-input>
+                                                        <el-autocomplete
+                                                                class="inline-input"
+                                                                v-model="state2"
+                                                                :fetch-suggestions="querySearch"
+                                                                placeholder="请输入内容"
+                                                                :trigger-on-focus="false"
+                                                                :debounce=0
+                                                                @select="handleSelect"
+                                                        ></el-autocomplete>
                                                     </el-form-item>
                                                     <el-form-item label="结算类型" >
                                                         <el-select v-model="select_cate"  placeholder="请选择" class="handle-select mr10">
@@ -95,6 +98,7 @@
                                             ref="multipleTable"
                                             border
                                             max-height="400"
+                                            @cell-click="jumpDetails"
 
                                     >
                                         <el-table-column type="selection" width="60" align="center"></el-table-column>
@@ -124,14 +128,6 @@
 
                                 </div>
                             </div>
-
-
-
-
-
-
-
-
                         </el-tab-pane>
 
                     </el-tabs>
@@ -173,9 +169,24 @@
                 limit:10,
                 ccc: 500, //总页数
                 activeName: 'first',
-
+                restaurants: [{name:'旺角茶餐厅',value:'刘顺利3'},{name:'新旺角茶餐厅',value: '孟健康'},{name:'旺角茶餐厅',value:'刘顺利'},{name:'旺角茶餐厅',value:'李平安'},{name:'旺角茶',value:'孟小孟'},{name:'旺角茶餐厅',value:'刘顺利2'}],
+                state2:'',
 
                 multipleSelection: [],
+                tableData: [
+                    {
+                        ID: "ceshizhanghao1",
+                        GetCompany: "测试公司1",
+                        Condition: "现金",
+                        BillNumber: "100000"
+                    },
+                    {
+                        ID: "ceshizhanghao2",
+                        GetCompany: "测试公司2",
+                        Condition: "现金",
+                        BillNumber: "100000"
+                    }
+                ],
 
             }
         },
@@ -227,6 +238,31 @@
             handleClick(tab, event) {
                 console.log(tab, event);
             },
+            jumpDetails(row, column, cell, event){
+                console.log(column.label,0)
+                if (column.label == "客户账号") {
+                    this.$router.push("/CustomerSpendDetails");
+                }
+            },
+            querySearch(queryString, cb) {
+                var restaurants = this.restaurants; // 所有数据
+                var results = queryString
+                    ? restaurants.filter(this.createFilter(queryString))
+                    : restaurants;
+                // 调用 callback 返回建议列表的数据
+                cb(results);
+            },
+            createFilter(queryString) {
+                return restaurant => {
+                    return (
+                        restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) ===
+                        0
+                    );
+                };
+            },
+            handleSelect(item) {
+                console.log(item);
+            }
 
 
         }

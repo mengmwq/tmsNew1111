@@ -60,11 +60,19 @@ export default new Router({
                     component: resolve => require(['../components/page/customeDatails.vue'], resolve),
                     meta: { title: '客户收入明细' },
                 },
+
                 {
                     // 客户支出统计组件
                     path: '/CustomerSpending',
                     component: resolve => require(['../components/page/CustomerSpending.vue'], resolve),
                     meta: { title: '客户支出统计' }
+                },
+                {
+                    //客户支出明细
+                    path:'/CustomerSpendDetails',
+                    component: resolve => require(['../components/page/CustomerSpendDetails.vue'], resolve),
+                    meta: { title: '客户支出入明细' },
+
                 },
 
                 {
@@ -73,6 +81,12 @@ export default new Router({
                     component: resolve => require(['../components/page/NotRecorded.vue'], resolve),
                     meta: { title: '未录入运费统计' },
 
+                },
+                {
+                  //未录入明细
+                    path:"/NotRecordedDatails",
+                    component:resolve => require(['../components/page/NotRecordedDatails.vue'],resolve),
+                    meta:{title:'未录入运费明细'}
                 },
 
                 {

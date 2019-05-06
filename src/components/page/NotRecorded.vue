@@ -14,8 +14,17 @@
                     <el-row>
                         <el-col>
 
+
                             <el-form-item label="客户账号">
-                                <el-input ></el-input>
+                                <el-autocomplete
+                                        class="inline-input"
+                                        v-model="state2"
+                                        :fetch-suggestions="querySearch"
+                                        placeholder="请输入内容"
+                                        :trigger-on-focus="false"
+                                        :debounce=0
+                                        @select="handleSelect"
+                                ></el-autocomplete>
                             </el-form-item>
 
                             <img src="../../assets/img/查询.png" alt="查询图标" style="margin-left: 10px;margin-top: 3px;">
@@ -38,6 +47,7 @@
                 ref="multipleTable"
                 border
                 max-height="400"
+                @cell-click="jumpDetails"
 
         >
             <el-table-column type="selection" width="60" align="center"></el-table-column>
@@ -73,14 +83,53 @@
         data() {
             return {
                 tableData: [],
-
+                restaurants: [{name:'旺角茶餐厅',value:'刘顺利3'},{name:'新旺角茶餐厅',value: '孟健康'},{name:'旺角茶餐厅',value:'刘顺利'},{name:'旺角茶餐厅',value:'李平安'},{name:'旺角茶',value:'孟小孟'},{name:'旺角茶餐厅',value:'刘顺利2'}],
+                state2:'',
                 cur_page: 1,
                 limit:10,
                 ccc: 500, //总页数
+                tableData:[
+                    {
+                        ID: "ceshizhanghao1",
+                        GetCompany: "测试公司1",
+                        Condition: "现金",
+                        BillNumber: "100000"
+                    },
+                    {
+                        ID: "ceshizhanghao2",
+                        GetCompany: "测试公司2",
+                        Condition: "现金",
+                        BillNumber: "100000"
+                    }
+                ]
             };
         },
         methods:{
-
+            jumpDetails(row, column, cell, event) {
+                // console.log(row,column.label,222);
+                if (column.label == "客户账号") {
+                    this.$router.push("/NotRecordedDatails");
+                }
+            },
+            querySearch(queryString, cb) {
+                var restaurants = this.restaurants; // 所有数据
+                var results = queryString
+                    ? restaurants.filter(this.createFilter(queryString))
+                    : restaurants;
+                // 调用 callback 返回建议列表的数据
+                cb(results);
+            },
+            createFilter(queryString) {
+                return restaurant => {
+                    return (
+                        restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) ===
+                        0
+                    );
+                };
+            },
+            handleSelect(item) {
+                console.log(item);
+            }
         }
 
     };
