@@ -2,6 +2,7 @@
   "name": "vue-manage-system",
   "version": "4.0.0",
   "private": true,
+  "author": "孟健康",
   "scripts": {
     "dev": "npm run serve",
     "serve": "vue-cli-service serve",
