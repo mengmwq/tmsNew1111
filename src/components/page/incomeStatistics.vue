@@ -17,12 +17,19 @@
                             <el-form-item label="客户账号">
                                 <el-input ></el-input>
                             </el-form-item>
-                            <el-form-item label="时间">
-                                <el-input v-model="TakeTime"></el-input>
+                            <el-form-item>
+                                <div class="block">
+
+                                    <el-date-picker
+                                            v-model="value1"
+                                            type="daterange"
+                                            range-separator="至"
+                                            start-placeholder="开始日期"
+                                            end-placeholder="结束日期">
+                                    </el-date-picker>
+                                </div>
                             </el-form-item>
-                            <el-form-item label="至">
-                                <el-input v-model="GetsTime"></el-input>
-                            </el-form-item>
+
                             <img src="../../assets/img/查询.png" alt="查询图标" style="margin-left: 10px;margin-top: 3px;">
                             <div style="float: right">
 
@@ -146,9 +153,6 @@
         data() {
             return {
                 tableData: [],
-                TakeTime:"",
-                GetsTime:"",
-
                 cur_page: 1,
                 limit:10,
                 ccc: 500, //总页数
