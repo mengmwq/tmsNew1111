@@ -3,7 +3,7 @@
         <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item>
-                    <i class="el-icon-tickets"></i> 货量统计列表
+                    <i class="el-icon-tickets"></i> 綫路承運
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
@@ -39,6 +39,7 @@
                 </el-form>
 
             </div>
+            <hr>
             <el-row :gutter="24" >
                 <el-col :span="13" >
                     <p  style="font-size: 18px;color:#333;margin: 10px 0 20px  ;padding-left:5px;font-weight: 800;border-left: 3px solid green">费用明细</p>
@@ -49,11 +50,14 @@
                         货量统计
                     </p>
                     <el-row :gutter="24" >
-                        <el-col :span="10">
+                        <el-col :span="8">
                             <div id="eight2" style="width:100%;height:400px;"></div>
                         </el-col>
                         <el-col :span="8">
                             <div id="eight22" style="width:100%;height:400px;"></div>
+                        </el-col>
+                        <el-col :span="8">
+                            <div id="eight222" style="width:100%;height:400px;"></div>
                         </el-col>
                     </el-row>
 
@@ -107,12 +111,15 @@
                 value6: '',
                 cur_page: 1,
                 limit:10,
-                ccc: 500, //总页数
+                ccc: 500,
             };
         },
         mounted(){
             var eight = echarts.init(document.getElementById('eight'));
             var eight2 = echarts.init(document.getElementById('eight2'));
+            var eight22 = echarts.init(document.getElementById('eight22'));
+            var eight222 = echarts.init(document.getElementById('eight222'));
+
             var symbolSize = 20;
             var data = [[15, 0], [-50, 10], [-56.5, 20], [-46.5, 30], [-22.1, 40]];
             var points = [];
@@ -195,129 +202,174 @@
 
             eight2.setOption({
 
-                color: ['#A0CE3A', '#31C5C0', '#1E9BD1', '#0F347B', '#585247'],
-               
-                title: {
-                    text: '总数',
-                    subtext: 7789,
-                    textStyle: {
-                        color: '#000',
-                        fontSize: 20,
-                        // align: 'center'
-                    },
-                    subtextStyle: {
-                        fontSize: 10,
-                        color: ['#ff9d19']
-                    },
-                    x: 'center',
-                    y: 'center',
-                },
-                grid: {
-                    bottom: 150,
-                    left: 100,
-                    right: '10%'
-                },
-               /* legend: {
-                    orient: 'vertical',
-                    top: "middle",
-                    right: "5%",
-                    textStyle: {
-                        color: '#f2f2f2',
-                        fontSize: 25,
-
-                    },
-                    icon: 'roundRect',
-                    data: data,
-                },*/
-                series: [
-                    // 主要展示层的
-                    {
-                        radius: ['30%', '61%'],
-                        center: ['50%', '50%'],
-                        type: 'pie',
-                       /* label: {
-                            normal: {
-                                show: true,
-                                formatter: "{c}%",
-                                textStyle: {
-                                    fontSize: 30,
-
-                                },
-                                position: 'outside'
-                            },
-                            emphasis: {
-                                show: true
-                            }
-                        },*/
-                        /*labelLine: {
-                            normal: {
-                                show: true,
-                                length: 30,
-                                length2: 55
-                            },
-                            emphasis: {
-                                show: true
-                            }
-                        },*/
-                        name: "民警训练总量",
-                        data: data,
-
-                    },
-                    // 边框的设置
-                    {
-                        radius: ['30%', '34%'],
-                        center: ['50%', '50%'],
-                        type: 'pie',
-                        label: {
-                            normal: {
-                                show: false
-                            },
-                            emphasis: {
-                                show: false
-                            }
+                series: [{
+                    color:["#00F5FF","#DCDCDC"],
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: ['60%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'center'
                         },
-                        labelLine: {
-                            normal: {
-                                show: false
-                            },
-                            emphasis: {
-                                show: false
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '20',
+                                fontWeight: 'bold',
+
                             }
-                        },
-                        animation: false,
-                        tooltip: {
+                        }
+                    },
+                    labelLine: {
+                        normal: {
                             show: false
-                        },
-                        data: [{
-                            value: 1,
-                            itemStyle: {
-                                color: "rgba(250,250,250,0.3)",
-                            },
-                        }],
-                    }, {
-                        name: '外边框',
-                        type: 'pie',
-                        clockWise: false, //顺时加载
-                        hoverAnimation: false, //鼠标移入变大
-                        center: ['50%', '50%'],
-                        radius: ['65%', '65%'],
+                        }
+                    },
+                    data: [{
+                        value: 75,
+                        name: '75%',
                         label: {
                             normal: {
-                                show: false
-                            }
-                        },
-                        data: [{
-                            value: 9,
-                            name: '',
-                            itemStyle: {
-                                normal: {
-                                    borderWidth: 2,
-                                    borderColor: '#0b5263'
+                                textStyle: {
+                                    fontSize: '25',
+                                    fontWeight: 'bold',
+                                    color:"#000"
                                 }
                             }
-                        }]
+                        },
                     },
-                ]
+                        {
+                            value: 25,
+                            name: '票数合计',
+                            label: {
+                                normal: {
+                                    textStyle: {
+                                        fontSize: '20',
+                                        color:'#000',
+
+                                    },
+                                    padding: [300, 0, 0, 0]
+                                }
+                            },
+                        }
+                    ]
+                }]
+            });
+            eight22.setOption({
+
+                series: [{
+                    color:["#625bef","#DCDCDC"],
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: ['60%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '20',
+                                fontWeight: 'bold',
+
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data: [{
+                        value: 75,
+                        name: '85%',
+                        label: {
+                            normal: {
+                                textStyle: {
+                                    fontSize: '25',
+                                    fontWeight: 'bold',
+                                    color:"#000"
+                                }
+                            }
+                        },
+                    },
+                        {
+                            value: 25,
+                            name: '件数合计',
+                            label: {
+                                normal: {
+                                    textStyle: {
+                                        fontSize: '20',
+                                        color:'#000',
+
+                                    },
+                                    padding: [300, 0, 0, 0]
+                                }
+                            },
+                        }
+                    ]
+                }]
+            });
+            eight222.setOption({
+
+                series: [{
+                    color:["#f8ac59","#DCDCDC"],
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: ['60%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '20',
+                                fontWeight: 'bold',
+
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data: [{
+                        value: 75,
+                        name: '55%',
+                        label: {
+                            normal: {
+                                textStyle: {
+                                    fontSize: '25',
+                                    fontWeight: 'bold',
+                                    color:"#000"
+                                }
+                            }
+                        },
+                    },
+                        {
+                            value: 25,
+                            name: '重量合计',
+                            label: {
+                                normal: {
+                                    textStyle: {
+                                        fontSize: '20',
+                                        color:'#000',
+
+                                    },
+                                    padding: [300, 0, 0, 0]
+                                }
+                            },
+                        }
+                    ]
+                }]
             });
         },
         methods:{

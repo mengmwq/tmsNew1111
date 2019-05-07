@@ -91,8 +91,8 @@ export default new Router({
 
                 {
                     //客户收支统计
-                    path: '/CustomeRevenue',
-                    component: resolve => require(['../components/page/CustomeRevenue.vue'], resolve),
+                    path: '/BOPS',
+                    component: resolve => require(['../components/page/BOPS.vue'], resolve),
                     meta: {title: '客户收支统计'}
                 },
                 {
@@ -107,12 +107,57 @@ export default new Router({
                     component:resolve => require(['../components/page/ProductStatistics.vue'],resolve),
                     meta:{title:'产品货量统计'}
                 },
-              /*  {
-                    // 图片上传组件
-                    path: '/upload',
-                    component: resolve => require(['../components/page/Upload.vue'], resolve),
-                    meta: { title: '文件上传' }   
-                },*/
+                {
+                    //承运商费用统计
+                    path:'/CarrierFees',
+                    component:resolve => require(['../components/page/CarrierFees.vue'],resolve),
+                    meta:{title:'承运商费用统计'}
+                },
+                {
+                    //承运商费用未录入统计
+                    path:'/CarrierNotRecorded',
+                    component:resolve => require(['../components/page/CarrierNotRecorded.vue'],resolve),
+                    meta:{title:'承运商费用未录入统计'}
+                },
+                {
+                    //未录入明细NotEnterDetails
+                    path:'/NotEnterDetails',
+                    component:resolve => require(['../components/page/NotEnterDetails.vue'],resolve),
+                    meta:{title:'承运商未录入明细'}
+                },
+
+                {
+                    //线路承运成本统计
+                    path:'/LineCostStatistics',
+                    component:resolve => require(['../components/page/LineCostStatistics.vue'],resolve),
+                    meta:{title:'线路承运成本统计'}
+                },
+                {
+                    //年度报表
+                    path:'/AnnualStatement',
+                    component:resolve => require(['../components/page/AnnualStatement.vue'],resolve),
+                    meta:{title:'年度报表列表'}
+                },
+                {
+                    //项目周报
+                    path:'/ProjectWeekly',
+                    component:resolve => require(['../components/page/ProjectWeekly.vue'],resolve),
+                    meta:{title:'项目周报列表'}
+                },
+                {
+                    //周报
+                    path:'/WeeklyNewspaper',
+                    component:resolve => require(['../components/page/WeeklyNewspaper.vue'],resolve),
+                    meta:{title:'周报列表'}
+                },
+
+
+                /*  {
+                      // 图片上传组件
+                      path: '/upload',
+                      component: resolve => require(['../components/page/Upload.vue'], resolve),
+                      meta: { title: '文件上传' }
+                  },*/
                 /*{
                     // vue-schart组件
                     path: '/charts',

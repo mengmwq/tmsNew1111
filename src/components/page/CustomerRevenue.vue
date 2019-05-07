@@ -196,8 +196,8 @@ ul > li {
   cursor: pointer;
 }
 .curstomNum:not(.aaa) .cell {
-  color: blue;
-}
+   color: blue;
+ }
 </style>
 
 

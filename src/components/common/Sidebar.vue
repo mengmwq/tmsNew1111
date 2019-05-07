@@ -104,7 +104,7 @@
                                         title: '未录入运费统计'
                                     },
                                     {
-                                        index: 'CustomeRevenue',
+                                        index: 'BOPS',
                                         title: '客户收支统计'
                                     },
 
@@ -167,7 +167,43 @@
 
 
                                 ]
-                            }
+                            },
+                            {
+                                index:'CarrierFees',
+                                title:'承运商费用统计',
+                                subs: [
+
+                                    {
+                                        index: 'CarrierNotRecorded',
+                                        title: '承运商费用未录入统计'
+                                    },
+                                    {
+                                        index: 'LineCostStatistics',
+                                        title: '线路承运成本统计'
+                                    },
+
+
+
+                                ]
+                            },
+                            {
+                                index:'AnnualStatement',
+                                title:'年度报表',
+                                subs: [
+
+                                    {
+                                        index: 'ProjectWeekly',
+                                        title: '项目周报'
+                                    },
+                                    {
+                                        index: 'WeeklyNewspaper',
+                                        title: '周报'
+                                    },
+
+
+
+                                ]
+                            },
                         ]
                     },
                    /* {
