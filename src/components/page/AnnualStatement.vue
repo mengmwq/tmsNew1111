@@ -137,7 +137,7 @@
                                 </div>
                             </div>
                         </el-tab-pane>
-                        <el-tab-pane label="线路" name="first">
+                        <el-tab-pane label="线路" name="first" v-if="temp">
                             <el-form :inline="true" style="margin: 20px 0 0 0;">
                                 <el-row>
                                     <el-col>
@@ -231,20 +231,50 @@
                             <div id="eight" style="width:100%;height:700px;"></div>
                             <div style="text-align: center;margin-top: 20px;">
 
-                                    <img src="../../assets/img/折线.png" alt="" @click="switcher">
+                                    <img src="../../assets/img/折线.png" alt="" @click="switcher(true)">
                                     &nbsp  &nbsp  &nbsp
-                                    <img src="../../assets/img/表格.png" alt="" >
+                                    <img src="../../assets/img/表格.png" alt=""  @click="switcher(false)">
 
 
                             </div>
 
 
                         </el-tab-pane>
+                        <el-tab-pane label="线路" name="first" v-if="!temp">
+                            <el-form :inline="true" style="margin: 20px 0 0 0;">
+                                <el-row>
+                                    <el-col>
+                                        <el-form-item  >
+                                            <div class="block">
+
+                                                <el-date-picker
+                                                        v-model="value1"
+                                                        type="datetime"
+                                                        placeholder="选择日期时间">
+                                                </el-date-picker>
+                                            </div>
+                                        </el-form-item>
+
+                                        <img src="../../assets/img/查询.png" alt="查询图标" style="margin-left: 10px;margin-top: 3px;">
+
+
+                                    </el-col>
+                                </el-row>
+                            </el-form>
+                        <div>biaoge </div>
+
+
+
+                        </el-tab-pane>
+
                     </el-tabs>
                 </el-col>
+
             </el-row>
         </div>
+
     </div>
+
 </template>
 
 
@@ -274,6 +304,7 @@
     export default {
         data() {
             return {
+                temp:true,
                 value1: '',
                 select_cate: "", //运单状态
                 tableData: [
@@ -734,8 +765,8 @@
                 //   console.log(tab, event);
             },
             //qiehuan表格
-            switcher(){
-               alert(1)
+            switcher(t){
+                this.temp=t
             },
             // 2019.5.5 李洋 点击客户账号 跳转
             jumpDetails(row, column, cell, event) {
