@@ -20,10 +20,10 @@
               label="客户"
               name="second"
             >
-               <div v-show="tempShow2">
+              <div v-show="tempShow2">
                 <el-form
-                        :inline="true"
-                        style="margin: 20px 0 0 0;"
+                  :inline="true"
+                  style="margin: 20px 0 0 0;"
                 >
                   <el-row>
                     <el-col>
@@ -31,18 +31,18 @@
                         <div class="block">
 
                           <el-date-picker
-                                  v-model="value1"
-                                  type="datetime"
-                                  placeholder="选择日期时间"
+                            v-model="value1"
+                            type="datetime"
+                            placeholder="选择日期时间"
                           >
                           </el-date-picker>
                         </div>
                       </el-form-item>
 
                       <img
-                              src="../../assets/img/查询.png"
-                              alt="查询图标"
-                              style="margin-left: 10px;margin-top: 3px;"
+                        src="../../assets/img/查询.png"
+                        alt="查询图标"
+                        style="margin-left: 10px;margin-top: 3px;"
                       >
 
                     </el-col>
@@ -51,13 +51,13 @@
                 <el-row>
                   <el-col>
                     <el-row
-                            :gutter="24"
-                            class="mgb20"
+                      :gutter="24"
+                      class="mgb20"
                     >
                       <el-col :span="6">
                         <el-card
-                                shadow="hover"
-                                :body-style="{padding: '0px'}"
+                          shadow="hover"
+                          :body-style="{padding: '0px'}"
                         >
                           <div class="grid-content grid-con-1">
 
@@ -68,8 +68,8 @@
                             </div>
                             <div class="grid-img">
                               <img
-                                      src="../../assets/img/收入合计上的图标.png"
-                                      alt=""
+                                src="../../assets/img/收入合计上的图标.png"
+                                alt=""
                               >
                             </div>
                           </div>
@@ -77,8 +77,8 @@
                       </el-col>
                       <el-col :span="6">
                         <el-card
-                                shadow="hover"
-                                :body-style="{padding: '0px'}"
+                          shadow="hover"
+                          :body-style="{padding: '0px'}"
                         >
                           <div class="grid-content grid-con-2">
 
@@ -89,8 +89,8 @@
                             </div>
                             <div class="grid-img">
                               <img
-                                      src="../../assets/img/支出合计上的图标.png"
-                                      alt=""
+                                src="../../assets/img/支出合计上的图标.png"
+                                alt=""
                               >
                             </div>
 
@@ -99,8 +99,8 @@
                       </el-col>
                       <el-col :span="6">
                         <el-card
-                                shadow="hover"
-                                :body-style="{padding: '0px'}"
+                          shadow="hover"
+                          :body-style="{padding: '0px'}"
                         >
                           <div class="grid-content grid-con-3">
 
@@ -111,8 +111,8 @@
                             </div>
                             <div class="grid-img">
                               <img
-                                      src="../../assets/img/毛利率上的图标.png"
-                                      alt=""
+                                src="../../assets/img/毛利率上的图标.png"
+                                alt=""
                               >
                             </div>
                           </div>
@@ -120,8 +120,8 @@
                       </el-col>
                       <el-col :span="6">
                         <el-card
-                                shadow="hover"
-                                :body-style="{padding: '0px'}"
+                          shadow="hover"
+                          :body-style="{padding: '0px'}"
                         >
                           <div class="grid-content grid-con-4">
 
@@ -132,8 +132,8 @@
                             </div>
                             <div class="grid-img">
                               <img
-                                      src="../../assets/img/未录入运费票数合计.png"
-                                      alt=""
+                                src="../../assets/img/未录入运费票数合计.png"
+                                alt=""
                               >
                             </div>
 
@@ -147,182 +147,182 @@
                 </el-row>
 
               </div>
-               <div v-show="tableShow2">
-                  <div class="handle-box">
-                    <el-form
-                      :inline="true"
-                      style="margin: 20px 0 0 0;"
-                    >
-                      <el-row>
-                        <el-col>
-                          <el-form-item label="客户账号">
-                            <el-input></el-input>
-                          </el-form-item>
-                          <el-form-item label="结算类型">
-                            <el-select
-                              v-model="select_cate"
-                              placeholder="请选择"
-                              class="handle-select mr10"
-                            >
-                              <el-option
-                                key="0"
-                                label="支付宝"
-                                value="支付宝"
-                              ></el-option>
-                              <el-option
-                                key="1"
-                                label="微信"
-                                value="微信"
-                              ></el-option>
-                              <el-option
-                                key="2"
-                                label="现金"
-                                value="现金"
-                              ></el-option>
-                            </el-select>
-                          </el-form-item>
-                          <img
-                            src="../../assets/img/查询.png"
-                            alt="查询图标"
-                            style="margin-left: 10px;"
-                          >
-                          <div style="float: right">
-                            <img
-                              src="../../assets/img/导出.png"
-                              alt
-                              style="margin: 0 20px"
-                            >
-                            <img
-                              src="../../assets/img/刷新.png"
-                              alt
-                            >
-                            <img
-                              src="../../assets/img/柱状图.png"
-                              alt
-                              style="margin: 0 20px"
-                            >
-                          </div>
-                        </el-col>
-                      </el-row>
-                    </el-form>
-                  </div>
-                  <el-table
-                    :data="tableData"
-                    style="width: 100%"
-                    ref="multipleTable"
-                    border
-                    max-height="400"
-                    @cell-click="jumpDetails"
+              <div v-show="tableShow2">
+                <div class="handle-box">
+                  <el-form
+                    :inline="true"
+                    style="margin: 20px 0 0 0;"
                   >
-                    <el-table-column
-                      type="selection"
-                      width="60"
-                      align="center"
-                    ></el-table-column>
-                    <el-table-column
-                      type="index"
-                      width="50"
-                      label="序号"
-                      align="center"
-                      fixed
-                    ></el-table-column>
-                    <el-table-column
-                      prop="ID"
-                      label="客户账号"
-                      align="center"
-                      class-name="curstomNum"
-                      label-class-name="aaa"
-                    ></el-table-column>
-                    <el-table-column
-                      prop="GetCompany"
-                      label="公司名称"
-                      align="center"
-                      :show-overflow-tooltip="true"
-                    ></el-table-column>
-                    <el-table-column
-                      prop="Condition"
-                      label="结算类型"
-                      align="center"
-                    ></el-table-column>
-                    <el-table-column
-                      prop="BillNumber"
-                      label="收入"
-                      align="center"
-                      :show-overflow-tooltip="true"
-                    ></el-table-column>
-                    <el-table-column
-                      prop="BillNumber"
-                      label="税后收入"
-                      align="center"
-                      :show-overflow-tooltip="true"
-                    ></el-table-column>
-                    <el-table-column
-                      prop="BillNumber"
-                      label="支出"
-                      align="center"
-                      :show-overflow-tooltip="true"
-                    ></el-table-column>
-                    <el-table-column
-                      prop="BillNumber"
-                      label="运输毛利率"
-                      align="center"
-                      :show-overflow-tooltip="true"
-                    ></el-table-column>
-                    <el-table-column
-                      prop="BillNumber"
-                      label="税后运输毛利率"
-                      align="center"
-                      :show-overflow-tooltip="true"
-                    ></el-table-column>
-                    <el-table-column
-                      prop="BillNumber"
-                      label="票数"
-                      align="center"
-                      :show-overflow-tooltip="true"
-                      :sortable="true"
-                    ></el-table-column>
-                    <el-table-column
-                      prop="BillNumber"
-                      label="件数"
-                      align="center"
-                      :show-overflow-tooltip="true"
-                      :sortable="true"
-                    ></el-table-column>
-                    <el-table-column
-                      prop="BillNumber"
-                      label="运费录入票数"
-                      align="center"
-                      :show-overflow-tooltip="true"
-                    ></el-table-column>
-                    <el-table-column
-                      prop="BillNumber"
-                      label="未审核票数"
-                      align="center"
-                      :show-overflow-tooltip="true"
-                      :sortable="true"
-                    ></el-table-column>
-                  </el-table>
-                  <div class="pagination">
-                    <el-pagination
-                      :page-sizes="[50, 100, 500, 2000]"
-                      :page-size="50"
-                      layout="total, sizes, prev, pager, next, jumper"
-                      :total="ccc"
-                    ></el-pagination>
-                  </div>
+                    <el-row>
+                      <el-col>
+                        <el-form-item label="客户账号">
+                          <el-input></el-input>
+                        </el-form-item>
+                        <el-form-item label="结算类型">
+                          <el-select
+                            v-model="select_cate"
+                            placeholder="请选择"
+                            class="handle-select mr10"
+                          >
+                            <el-option
+                              key="0"
+                              label="支付宝"
+                              value="支付宝"
+                            ></el-option>
+                            <el-option
+                              key="1"
+                              label="微信"
+                              value="微信"
+                            ></el-option>
+                            <el-option
+                              key="2"
+                              label="现金"
+                              value="现金"
+                            ></el-option>
+                          </el-select>
+                        </el-form-item>
+                        <img
+                          src="../../assets/img/查询.png"
+                          alt="查询图标"
+                          style="margin-left: 10px;"
+                        >
+                        <div style="float: right">
+                          <img
+                            src="../../assets/img/导出.png"
+                            alt
+                            style="margin: 0 20px"
+                          >
+                          <img
+                            src="../../assets/img/刷新.png"
+                            alt
+                          >
+                          <img
+                            src="../../assets/img/柱状图.png"
+                            alt
+                            style="margin: 0 20px"
+                          >
+                        </div>
+                      </el-col>
+                    </el-row>
+                  </el-form>
                 </div>
+                <el-table
+                  :data="tableData"
+                  style="width: 100%"
+                  ref="multipleTable"
+                  border
+                  max-height="400"
+                  @cell-click="jumpDetails"
+                >
+                  <el-table-column
+                    type="selection"
+                    width="60"
+                    align="center"
+                  ></el-table-column>
+                  <el-table-column
+                    type="index"
+                    width="50"
+                    label="序号"
+                    align="center"
+                    fixed
+                  ></el-table-column>
+                  <el-table-column
+                    prop="ID"
+                    label="客户账号"
+                    align="center"
+                    class-name="curstomNum"
+                    label-class-name="aaa"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="GetCompany"
+                    label="公司名称"
+                    align="center"
+                    :show-overflow-tooltip="true"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="Condition"
+                    label="结算类型"
+                    align="center"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="BillNumber"
+                    label="收入"
+                    align="center"
+                    :show-overflow-tooltip="true"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="BillNumber"
+                    label="税后收入"
+                    align="center"
+                    :show-overflow-tooltip="true"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="BillNumber"
+                    label="支出"
+                    align="center"
+                    :show-overflow-tooltip="true"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="BillNumber"
+                    label="运输毛利率"
+                    align="center"
+                    :show-overflow-tooltip="true"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="BillNumber"
+                    label="税后运输毛利率"
+                    align="center"
+                    :show-overflow-tooltip="true"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="BillNumber"
+                    label="票数"
+                    align="center"
+                    :show-overflow-tooltip="true"
+                    :sortable="true"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="BillNumber"
+                    label="件数"
+                    align="center"
+                    :show-overflow-tooltip="true"
+                    :sortable="true"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="BillNumber"
+                    label="运费录入票数"
+                    align="center"
+                    :show-overflow-tooltip="true"
+                  ></el-table-column>
+                  <el-table-column
+                    prop="BillNumber"
+                    label="未审核票数"
+                    align="center"
+                    :show-overflow-tooltip="true"
+                    :sortable="true"
+                  ></el-table-column>
+                </el-table>
+                <div class="pagination">
+                  <el-pagination
+                    :page-sizes="[50, 100, 500, 2000]"
+                    :page-size="50"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="ccc"
+                  ></el-pagination>
+                </div>
+              </div>
               <div style="text-align: center;margin-top: 20px;">
 
                 <img
-                        src="../../assets/img/折线.png"
-                        alt=""
-                        @click="switcher2(true)"
+                  :src="clientLine"
+                  alt=""
+                  @click="switcher2(true)"
                 >
                 &nbsp; &nbsp; &nbsp;
                 <img
-                        src="../../assets/img/表格.png"
-                        alt=""
-                        @click="switcher2(false)"
+                  :src="clientExcel"
+                  alt=""
+                  @click="switcher2(false)"
                 >
 
               </div>
@@ -496,13 +496,13 @@
               <div style="text-align: center;margin-top: 20px;">
 
                 <img
-                  :src="lineTemImg"
+                  :src="lineLine"
                   alt=""
                   @click="switcher(true)"
                 >
                 &nbsp; &nbsp; &nbsp;
                 <img
-                  :src="line"
+                  :src="lineExcel"
                   alt=""
                   @click="switcher(false)"
                 >
@@ -571,17 +571,26 @@ ul > li {
 
 <script>
 import echarts from "echarts";
-import home_no from '../../assets/img/hsexcel.png'
-import home from '../../assets/img/lsbiaoge.png'
+import home_no from "../../assets/img/hsexcel.png";
+import home from "../../assets/img/lsbiaoge.png";
+import lineActive from "../../assets/img/折线.png";
+import excelDefault from "../../assets/img/表格.png";
 export default {
   data() {
     return {
-      line:home_no,
-      lineTemImg:home,
+      lineLine: lineActive,
+      lineExcel: excelDefault,
+      clientLine: lineActive,
+      clientExcel: excelDefault,
+      lineDefault: home_no, // 折线 默认
+      excelActive: home, // 表格 蓝色
+      lineActive: lineActive, // 折线 蓝色
+      excelDefault: excelDefault, // 表格 默认
+
       tempShow: true,
-      tempShow2:true,
+      tempShow2: true,
       tableShow: false,
-      tableShow2:false,
+      tableShow2: false,
       value1: "",
       select_cate: "", //运单状态
       tableData: [
@@ -608,6 +617,9 @@ export default {
 
       multipleSelection: []
     };
+  },
+  created(){
+
   },
   mounted() {
     var eight = echarts.init(document.getElementById("eight"));
@@ -1061,31 +1073,53 @@ export default {
   },
   methods: {
     handleClick(tab, event) {
-      //   console.log(tab, event);
+      // console.log(tab.name);
+      if (tab.name == "second") {
+        // 客户
+        this.tempShow2 = true;
+        this.tableShow2 = false;
+        this.clientLine = this.lineActive;
+        this.clientExcel = this.excelDefault;
+      } else {
+        // 线路
+        this.tempShow = true;
+        this.tableShow = false;
+        this.lineLine = this.lineActive;
+        this.lineExcel = this.excelDefault;
+      }
     },
     //qiehuan表格
     switcher(t) {
-      this.temp = t;
+      // 线路
       if (t) {
-		// 折线
-		this.tempShow = true;
-		this.tableShow = false;
+        // 折线
+        this.lineLine = this.lineActive;
+        this.lineExcel = this.excelDefault;
+        this.tempShow = true;
+        this.tableShow = false;
+
       } else {
-		// 表格
-		this.tempShow = false;
-		this.tableShow = true;
+        // 表格
+        this.lineLine = this.lineDefault;
+        this.lineExcel = this.excelActive;
+        this.tempShow = false;
+        this.tableShow = true;
       }
     },
-    switcher2(t){
+    switcher2(t) {
+      // 客户
       if (t) {
         // 折线
         this.tempShow2 = true;
-
         this.tableShow2 = false;
+        this.clientLine = this.lineActive;
+        this.clientExcel = this.excelDefault;
       } else {
         // 表格
         this.tempShow2 = false;
         this.tableShow2 = true;
+        this.clientLine = this.lineDefault;
+        this.clientExcel = this.excelActive;
       }
     },
     // 2019.5.5 李洋 点击客户账号 跳转
