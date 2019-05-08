@@ -20,8 +20,134 @@
               label="客户"
               name="second"
             >
-              <div>
-                <div class>
+               <div v-show="tempShow2">
+                <el-form
+                        :inline="true"
+                        style="margin: 20px 0 0 0;"
+                >
+                  <el-row>
+                    <el-col>
+                      <el-form-item>
+                        <div class="block">
+
+                          <el-date-picker
+                                  v-model="value1"
+                                  type="datetime"
+                                  placeholder="选择日期时间"
+                          >
+                          </el-date-picker>
+                        </div>
+                      </el-form-item>
+
+                      <img
+                              src="../../assets/img/查询.png"
+                              alt="查询图标"
+                              style="margin-left: 10px;margin-top: 3px;"
+                      >
+
+                    </el-col>
+                  </el-row>
+                </el-form>
+                <el-row>
+                  <el-col>
+                    <el-row
+                            :gutter="24"
+                            class="mgb20"
+                    >
+                      <el-col :span="6">
+                        <el-card
+                                shadow="hover"
+                                :body-style="{padding: '0px'}"
+                        >
+                          <div class="grid-content grid-con-1">
+
+                            <div class="grid-cont-right">
+                              <h6 style="color: #fff">已录入票数合计</h6>
+                              <div class="grid-num">&yen; 4,232</div>
+
+                            </div>
+                            <div class="grid-img">
+                              <img
+                                      src="../../assets/img/收入合计上的图标.png"
+                                      alt=""
+                              >
+                            </div>
+                          </div>
+                        </el-card>
+                      </el-col>
+                      <el-col :span="6">
+                        <el-card
+                                shadow="hover"
+                                :body-style="{padding: '0px'}"
+                        >
+                          <div class="grid-content grid-con-2">
+
+                            <div class="grid-cont-right">
+                              <h6 style="color: #fff">已录入件数合计</h6>
+                              <div class="grid-num">&yen; 4,232</div>
+
+                            </div>
+                            <div class="grid-img">
+                              <img
+                                      src="../../assets/img/支出合计上的图标.png"
+                                      alt=""
+                              >
+                            </div>
+
+                          </div>
+                        </el-card>
+                      </el-col>
+                      <el-col :span="6">
+                        <el-card
+                                shadow="hover"
+                                :body-style="{padding: '0px'}"
+                        >
+                          <div class="grid-content grid-con-3">
+
+                            <div class="grid-cont-right">
+                              <h6 style="color: #fff">已录入重量合计</h6>
+                              <div class="grid-num">&yen; 4,232</div>
+
+                            </div>
+                            <div class="grid-img">
+                              <img
+                                      src="../../assets/img/毛利率上的图标.png"
+                                      alt=""
+                              >
+                            </div>
+                          </div>
+                        </el-card>
+                      </el-col>
+                      <el-col :span="6">
+                        <el-card
+                                shadow="hover"
+                                :body-style="{padding: '0px'}"
+                        >
+                          <div class="grid-content grid-con-4">
+
+                            <div class="grid-cont-right">
+                              <h6 style="color: #ffffff;">2019年成本合计</h6>
+                              <div class="grid-num">&yen; 4,232</div>
+
+                            </div>
+                            <div class="grid-img">
+                              <img
+                                      src="../../assets/img/未录入运费票数合计.png"
+                                      alt=""
+                              >
+                            </div>
+
+                          </div>
+                        </el-card>
+                      </el-col>
+
+                    </el-row>
+
+                  </el-col>
+                </el-row>
+
+              </div>
+               <div v-show="tableShow2">
                   <div class="handle-box">
                     <el-form
                       :inline="true"
@@ -185,7 +311,22 @@
                     ></el-pagination>
                   </div>
                 </div>
+              <div style="text-align: center;margin-top: 20px;">
+
+                <img
+                        src="../../assets/img/折线.png"
+                        alt=""
+                        @click="switcher2(true)"
+                >
+                &nbsp; &nbsp; &nbsp;
+                <img
+                        src="../../assets/img/表格.png"
+                        alt=""
+                        @click="switcher2(false)"
+                >
+
               </div>
+
             </el-tab-pane>
             <el-tab-pane
               label="线路"
@@ -355,13 +496,13 @@
               <div style="text-align: center;margin-top: 20px;">
 
                 <img
-                  src="../../assets/img/折线.png"
+                  :src="lineTemImg"
                   alt=""
                   @click="switcher(true)"
                 >
                 &nbsp; &nbsp; &nbsp;
                 <img
-                  src="../../assets/img/表格.png"
+                  :src="line"
                   alt=""
                   @click="switcher(false)"
                 >
@@ -430,11 +571,17 @@ ul > li {
 
 <script>
 import echarts from "echarts";
+import home_no from '../../assets/img/hsexcel.png'
+import home from '../../assets/img/lsbiaoge.png'
 export default {
   data() {
     return {
+      line:home_no,
+      lineTemImg:home,
       tempShow: true,
+      tempShow2:true,
       tableShow: false,
+      tableShow2:false,
       value1: "",
       select_cate: "", //运单状态
       tableData: [
@@ -927,6 +1074,18 @@ export default {
 		// 表格
 		this.tempShow = false;
 		this.tableShow = true;
+      }
+    },
+    switcher2(t){
+      if (t) {
+        // 折线
+        this.tempShow2 = true;
+
+        this.tableShow2 = false;
+      } else {
+        // 表格
+        this.tempShow2 = false;
+        this.tableShow2 = true;
       }
     },
     // 2019.5.5 李洋 点击客户账号 跳转
