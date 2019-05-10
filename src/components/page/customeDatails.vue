@@ -199,7 +199,7 @@
                     :loading="true"
                   >货物信息</el-button>
                   <p style="text-indent: 20px;margin: 20px 0;">货物名称：</p>
-                  <ul style="text-indent: 20px;height: 30px;line-height: 30px">
+                  <ul style="text-indent: 20px;height:30px;line-height:30px;display: inline-table">
                     <li>件数：1</li>
                     <li>体积：1</li>
                     <li>实际重量：111</li>

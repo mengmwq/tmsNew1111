@@ -9,11 +9,9 @@
         </div>
         <div class="container">
             <div class="handle-box">
-
                 <el-form :inline="true" style="margin: 20px 0 0 0;">
                     <el-row>
                         <el-col>
-
                             <el-form-item label="客户账号">
                                 <el-autocomplete
                                         class="inline-input"
@@ -27,7 +25,6 @@
                             </el-form-item>
                             <el-form-item>
                                 <div class="block">
-
                                     <el-date-picker
                                             v-model="value1"
                                             type="daterange"
@@ -128,21 +125,42 @@
                 border
                 max-height="400"
                 v-loading="loading"
+                @cell-click="jumpDetails"
+
         >
             <el-table-column type="selection" width="60" align="center"></el-table-column>
-            <el-table-column type="index" width="50" label="序号" align="center" fixed></el-table-column>
-            <el-table-column prop="ID" label="客户账号" align="center"></el-table-column>
-            <el-table-column prop="GetCompany" label="公司名称" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="Condition" label="结算类型" align="center"></el-table-column>
-            <el-table-column prop="BillNumber" label="收入" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="BillNumber" label="税后收入" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="BillNumber" label="支出" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="BillNumber" label="运输毛利率" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="BillNumber" label="税后运输毛利率" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="BillNumber" label="票数" align="center" :show-overflow-tooltip="true"  :sortable="true" ></el-table-column>
-            <el-table-column prop="BillNumber" label="件数" align="center" :show-overflow-tooltip="true"  :sortable="true" ></el-table-column>
-            <el-table-column prop="BillNumber" label="运费录入票数" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="BillNumber" label="未审核票数" align="center" :show-overflow-tooltip="true"  :sortable="true" ></el-table-column>
+            <el-table-column
+                    label="客户账号"
+                    width="180">
+                <template slot-scope="scope">
+                    <el-popover trigger="hover" placement="top">
+                        <p>客户账号: 1111111</p>
+                        <hr>
+                        <p>客户类型: 222222222</p>
+
+                        <p>业务类型: 不知道</p>
+                        <p>销售员: 孟健康</p>
+                        <p>项目客户: 李平安</p>
+                        <p>单位: 智冷</p>
+                        <p>时间: 2018/11/25</p>
+                        <div slot="reference" class="name-wrapper">
+                            <el-tag >{{ scope.row.ID }}</el-tag>
+                        </div>
+                    </el-popover>
+                </template>
+            </el-table-column>
+            <el-table-column prop="companyName" label="公司名称" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="SettlementType" label="结算类型" align="center"></el-table-column>
+            <el-table-column prop="income" label="收入" align="center" :show-overflow-tooltip="true" class-name="curstomNum" label-class-name="aaa"></el-table-column>
+            <el-table-column prop="afterTaxIncome" label="税后收入" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="expend" label="支出" align="center" :show-overflow-tooltip="true" class-name="curstomNum" label-class-name="aaa"></el-table-column>
+            <el-table-column prop="interest" label="运输毛利率" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="GrossTax" label="税后运输毛利率" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="poll" label="票数" align="center" :show-overflow-tooltip="true"  :sortable="true" ></el-table-column>
+            <el-table-column prop="numberPackages" label="件数" align="center" :show-overflow-tooltip="true"  :sortable="true" ></el-table-column>
+            <el-table-column prop="weight" label="重量" align="center" :show-overflow-tooltip="true"  :sortable="true" ></el-table-column>
+            <el-table-column prop="RevenueEntryNotVotes" label="收入未录入票数" align="center" :show-overflow-tooltip="true"    class-name="curstomNum" label-class-name="aaa"></el-table-column>
+            <el-table-column prop="UnauditedVotes" label="未审核票数" align="center" :show-overflow-tooltip="true"  :sortable="true" ></el-table-column>
 
         </el-table>
         <div class="pagination">
@@ -169,6 +187,30 @@
                 restaurants: [{name:'旺角茶餐厅',value:'刘顺利3'},{name:'新旺角茶餐厅',value: '孟健康'},{name:'旺角茶餐厅',value:'刘顺利'},{name:'旺角茶餐厅',value:'李平安'},{name:'旺角茶',value:'孟小孟'},{name:'旺角茶餐厅',value:'刘顺利2'}],
                 state2:'',
                 loading:false,
+                tableData: [
+                    {
+                        ID: "1000546",
+                        companyName: "智冷",
+                        Condition: "现金",
+                        SettlementType: "已结算",
+                        income:1000,
+                        afterTaxIncome:800,
+                        expend:100,
+                        interest:123,
+                        poll:25,
+                        GrossTax:12,
+                        numberPackages:'2件',
+                        weight:'50KG',
+                        RevenueEntryNotVotes:'15票',
+
+                        UnauditedVotes:'15票',
+
+
+
+
+                    },
+
+                ],
             };
         },
 
@@ -200,17 +242,54 @@
             },
             handleSelect(item) {
                 console.log(item);
-            }
+            },
+            //点击客户账号\收入、支出时的跳转
+            jumpDetails(row, column, cell, event){
+                console.log(column.label,0)
+                if (column.label == "客户账号") {
+                    this.$router.push("/BOPS");
+                }else if(column.label == "收入"){
+                    this.$router.push("/customeDatails");
+                }else if(column.label == "支出"){
+                    this.$router.push("/CustomerSpendDetails");
+                }else if(column.label == "收入未录入票数"){
+                    this.$router.push("./NotRecorded")
+                }
+            },
+            //客户账号hover时
+          /*  hoverDetails(row, column, cell, event){
+                if (column.label == "客户账号") {
+               //.....
+                }
+            }*/
         }
 
     };
 </script>
-<style scoped>
+<style>
+    .curstomNum:not(.aaa) .cell {
+        color: #649EFE!important;
 
-    .grid-content {
+    }
+    .curstomNum:not(.aaa) .cell:hover {
+        cursor: pointer;
+    }
+    .grid-content:hover{
+        cursor: pointer;
+    }
+</style>
+<style scoped>
+    .el-popover p{
+        height: 30px;
+        line-height: 30px;
+        text-align: left;
+    ;
+    }
+.grid-content {
         display: flex;
         align-items: center;
         height: 150px;
+
     }
     .grid-img {
         flex: 1;

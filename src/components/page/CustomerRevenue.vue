@@ -236,43 +236,66 @@ export default {
   mounted() {
     var eight = echarts.init(document.getElementById("eight"));
     eight.setOption({
-      backgroundColor: "#f3f3f4",
-      color: ["#3398DB"],
-      tooltip: {
-        trigger: "axis",
-        axisPointer: {
-          // 坐标轴指示器，坐标轴触发有效
-          type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
-        }
+      color: ['#e5cd00'],
+      backgroundColor: '#4ba4ba',
+      xAxis: {
+        type: 'category',
+        data: ['河流', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        axisLabel : {
+          color : 'white'
+        },
+        axisLine : {
+          lineStyle : {
+            color : 'rgba(200,200,200,0.2)'
+          }
+
+        },
       },
-      grid: {
-        left: "3%",
-        right: "4%",
-        bottom: "3%",
-        containLabel: true
-      },
-      xAxis: [
-        {
-          type: "category",
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-          axisTick: {
-            alignWithLabel: true
+      yAxis: {
+        type: 'value',
+        axisLine : {
+          show : false,
+          lineStyle : {
+            color : 'rgba(200,200,200,0.2)'
+          }
+        },
+        axisLabel : {
+          color : '#4397d2'
+        },
+        splitLine : {
+          lineStyle : {
+            color : 'rgba(200,200,200,0.2)'
+          }
+        },
+        splitArea : {
+          show : true,
+          areaStyle :{
+            color : ['rgba(250,250,250,0)','rgba(200,200,200,0.1)']
           }
         }
-      ],
-      yAxis: [
-        {
-          type: "value"
-        }
-      ],
-      series: [
-        {
-          name: "直接访问",
-          type: "bar",
-          barWidth: "60%",
-          data: [10, 52, 200, 334, 390, 330, 220]
-        }
-      ]
+      },
+      grid : {
+        top : '12%',
+        bottom : '15%'
+      },
+      series: [{
+        data: [120, 200, 150, 80, 70, 110, 130],
+        type: 'bar',
+        barWidth: 20,
+        itemStyle : {
+          normal : {
+            barBorderRadius: [10, 10, 0, 0] //圆角
+          }
+        },
+        label: {
+          normal: {
+            show: true,
+            position: 'top',
+            color : 'white'
+          }
+        },
+      }]
+
     });
 
     window.onresize = eight.resize; // 基于准备好的dom，初始化echarts实例

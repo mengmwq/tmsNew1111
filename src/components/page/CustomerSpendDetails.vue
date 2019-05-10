@@ -63,7 +63,7 @@
 
             </div>
             <el-row :gutter="24">
-                <el-col :span="15">
+                <el-col :span="14">
                     <el-table
                             :data="tableData"
                             style="width: 100%"
@@ -165,7 +165,7 @@
                         ></el-pagination>
                     </div>
                 </el-col>
-                <el-col :span="9">
+                <el-col :span="10">
                     <div style="border: 1px solid #ccc">
                         <div
                                 style="padding: 10px;"
@@ -199,7 +199,7 @@
                                             :loading="true"
                                     >货物信息</el-button>
                                     <p style="text-indent: 20px;margin: 20px 0;">货物名称：</p>
-                                    <ul style="text-indent: 20px;height: 30px;line-height: 30px">
+                                    <ul style="text-indent: 20px;height:30px;line-height:30px;display: inline-table">
                                         <li>件数：1</li>
                                         <li>体积：1</li>
                                         <li>实际重量：111</li>

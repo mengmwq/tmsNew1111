@@ -30,7 +30,7 @@
                                      <a style="font-size: 12px;text-decoration: none; position: absolute;right: 0;">忘记密码？</a>
                                  </div>
                                  <div class="login-btn">
-                                     <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                                     <el-button  style="background: #1a67af;color:#fff;" @click="submitForm('ruleForm')">登录</el-button>
                                  </div>
 
                             </el-form>
