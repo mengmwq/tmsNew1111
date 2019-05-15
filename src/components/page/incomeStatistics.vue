@@ -15,7 +15,7 @@
                             <el-form-item label="客户账号">
                                 <el-autocomplete
                                         class="inline-input"
-                                        v-model="state2"
+                                        v-model="CustomerAccount"
                                         :fetch-suggestions="querySearch"
                                         placeholder="请输入内容"
                                         :trigger-on-focus="false"
@@ -26,7 +26,7 @@
                             <el-form-item>
                                 <div class="block">
                                     <el-date-picker
-                                            v-model="value1"
+                                            v-model="time"
                                             type="daterange"
                                             range-separator="至"
                                             start-placeholder="开始日期"
@@ -131,16 +131,15 @@
             <el-table-column type="selection" width="60" align="center"></el-table-column>
             <el-table-column
                     label="客户账号"
-                    width="180">
+                  >
                 <template slot-scope="scope">
                     <el-popover trigger="hover" placement="top">
                         <p>客户账号: 1111111</p>
                         <hr>
                         <p>客户类型: 222222222</p>
-
                         <p>业务类型: 不知道</p>
                         <p>销售员: 孟健康</p>
-                        <p>项目客户: 李平安</p>
+                        <p>项目客服: 李平安</p>
                         <p>单位: 智冷</p>
                         <p>时间: 2018/11/25</p>
                         <div slot="reference" class="name-wrapper">
@@ -179,14 +178,14 @@
     export default {
         data() {
             return {
-                tableData: [],
-                cur_page: 1,
-                limit:10,
+                tableData: [],//table数据
+                cur_page: 1,//当前页
+                limit:10, //每页多少条
                 ccc: 500, //总页数
-                value1:"",
+                time:"",//时间
                 restaurants: [{name:'旺角茶餐厅',value:'刘顺利3'},{name:'新旺角茶餐厅',value: '孟健康'},{name:'旺角茶餐厅',value:'刘顺利'},{name:'旺角茶餐厅',value:'李平安'},{name:'旺角茶',value:'孟小孟'},{name:'旺角茶餐厅',value:'刘顺利2'}],
-                state2:'',
-                loading:false,
+                CustomerAccount:'',//客户账号
+                loading:false, //表格加载loading
                 tableData: [
                     {
                         ID: "1000546",
@@ -215,15 +214,19 @@
         },
 
         methods:{
+            //收入合计跳转
             linkRevenue(){
                 this.$router.push("/CustomerRevenue");
             },
+            //支出合计
             linkSpending(){
                 this.$router.push("./CustomerSpending")
             },
+            //未录入
             LinkNotRecorded(){
                 this.$router.push("./NotRecorded")
             },
+            //客户账号模糊搜索
             querySearch(queryString, cb) {
                 var restaurants = this.restaurants; // 所有数据
                 var results = queryString
@@ -240,6 +243,7 @@
                     );
                 };
             },
+
             handleSelect(item) {
                 console.log(item);
             },
@@ -253,7 +257,7 @@
                 }else if(column.label == "支出"){
                     this.$router.push("/CustomerSpendDetails");
                 }else if(column.label == "收入未录入票数"){
-                    this.$router.push("./NotRecorded")
+                    this.$router.push("./NotRecordedDatails")
                 }
             },
             //客户账号hover时
@@ -302,7 +306,7 @@
     }
 
     .grid-num {
-        font-size: 28px;
+        font-size: 24px;
         font-weight: 800;
         margin: 5px 0px;
         color: #fff;

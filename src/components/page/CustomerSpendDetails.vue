@@ -76,13 +76,7 @@
                                 width="60"
                                 align="center"
                         ></el-table-column>
-                        <el-table-column
-                                type="index"
-                                width="50"
-                                label="序号"
-                                align="center"
-                                fixed
-                        ></el-table-column>
+
                         <el-table-column
                                 prop="GetCompany"
                                 label="是否结算"
@@ -108,13 +102,13 @@
                         ></el-table-column>
                         <el-table-column
                                 prop="BillNumber"
-                                label="超运费"
+                                label="车辆支出"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
                         <el-table-column
                                 prop="BillNumber"
-                                label="运费"
+                                label="取件费"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
@@ -126,25 +120,49 @@
                         ></el-table-column>
                         <el-table-column
                                 prop="BillNumber"
-                                label="温度计"
+                                label="发货费"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
                         <el-table-column
                                 prop="BillNumber"
-                                label="专车费"
+                                label="干冰费"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
                         <el-table-column
                                 prop="BillNumber"
-                                label="冷藏车费"
+                                label="包装费"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
                         <el-table-column
                                 prop="BillNumber"
-                                label="收入合计"
+                                label="派送费"
+                                align="center"
+                                :show-overflow-tooltip="true"
+                        ></el-table-column>
+                        <el-table-column
+                                prop="BillNumber"
+                                label="提货费"
+                                align="center"
+                                :show-overflow-tooltip="true"
+                        ></el-table-column>
+                        <el-table-column
+                                prop="BillNumber"
+                                label="返箱费"
+                                align="center"
+                                :show-overflow-tooltip="true"
+                        ></el-table-column>
+                        <el-table-column
+                                prop="BillNumber"
+                                label="返箱车费"
+                                align="center"
+                                :show-overflow-tooltip="true"
+                        ></el-table-column>
+                        <el-table-column
+                                prop="BillNumber"
+                                label="支出合计"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>

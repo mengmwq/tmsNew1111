@@ -51,19 +51,25 @@
 
         >
             <el-table-column type="selection" width="60" align="center"></el-table-column>
-            <el-table-column type="index" width="50" label="序号" align="center" fixed></el-table-column>
+            <el-table-column type="index" width="50" label="是否结算" align="center" fixed></el-table-column>
+            <el-table-column prop="Condition" label="结算方式" align="center"></el-table-column>
             <el-table-column prop="ID" label="客户账号" align="center"></el-table-column>
-            <el-table-column prop="GetCompany" label="公司名称" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="Condition" label="结算类型" align="center"></el-table-column>
-            <el-table-column prop="BillNumber" label="收入" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="BillNumber" label="税后收入" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="BillNumber" label="支出" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="BillNumber" label="运输毛利率" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="BillNumber" label="税后运输毛利率" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="BillNumber" label="票数" align="center" :show-overflow-tooltip="true"  :sortable="true" ></el-table-column>
-            <el-table-column prop="BillNumber" label="件数" align="center" :show-overflow-tooltip="true"  :sortable="true" ></el-table-column>
-            <el-table-column prop="BillNumber" label="运费录入票数" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="BillNumber" label="未审核票数" align="center" :show-overflow-tooltip="true"  :sortable="true" ></el-table-column>
+            <el-table-column prop="GetCompany" label="货物名称" align="center" :show-overflow-tooltip="true"></el-table-column>
+
+            <el-table-column prop="BillNumber" label="运输方式" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="BillNumber" label="件" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="BillNumber" label="实际重量" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="BillNumber" label="计费重量" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="BillNumber" label="体积" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="BillNumber" label="委托时间" align="center" :show-overflow-tooltip="true"  ></el-table-column>
+            <el-table-column prop="BillNumber" label="要求到货时间" align="center" :show-overflow-tooltip="true"   ></el-table-column>
+            <el-table-column prop="BillNumber" label="发件人" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="BillNumber" label="发件人地址" align="center" :show-overflow-tooltip="true"  ></el-table-column>
+            <el-table-column prop="BillNumber" label="收货人" align="center" :show-overflow-tooltip="true"   ></el-table-column>
+
+            <el-table-column prop="BillNumber" label="收货人地址" align="center" :show-overflow-tooltip="true"   ></el-table-column>
+            <el-table-column prop="BillNumber" label="操作人" align="center" :show-overflow-tooltip="true"  ></el-table-column>
+            <el-table-column prop="BillNumber" label="备注" align="center" :show-overflow-tooltip="true"   ></el-table-column>
 
         </el-table>
         <div class="pagination">

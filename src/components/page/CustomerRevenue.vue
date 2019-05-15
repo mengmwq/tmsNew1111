@@ -106,61 +106,55 @@
                     <el-table-column prop="Condition" label="结算类型" align="center"></el-table-column>
                     <el-table-column
                       prop="BillNumber"
-                      label="收入"
+                      label="是否结算"
                       align="center"
                       :show-overflow-tooltip="true"
                     ></el-table-column>
                     <el-table-column
                       prop="BillNumber"
-                      label="税后收入"
+                      label="超运费"
                       align="center"
                       :show-overflow-tooltip="true"
                     ></el-table-column>
                     <el-table-column
                       prop="BillNumber"
-                      label="支出"
+                      label="运费"
                       align="center"
                       :show-overflow-tooltip="true"
                     ></el-table-column>
                     <el-table-column
                       prop="BillNumber"
-                      label="运输毛利率"
+                      label="仓储费"
                       align="center"
                       :show-overflow-tooltip="true"
                     ></el-table-column>
                     <el-table-column
                       prop="BillNumber"
-                      label="税后运输毛利率"
+                      label="温度计"
                       align="center"
                       :show-overflow-tooltip="true"
                     ></el-table-column>
                     <el-table-column
                       prop="BillNumber"
-                      label="票数"
+                      label="专车费"
                       align="center"
                       :show-overflow-tooltip="true"
-                      :sortable="true"
+
                     ></el-table-column>
                     <el-table-column
                       prop="BillNumber"
-                      label="件数"
+                      label="冷藏费"
                       align="center"
-                      :show-overflow-tooltip="true"
-                      :sortable="true"
+
+
                     ></el-table-column>
                     <el-table-column
                       prop="BillNumber"
-                      label="运费录入票数"
+                      label="收入合计"
                       align="center"
-                      :show-overflow-tooltip="true"
+
                     ></el-table-column>
-                    <el-table-column
-                      prop="BillNumber"
-                      label="未审核票数"
-                      align="center"
-                      :show-overflow-tooltip="true"
-                      :sortable="true"
-                    ></el-table-column>
+
                   </el-table>
                   <div class="pagination">
                     <el-pagination
