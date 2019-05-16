@@ -4,7 +4,7 @@ module.exports = {
     devServer: {
         proxy: {
             '/api':{
-                target:'http://jsonplaceholder.typicode.com',
+                target:'http://www.zjcoldcloud.com',
                 changeOrigin:true,
                 pathRewrite:{
                     '/api':''

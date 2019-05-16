@@ -116,7 +116,7 @@
             return {
                 collapse: false,
                 fullscreen: false,
-                name: 'linxin',
+                name: '',
                 message:'账号设置',
                 search:'搜索',
                 editVisible:false,
@@ -134,7 +134,7 @@
         },
         computed:{
             username(){
-                let username = localStorage.getItem('ms_username');
+                let username = sessionStorage.getItem("username");
                 return username ? username : this.name;
             }
         },

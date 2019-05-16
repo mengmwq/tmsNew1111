@@ -16,6 +16,11 @@ Vue.use(ElementUI, {
 });
 Vue.prototype.$axios = axios;
 Vue.prototype.$echarts = echarts;
+if (process.env.NODE_ENV !== 'development') {
+    Vue.prototype.URL_API = 'http://www.zjcoldcloud.com';
+} else {
+    Vue.prototype.URL_API = 'api/';
+}
 
 // 处理请求头  处理请求携带参数
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -27,7 +32,7 @@ axios.defaults.transformRequest = [function (data) {
     return ret;
 }]
 
-//使用钩子函数对路由进行权限跳转
+/*//使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
     const role = localStorage.getItem('ms_username');
     if (!role && to.path !== '/login') {
@@ -45,7 +50,7 @@ router.beforeEach((to, from, next) => {
             next();
         }
     }
-})
+})*/
 
 
 new Vue({
