@@ -41,22 +41,22 @@
                     </span>
                     <el-dropdown-menu slot="dropdown">
                         <a href="javascript:;" target="_blank">
-                            <el-dropdown-item>工号：123</el-dropdown-item>
+                            <el-dropdown-item>工号：{{username}}</el-dropdown-item>
                         </a>
                         <a href="avascript:;" target="_blank">
-                            <el-dropdown-item>员工姓名：孟健康</el-dropdown-item>
+                            <el-dropdown-item>员工姓名：{{TrueName}}</el-dropdown-item>
                         </a>
                         <a  @click="handleAdd()">
-                            <el-dropdown-item>手机号：15001015750 <i class="el-icon-mobile-phone" style="color: blue"></i></el-dropdown-item>
+                            <el-dropdown-item>手机号：{{Mobile}} <i class="el-icon-mobile-phone" style="color: blue"></i></el-dropdown-item>
                         </a>
                         <a href="avascript:;" target="_blank">
-                            <el-dropdown-item>所属网站：财经 </el-dropdown-item>
+                            <el-dropdown-item>所属网站：{{Company}} </el-dropdown-item>
                         </a>
-                        <a href="avascript:;" target="_blank">
+                       <!-- <a href="avascript:;" target="_blank">
                             <el-dropdown-item>部门：技术部 </el-dropdown-item>
-                        </a>
+                        </a>-->
                         <a href="avascript:;" target="_blank">
-                            <el-dropdown-item>职位：前端开发 </el-dropdown-item>
+                            <el-dropdown-item>职务：{{Operate}} </el-dropdown-item>
                         </a>
                         <el-dropdown-item divided  command="loginout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
@@ -124,6 +124,11 @@
                 falieDialog:false,
                 title: "绑定手机号",
                 title1:"bangding",
+                TrueName:'',
+                jobNumber:'',
+                Company:'',
+                Mobile:'',
+                Operate:'',
                 form: {
                     accout: "",
                     pwd: "",
@@ -134,15 +139,21 @@
         },
         computed:{
             username(){
+                this.TrueName = window.sessionStorage.getItem("TrueName");
+                this.Mobile = window.sessionStorage.getItem("Mobile");
+                this.Company = window.sessionStorage.getItem('Company');
+                this.Operate = window.sessionStorage.getItem('Operate')
+
                 let username = sessionStorage.getItem("username");
                 return username ? username : this.name;
+
             }
         },
         methods:{
             // 用户名下拉菜单选择事件
             handleCommand(command) {
                 if(command == 'loginout'){
-                    localStorage.removeItem('ms_username')
+                    sessionStorage.clear();
                     this.$router.push('/login');
                 }
             },
@@ -189,8 +200,13 @@
             }
         },
         mounted(){
+            let IsDel = sessionStorage.getItem("IsDel");
             if(document.body.clientWidth < 1500){
                 this.collapseChage();
+            }
+            if(IsDel == 1){
+                this.$message.error('账号被锁定，不能登录');
+                this.$router.push('/login');
             }
         }
     }

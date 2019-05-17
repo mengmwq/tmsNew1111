@@ -10,6 +10,11 @@ import './assets/css/icon.css';
 import './components/common/directives';
 import "babel-polyfill";
 
+
+
+
+
+
 Vue.config.productionTip = false
 Vue.use(ElementUI, {
     size: 'small'
@@ -17,7 +22,7 @@ Vue.use(ElementUI, {
 Vue.prototype.$axios = axios;
 Vue.prototype.$echarts = echarts;
 if (process.env.NODE_ENV !== 'development') {
-    Vue.prototype.URL_API = 'http://www.zjcoldcloud.com';
+    Vue.prototype.URL_API = 'http://www.zjcoldcloud.com/';
 } else {
     Vue.prototype.URL_API = 'api/';
 }
@@ -32,9 +37,9 @@ axios.defaults.transformRequest = [function (data) {
     return ret;
 }]
 
-/*//使用钩子函数对路由进行权限跳转
+//使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
-    const role = localStorage.getItem('ms_username');
+    const role = sessionStorage.getItem('username');
     if (!role && to.path !== '/login') {
         next('/login');
     } else if (to.meta.permission) {
@@ -50,7 +55,7 @@ router.beforeEach((to, from, next) => {
             next();
         }
     }
-})*/
+})
 
 
 new Vue({

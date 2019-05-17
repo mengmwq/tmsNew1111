@@ -146,7 +146,7 @@
                         ></el-table-column>
                         <el-table-column
                                 prop="BillNumber"
-
+                                label="操作人"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>

@@ -19,7 +19,7 @@
                   <div id="eight" style="width:100%;height:400px;"></div>
                 </el-col>
                 <el-col :span="6" style="padding-left: 35px">
-                  <div class="block">
+                 <!-- <div class="block">
                     <el-date-picker
                       v-model="value6"
                       type="daterange"
@@ -27,7 +27,7 @@
                       start-placeholder="开始日期"
                       end-placeholder="结束日期"
                     ></el-date-picker>
-                  </div>
+                  </div>-->
                   <p style="font-size: 18px;color:#333;margin: 30px 0 60px ;font-weight: 800">大客戶排名</p>
                   <ul style="padding: 0;width: 100%;" class="rightList">
                     <li>
@@ -112,7 +112,7 @@
                     ></el-table-column>
                     <el-table-column
                       prop="BillNumber"
-                      label="超运费"
+                      label="超远费"
                       align="center"
                       :show-overflow-tooltip="true"
                     ></el-table-column>
@@ -148,6 +148,15 @@
 
 
                     ></el-table-column>
+                    <el-table-column
+                          prop="BillNumber"
+                          label="其他费用"
+                          align="center"
+
+
+                  ></el-table-column>
+
+
                     <el-table-column
                       prop="BillNumber"
                       label="收入合计"

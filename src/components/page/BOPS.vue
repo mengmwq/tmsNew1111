@@ -43,9 +43,9 @@
                             max-height="400"
                     >
                         <el-table-column type="selection" width="60" align="center"></el-table-column>
-                        <el-table-column type="index" width="50" label="序号" align="center" fixed></el-table-column>
-                        <el-table-column prop="ID" label="运单号码" align="center"></el-table-column>
                         <el-table-column prop="GetCompany" label="是否结算" align="center" :show-overflow-tooltip="true"></el-table-column>
+
+                        <el-table-column prop="ID" label="运单号码" align="center"></el-table-column>
                         <el-table-column prop="Condition" label="货物名称" align="center"></el-table-column>
                         <el-table-column prop="BillNumber" label="温度区间" align="center" :show-overflow-tooltip="true"></el-table-column>
                         <el-table-column prop="BillNumber" label="收入" align="center" :show-overflow-tooltip="true"></el-table-column>

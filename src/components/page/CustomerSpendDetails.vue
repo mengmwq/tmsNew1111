@@ -112,12 +112,7 @@
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
-                        <el-table-column
-                                prop="BillNumber"
-                                label="仓储费"
-                                align="center"
-                                :show-overflow-tooltip="true"
-                        ></el-table-column>
+
                         <el-table-column
                                 prop="BillNumber"
                                 label="发货费"
@@ -157,6 +152,12 @@
                         <el-table-column
                                 prop="BillNumber"
                                 label="返箱车费"
+                                align="center"
+                                :show-overflow-tooltip="true"
+                        ></el-table-column>
+                        <el-table-column
+                                prop="BillNumber"
+                                label="其他费用"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
@@ -244,6 +245,7 @@
                                     <p style="text-indent: 20px;margin: 20px 0;">发件人公司：</p>
                                     <span style="margin: 20px 0 20px 20px;  color:#666;font-size: 16px;">发件人：</span>
                                     <span style="margin: 0px 20px 20px 0px;float: right;  color:#666; font-size: 16px;">发件人联系方式：asgjgjokerpggeprp</span>
+                                    <p style="text-indent: 20px;margin: 20px 0;">发件人地址：</p>
                                 </div>
                                 <div style="margin-top: 15px">
                                     <el-button
@@ -255,6 +257,7 @@
                                     <p style="text-indent: 20px;margin: 20px 0;">收件人公司：</p>
                                     <span style="margin: 20px 0 20px 20px;  color:#666;font-size: 16px;">收件人：</span>
                                     <span style="margin: 0px 20px 20px 0px;float: right;  color:#666; font-size: 16px;">收件人联系方式：asgjgjokerpggeprp</span>
+                                    <p style="text-indent: 20px;margin: 20px 0;">收件人地址：</p>
 
                                 </div>
                                 <div style="margin: 15px 0">

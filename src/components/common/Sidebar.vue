@@ -103,10 +103,10 @@
                                         index: 'NotRecorded',
                                         title: '未录入运费统计'
                                     },
-                                    {
+                                    /*{
                                         index: 'BOPS',
                                         title: '客户收支统计'
-                                    },
+                                    },*/
 
 
                                 ]
