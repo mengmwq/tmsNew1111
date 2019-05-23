@@ -41,17 +41,23 @@
                             ref="multipleTable"
                             border
                             max-height="400"
+                            @cell-click="jumpDetails"
                     >
                         <el-table-column type="selection" width="60" align="center"></el-table-column>
-                        <el-table-column prop="GetCompany" label="是否结算" align="center" :show-overflow-tooltip="true"></el-table-column>
+                        <el-table-column prop="SendBack" label="是否结算" align="center" :show-overflow-tooltip="true"></el-table-column>
 
-                        <el-table-column prop="ID" label="运单号码" align="center"></el-table-column>
-                        <el-table-column prop="Condition" label="货物名称" align="center"></el-table-column>
-                        <el-table-column prop="BillNumber" label="温度区间" align="center" :show-overflow-tooltip="true"></el-table-column>
-                        <el-table-column prop="BillNumber" label="收入" align="center" :show-overflow-tooltip="true"></el-table-column>
-                        <el-table-column prop="BillNumber" label="支出" align="center" :show-overflow-tooltip="true"></el-table-column>
-                        <el-table-column prop="BillNumber" label="利润" align="center" :show-overflow-tooltip="true"></el-table-column>
-                        <el-table-column prop="BillNumber" label="详情" align="center" :show-overflow-tooltip="true"></el-table-column>
+                        <el-table-column prop="ID" label="运单号码" align="center" class-name="curstomNum" label-class-name="aaa"></el-table-column>
+                        <el-table-column prop="DescriptionGoods" label="货物名称" align="center"></el-table-column>
+                        <el-table-column prop="TemperatureInterval" label="温度区间" align="center" :show-overflow-tooltip="true"></el-table-column>
+                        <el-table-column prop="income" label="收入" align="center" :show-overflow-tooltip="true"></el-table-column>
+                        <el-table-column prop="expend" label="支出" align="center" :show-overflow-tooltip="true"></el-table-column>
+                        <el-table-column prop="profit" label="利润" align="center" :show-overflow-tooltip="true"></el-table-column>
+                        <el-table-column label="操作" align="center" >
+                            <template slot-scope="scope">
+                                <el-button size="small" type="primary" @click.native.prevent="details(scope.row)">详情</el-button>
+
+                            </template>
+                        </el-table-column>
 
 
                     </el-table>
@@ -152,7 +158,24 @@
     export default {
         data() {
             return {
-                tableData: [],
+                tableData: [
+                    {
+                        ID: "1000546",
+                        SendBack:'是',
+                        DescriptionGoods: "干冰",
+                        TemperatureInterval: "2~14",
+                        SettlementType: "已结算",
+                        income:1000,
+                        expend :800,
+
+                        profit:123,
+
+
+
+
+                    },
+
+                ],
 
                 cur_page: 1,
                 limit:10,
@@ -160,11 +183,26 @@
             };
         },
         methods:{
-
+            //点击客户账号\收入、支出时的跳转
+            jumpDetails(row, column, cell, event){
+                console.log(column.label,0)
+                if (column.label == "运单号码") {
+                    this.$router.push("/StatementExpenditure");
+                }
+            },
         }
 
     };
 </script>
+<style>
+    .curstomNum:not(.aaa) .cell {
+        color: #649EFE!important;
+
+    }
+    .curstomNum:not(.aaa) .cell:hover {
+        cursor: pointer;
+    }
+</style>
 <style scoped>
     ui,li{
         list-style: none;

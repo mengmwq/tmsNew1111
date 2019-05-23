@@ -71,8 +71,14 @@ export default new Router({
                     //客户支出明细
                     path:'/CustomerSpendDetails',
                     component: resolve => require(['../components/page/CustomerSpendDetails.vue'], resolve),
-                    meta: { title: '客户支出入明细' },
+                    meta: { title: '客户支出明细' },
 
+                },
+                {
+                 //客户收支明细
+                    path: '/StatementExpenditure',
+                    component: resolve => require(['../components/page/StatementExpenditure.vue'], resolve),
+                    meta: { title: '运单收支明细' }
                 },
 
                 {
