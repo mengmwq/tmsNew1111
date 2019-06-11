@@ -49,11 +49,11 @@
                             <div style="float: right">
                                 <el-form-item
 
-                                        label="客户账号："
-                                        style="padding: 0px 30px"
-                                >
-                                    <span>{{AccountNumber}}</span>
-                                </el-form-item>
+                                    label="客户账号："
+                                    style="padding: 0px 30px"
+                            >
+                                <span>{{AccountNumber}}</span>
+                            </el-form-item>
 
                                 <img src="../../assets/img/导出.png" alt="" style="margin: 0 20px" @click="dataExport()">
                                 <img src="../../assets/img/刷新.png" alt=""  @click="refresh()">

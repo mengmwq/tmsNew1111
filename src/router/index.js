@@ -156,7 +156,12 @@ export default new Router({
                     component:resolve => require(['../components/page/WeeklyNewspaper.vue'],resolve),
                     meta:{title:'周报列表'}
                 },
-
+                {
+                    //箱型统计
+                    path:'/BoxStatistics',
+                    component:resolve => require(['../components/page/BoxStatistics.vue'],resolve),
+                    meta:{title:'箱型统计'}
+                },
 
                 /*  {
                       // 图片上传组件

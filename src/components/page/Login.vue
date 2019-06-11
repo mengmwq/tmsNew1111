@@ -30,7 +30,7 @@
                             <a style="font-size: 12px;text-decoration: none; position: absolute;right: 0;">忘记密码？</a>
                         </div>
                         <div class="login-btn">
-                            <el-button type="primary" @click="submitForm()">登录</el-button>
+                            <el-button type="primary" @click="submitForm()"  @keyup.enter="submitForm">登录</el-button>
                         </div>
 
                     </el-form>
@@ -64,6 +64,7 @@
                 }
             }
         },
+
         mounted() {
             this.getCookie();
         },

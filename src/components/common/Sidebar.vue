@@ -204,6 +204,11 @@
 
                                 ]
                             },
+                            {
+                                index:'BoxStatistics',
+                                title:'箱型统计',
+
+                            },
                         ]
                     },
                    /* {
@@ -275,6 +280,9 @@
         bottom:0;
         overflow-y: scroll;
 
+    }
+    li.el-menu-item{
+        color: #ffffff!important;
     }
     .sidebar::-webkit-scrollbar{
         width: 0;

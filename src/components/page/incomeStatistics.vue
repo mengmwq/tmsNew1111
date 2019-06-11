@@ -15,7 +15,7 @@
                             <el-form-item label="公司名称">
                                 <el-autocomplete
                                         class="inline-input"
-                                        v-model="UnitName "
+                                        v-model="Company "
                                         :fetch-suggestions="querySearch"
                                         placeholder="请输入内容"
                                         :trigger-on-focus="false"
@@ -52,7 +52,7 @@
                             <div style="float: right">
 
                                 <img src="../../assets/img/导出.png" alt="" style="margin: 0 20px" @click="dataExport()">
-                                <img src="../../assets/img/刷新.png" alt=""  @click="refresh()">
+                                <img src="../../assets/img/刷新.png" alt="" @click="refresh()">
 
                             </div>
                         </el-col>
@@ -67,8 +67,8 @@
 
                                         <div class="grid-cont-right">
                                             <h6 style="color: #fff">收入合计</h6>
-                                            <div class="grid-num">&yen; 4,232</div>
-                                            <h6 style="color:#000;">同期环比34% </h6>
+                                            <div class="grid-num">&yen; {{ToTalAll |rounding}}</div>
+                                            <h6 style="color:#000;">同期环比 &nbsp{{TotalHb}}</h6>
                                         </div>
                                         <div class="grid-img">
                                             <img src="../../assets/img/收入合计上的图标.png" alt="">
@@ -82,8 +82,9 @@
 
                                         <div class="grid-cont-right">
                                             <h6 style="color: #fff">支出合计</h6>
-                                            <div class="grid-num">&yen; 4,232</div>
-                                            <h6 style="color:#000;">同期环比34% </h6>
+                                            <div class="grid-num">&yen; {{PayAll |rounding}}</div>
+                                            <h6 style="color:#000;">同期环比 &nbsp{{PayHb}}</h6>
+
                                         </div>
                                         <div class="grid-img">
                                             <img src="../../assets/img/支出合计上的图标.png" alt="">
@@ -98,7 +99,7 @@
 
                                         <div class="grid-cont-right">
                                             <h6 style="color: #fff">毛利率</h6>
-                                            <div class="grid-num">&yen; 4,232</div>
+                                            <div class="grid-num">&yen; {{Mll}}</div>
 
                                         </div>
                                         <div class="grid-img">
@@ -113,7 +114,7 @@
 
                                         <div class="grid-cont-right">
                                             <h6 style="color: #ffffff;">未录入运费票数合计</h6>
-                                            <div class="grid-num">&yen; 4,232</div>
+                                            <div class="grid-num">{{NotEnterAll}}</div>
 
                                         </div>
                                         <div class="grid-img">
@@ -131,8 +132,6 @@
 
         </div>
         <el-table
-
-
                 :data="tableData"
                 style="width: 100%"
                 ref="multipleTable"
@@ -146,9 +145,13 @@
         >
             <el-table-column type="selection" width="60" align="center"></el-table-column>
             <el-table-column
+                    class-name="curstomNum"
+                    label-class-name="aaa"
+
                     label="客户账号"
                     align="center"
                     width="100"
+
             >
                 <template slot-scope="scope">
                     <el-popover trigger="hover" placement="top">
@@ -166,29 +169,29 @@
                     </el-popover>
                 </template>
             </el-table-column>
-            <el-table-column prop="UnitName" label="公司名称" align="center"  width="200"
+            <el-table-column prop="UnitName" label="公司名称" align="center" width="200"
                              :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column prop="CountType" label="结算类型" align="center"  width="80"></el-table-column>
+            <el-table-column prop="CountType" label="结算类型" align="center" width="80"></el-table-column>
             <el-table-column label="收入" align="center" :show-overflow-tooltip="true"
                              class-name="curstomNum" label-class-name="aaa" width="100">
                 <template slot-scope="scope">
                     <span>{{scope.row.Total  | rounding}}</span>
                 </template>
             </el-table-column>
-            <el-table-column  label="税后收入" align="center" width="100"
+            <el-table-column label="税后收入" align="center" width="100"
                              :show-overflow-tooltip="true">
                 <template slot-scope="scope">
                     <span>{{scope.row.TotalTax  | rounding}}</span>
                 </template>
             </el-table-column>
             <el-table-column label="支出" align="center" :show-overflow-tooltip="true" class-name="curstomNum"
-                             label-class-name="aaa" >
+                             label-class-name="aaa">
                 <template slot-scope="scope">
                     <span>{{scope.row.Pay  | rounding}}</span>
                 </template>
             </el-table-column>
-            <!--  <el-table-column prop="interest" label="运输毛利率" align="center" :show-overflow-tooltip="true"></el-table-column>
-              <el-table-column prop="GrossTax" label="税后运输毛利率" align="center" :show-overflow-tooltip="true"></el-table-column>-->
+              <el-table-column prop="interest" label="运输毛利率" align="center" :show-overflow-tooltip="true"></el-table-column>
+              <el-table-column prop="GrossTax" label="税后运输毛利率" align="center" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="Piao" label="票数" align="center" :show-overflow-tooltip="true"
                              :sortable="true"></el-table-column>
             <el-table-column prop="Jian" label="件数" align="center" :show-overflow-tooltip="true"
@@ -201,7 +204,7 @@
             </el-table-column>
             <el-table-column prop="NotEnter" label="收入未录入票数" align="center" :show-overflow-tooltip="true" width="150"
                              class-name="curstomNum" label-class-name="aaa"></el-table-column>
-            <el-table-column prop="Unaudit" label="未审核票数" align="center" :show-overflow-tooltip="true"  width="150"
+            <el-table-column prop="Unaudit" label="未审核票数" align="center" :show-overflow-tooltip="true" width="150"
                              :sortable="true"></el-table-column>
 
         </el-table>
@@ -228,36 +231,44 @@
                 limit: 20, //每页多少条
                 ccc: 0, //总页数
                 time: '',//时间
-                StateTime:'',
-                EndTime:'',
+                StateTime: '',
+                EndTime: '',
                 restaurants: [{name: '旺角茶餐厅', value: '刘顺利3'}, {name: '新旺角茶餐厅', value: '孟健康'}, {
                     name: '旺角茶餐厅',
                     value: '刘顺利'
                 }, {name: '旺角茶餐厅', value: '李平安'}, {name: '旺角茶', value: '孟小孟'}, {name: '旺角茶餐厅', value: '刘顺利2'}],
                 AccountNumber: '',//客户账号
                 loading: true, //表格加载loading
-                UnitName: '',//公司名称
+                Company: '',//公司名称
                 multipleSelection: [],
+                ToTalAll: '0',
+                PayAll: '0',
+                Mll: '0',
+                NotEnterAll: '0',
+                PayHb: '0',
+                TotalHb: '0'
             };
         },
         created() {
             this.getData();
         },
-       filters: {
-            rounding (value) {
+        filters: {
+            rounding(value) {
                 return Number(value).toFixed(2)
             },
-           weightGuo (value) {
-               return Number(value).toFixed(3)
-           }
+            weightGuo(value) {
+                return Number(value).toFixed(3)
+            }
         },
         methods: {
             //刷新
-            refresh(){
-                this.AccountNumber= '';//客户账号
+            refresh() {
+                this.loading = true;
+                this.AccountNumber = '';//客户账号
                 this.time = '';
-                this.UnitName ='';
+                this.Company = '';
                 this.getData();
+                this.loading = false;
             },
             //导出   导出时需要依赖xlsx file-saver Blob.js  Export2Excel
             dataExport() {
@@ -267,7 +278,7 @@
                     import_file = this.multipleSelection;
                     if (import_file.length == 0) {
                         //this.limit = 10000;
-                       // this.getData();
+                        // this.getData();
                         import_file = this.tableData;
 
                     }
@@ -275,7 +286,7 @@
                 }).then(res => {
                     // console.log(res);return;
                     require.ensure([], () => {
-                        const { export_json_to_excel } = require("../../assets/js/Export2Excel");
+                        const {export_json_to_excel} = require("../../assets/js/Export2Excel");
                         // 这就是表头 展示的表头
                         const tHeader = [
                             "客户账号",
@@ -324,7 +335,7 @@
                 });
 
             },
-            formatJson: function(filterVal, jsonData) {
+            formatJson: function (filterVal, jsonData) {
                 return jsonData.map(v => filterVal.map(j => v[j]));
             },
             //收入合计跳转
@@ -363,18 +374,34 @@
             //点击客户账号\收入、支出时的跳转
             jumpDetails(row, column, cell, event) {
                 if (column.label == "客户账号") {
+                    let obj = {
+                        Page: this.cur_page,//当前页码
+                        PageSize: this.limit,//每页条数
+                        AccountNumber: this.AccountNumber,//客户账号
+                        StateTime: this.time[0] || '',//开始时间
+                        EndTime: this.time[1] || '', //结束时间
+                        Company: this.Company //公司名稱
+                    }
+
+                    window.sessionStorage.setItem('customeDatails', JSON.stringify(obj));
+
+                    // let AccountNumber = this.AccountNumber;
+
+                    // var detailId = id.toString() ;
+
+                    window.localStorage.setItem("AccountNumber", row.AccountNumber);
                     this.$router.push("/BOPS");
                 } else if (column.label == "收入") {
                     let obj = {
                         Page: this.cur_page,//当前页码
                         PageSize: this.limit,//每页条数
                         AccountNumber: this.AccountNumber,//客户账号
-                        StateTime: this.time[0]||'',//开始时间
-                        EndTime: this.time[1]||'', //结束时间
-                        UnitName:this.UnitName //公司名稱
+                        StateTime: this.time[0] || '',//开始时间
+                        EndTime: this.time[1] || '', //结束时间
+                        Company: this.Company //公司名稱
                     }
 
-                    window.sessionStorage.setItem('customeDatails',JSON.stringify(obj));
+                    window.sessionStorage.setItem('customeDatails', JSON.stringify(obj));
 
                     // let AccountNumber = this.AccountNumber;
 
@@ -387,13 +414,22 @@
                         Page: this.cur_page,//当前页码
                         PageSize: this.limit,//每页条数
                         AccountNumber: this.AccountNumber,//客户账号
-                        StateTime: this.time[0]||'',//开始时间
-                        EndTime: this.time[1]||'', //结束时间
+                        StateTime: this.time[0] || '',//开始时间
+                        EndTime: this.time[1] || '', //结束时间
                     }
-                    window.sessionStorage.setItem('zhichuCustomeDatails',JSON.stringify(obj));
+                    window.sessionStorage.setItem('zhichuCustomeDatails', JSON.stringify(obj));
                     window.localStorage.setItem("AccountNumber", row.AccountNumber);
                     this.$router.push("/CustomerSpendDetails");
                 } else if (column.label == "收入未录入票数") {
+                    let obj = {
+                        Page: this.cur_page,//当前页码
+                        PageSize: this.limit,//每页条数
+                        AccountNumber: this.AccountNumber,//客户账号
+                        StateTime: this.time[0] || '',//开始时间
+                        EndTime: this.time[1] || '', //结束时间
+                    }
+                    window.sessionStorage.setItem('zhichuCustomeDatails', JSON.stringify(obj));
+                    window.localStorage.setItem("AccountNumber", row.AccountNumber);
                     this.$router.push("./NotRecordedDatails")
                 }
             },
@@ -427,16 +463,21 @@
                             Page: this.cur_page,//当前页码
                             PageSize: this.limit,//每页条数
                             AccountNumber: this.AccountNumber,//客户账号
-                            StateTime: this.time[0]||'',//开始时间
-                            EndTime: this.time[1]||'', //结束时间
-                            UnitName:this.UnitName
+                            StateTime: this.time[0] || '',//开始时间
+                            EndTime: this.time[1] || '', //结束时间
+                            Company: this.Company
                         },
                     )
                     .then(res => {
                         this.tableData = res.data.data;
 
                         this.ccc = res.data.sum;
-
+                        this.ToTalAll = res.data.ToTalAll;
+                        this.PayAll = res.data.PayAll;
+                        this.Mll = res.data.Mll;
+                        this.NotEnterAll = res.data.NotEnterAll;
+                        this.PayHb = res.data.PayHb;
+                        this.TotalHb = res.data.TotalHb;
                         this.loading = false;
                         if (res.data.code == 0) {
                             this.tableData = res.data.data;
@@ -457,12 +498,14 @@
         color: #649EFE !important;
 
     }
-    .el-icon-loading2{
+
+    .el-icon-loading2 {
         background: url("../../assets/img/dongtu.gif") center no-repeat;
         background-size: cover;
         width: 20%;
         height: 100px;
     }
+
     .curstomNum:not(.aaa) .cell:hover {
         cursor: pointer;
     }
@@ -507,40 +550,34 @@
     }
 
     .grid-cont-right {
-        flex: 1;
-        margin: 0px 80px 0 40px;
+        flex: 2;
+        margin: 0px 30px 0 20px;
         font-size: 14px;
         color: #999;
     }
 
     .grid-num {
-        font-size: 24px;
+        font-size: 16px;
         font-weight: 800;
-        margin: 5px 0px;
+        margin: 10px 0px;
         color: #fff;
     }
-
     .grid-con-1 {
         background-color: #23c6c8;
         color: #fff;
     }
-
     .grid-con-1 .grid-num {
         color: #fff;
     }
-
     .grid-con-2 {
         background-color: #1ab394;
     }
-
     .grid-con-3 {
         background-color: #23c6c8;
     }
-
     .grid-con-2 .grid-num {
         color: #fff;
     }
-
     .grid-con-4 {
         background: #f8ac59;
     }
@@ -548,20 +585,16 @@
     .grid-con-3 .grid-num {
         color: #fff;
     }
-
     .user-info-cont div:first-child {
         font-size: 30px;
         color: #222;
     }
-
     .user-info-list span {
         margin-left: 70px;
     }
-
     .mgb20 {
         margin-bottom: 20px;
     }
-
     td,
     th {
         border: solid #ccc;
@@ -569,12 +602,10 @@
         padding: 10px 0px;
         text-align: center;
     }
-
     table {
         border: solid #ccc;
         border-width: 1px 0px 0px 1px;
         border-collapse: collapse;
         width: 100%;
     }
-
 </style>

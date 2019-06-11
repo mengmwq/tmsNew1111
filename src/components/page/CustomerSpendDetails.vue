@@ -405,10 +405,14 @@
                                 >
                             </el-form-item>
                             <el-form-item>
-                                <el-button style="background:#eee;" :class="isOne ? 'blackDefault' : 'blueActive'"  @click="CLSD(1)">已结算</el-button>
+                                <el-button style="background:#eee;" :class="isOne ? 'blackDefault' : 'blueActive'"
+                                           @click="CLSD(1)">已结算
+                                </el-button>
                             </el-form-item>
                             <el-form-item>
-                                <el-button style="background:#eee;" :class="isWei ? 'blackDefault' : 'blueActive'"   @click="CLSD(0)">未结算</el-button>
+                                <el-button style="background:#eee;" :class="isWei ? 'blackDefault' : 'blueActive'"
+                                           @click="CLSD(0)">未结算
+                                </el-button>
                             </el-form-item>
 
                             <div style="float: right">
@@ -426,8 +430,9 @@
                                         alt=""
                                         title='导出'
                                         style="margin: 0 20px"
+                                        @click="dataExport()"
                                 >
-                                <img src="../../assets/img/刷新.png" alt=""  @click="refresh()">
+                                <img src="../../assets/img/刷新.png" alt="" @click="refresh()">
 
                             </div>
                         </el-col>
@@ -443,6 +448,7 @@
                             ref="multipleTable"
                             border
                             v-loading="loading"
+                            @cell-click="jumpDetails"
                     >
                         <el-table-column
                                 type="selection"
@@ -458,17 +464,23 @@
                                 width="100"
                         >
                             <template slot-scope="scope">
-                                <span style="padding:10px;color:#000;cursor:pointer;border-radius: 10px;" v-if="scope.row.IsInCome == 0"  v-model="aaa">未结算</span>
-                                <span style="padding:15px;color:#000;cursor:pointer;border-radius: 10px;" v-if="scope.row.IsInCome == 1" v-model="aaa">已结算</span>
+                                <span style="padding:10px;color:#000;cursor:pointer;border-radius: 10px;"
+                                      v-if="scope.row.IsInCome == 0" v-model="aaa">未结算</span>
+                                <span style="padding:15px;color:#000;cursor:pointer;border-radius: 10px;"
+                                      v-if="scope.row.IsInCome == 1" v-model="aaa">已结算</span>
                             </template>
                         </el-table-column>
-                        <el-table-column
+                        <el-table-column prop="BillNumber" label="运单号码" align="center" class-name="curstomNum"
+                                         label-class-name="aaa" fixed width="120"></el-table-column>
+                        <!--<el-table-column
                                 prop="BillNumber"
                                 label="运单号码"
                                 align="center"
                                 fixed
                                 width="120"
-                        ></el-table-column>
+                        >
+
+                        </el-table-column>-->
 
 
                         <el-table-column
@@ -484,60 +496,72 @@
                                 align="center"
                         ></el-table-column>
                         <el-table-column
-                                prop="BillNumber"
+                                prop="ParkMoney"
                                 label="车辆支出"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
                         <el-table-column
-                                prop="BillNumber"
+                                prop="TakePay"
                                 label="取件费"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
 
                         <el-table-column
-                                prop="BillNumber"
+                                prop="TakeOutPay"
                                 label="发货费"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
                         <el-table-column
-                                prop="BillNumber"
+                                prop="GBPay"
                                 label="干冰费"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
                         <el-table-column
-                                prop="BillNumber"
+                                prop="TakePackagePay"
                                 label="包装费"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
                         <el-table-column
-                                prop="BillNumber"
+
                                 label="派送费"
                                 align="center"
                                 :show-overflow-tooltip="true"
-                        ></el-table-column>
+                        >
+                            <template slot-scope="scope">
+                                <span>{{scope.row.NetPsPay  | rounding}}</span>
+                            </template>
+                        </el-table-column>
                         <el-table-column
-                                prop="BillNumber"
+                                prop="NetTHPay"
                                 label="提货费"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
                         <el-table-column
-                                prop="BillNumber"
+
                                 label="返箱费"
                                 align="center"
                                 :show-overflow-tooltip="true"
-                        ></el-table-column>
+                        >
+                            <template slot-scope="scope">
+                                <span>{{scope.row.BBackMoney  | rounding}}</span>
+                            </template>
+                        </el-table-column>
                         <el-table-column
-                                prop="BillNumber"
+
                                 label="返箱车费"
                                 align="center"
                                 :show-overflow-tooltip="true"
-                        ></el-table-column>
+                        >
+                            <template slot-scope="scope">
+                                <span>{{scope.row.BBCarMoney  | rounding}}</span>
+                            </template>
+                        </el-table-column>
                         <el-table-column
                                 prop="OtherFei"
                                 label="其他费用"
@@ -551,9 +575,10 @@
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
-                        <el-table-column label="操作" align="center"  fixed="right" >
+                        <el-table-column label="操作" align="center" fixed="right">
                             <template slot-scope="scope">
-                                <el-button size="small" type="primary" @click.native.prevent="details(scope.row)">详情</el-button>
+                                <el-button size="small" type="primary" @click.native.prevent="details(scope.row)">详情
+                                </el-button>
 
                             </template>
                         </el-table-column>
@@ -580,7 +605,8 @@
 
                                 <span style="color:#333;font-size: 18px;font-weight: 800">运单号：{{BillNumber}}</span>
                                 <div style="float: right;padding-right:10px;font-family: cursive;font-weight: 800;display:flex;align-items:center;">
-                                    <span><img src="../../assets/img/user.png" style="float:left;margin:0 5px 0 0;"></span>
+                                    <span><img src="../../assets/img/user.png"
+                                               style="float:left;margin:0 5px 0 0;"></span>
                                     <span>{{GetName}}</span>
                                 </div>
 
@@ -588,7 +614,8 @@
                             <div>
                                 <span style="font-family: cursive;">2019/12/18</span>
                                 <div style="float: right;font-family: cursive ;padding-right:23px;font-weight: 800;display:flex;align-items:center;">
-                                    <span><img src="../../assets/img/car.png" style="float:left;margin:0 5px 0 0;"></span>
+                                    <span><img src="../../assets/img/car.png"
+                                               style="float:left;margin:0 5px 0 0;"></span>
                                     <span>火车</span>
 
                                 </div>
@@ -602,9 +629,11 @@
                                             type="success"
                                             plain
                                             :loading="true"
-                                    >货物信息</el-button>
+                                    >货物信息
+                                    </el-button>
 
-                                    <ul style="text-indent: 20px;height:30px;line-height:30px;display: inline-table" class="rightLI">
+                                    <ul style="text-indent: 20px;height:30px;line-height:30px;display: inline-table"
+                                        class="rightLI">
                                         <li>货物名称：</li>
                                         <li>件数：1</li>
                                         <li>体积：1</li>
@@ -617,8 +646,9 @@
                                             type="primary"
                                             plain
                                             :loading="true"
-                                    >包装信息</el-button>
-                                    <div  style="text-indent: 40px;margin: 10px 0;">
+                                    >包装信息
+                                    </el-button>
+                                    <div style="text-indent: 40px;margin: 10px 0;">
                                         <span style="text-indent: 20px;margin: 20px 0;font-size: 12px;">包装材料：{{InCity}}</span>
                                         <span style="text-indent: 20px;padding: 20px 20px;font-size: 12px;">包装尺寸：{{CargoSize}}</span>
                                     </div>
@@ -630,18 +660,22 @@
                                             type="warning"
                                             plain
                                             :loading="true"
-                                    >发件人信息</el-button>
-                                    <p style="text-indent: 20px;margin: 20px 0;font-size: 12px">发件人公司：{{SendsCompany}}</p>
+                                    >发件人信息
+                                    </el-button>
+                                    <p style="text-indent: 20px;margin: 20px 0;font-size: 12px">
+                                        发件人公司：{{SendsCompany}}</p>
                                     <span style="margin: 20px 0 20px 20px;  color:#666;font-size: 12px;">发件人：{{SendsName}}</span>
                                     <span style="margin: 0px 20px 20px 0px;float: right;  color:#666; font-size: 12px;">发件人联系方式：{{SendsTelephone}}</span>
-                                    <p style="text-indent: 20px;margin: 20px 0;font-size: 12px">发件人地址：{{SendsAddress}}</p>
+                                    <p style="text-indent: 20px;margin: 20px 0;font-size: 12px">
+                                        发件人地址：{{SendsAddress}}</p>
                                 </div>
                                 <div style="margin-top: 15px">
                                     <el-button
                                             type="primary"
                                             plain
                                             :loading="true"
-                                    >收件人信息</el-button>
+                                    >收件人信息
+                                    </el-button>
                                     <p style="text-indent: 20px;margin: 20px 0;font-size: 12px">收件人公司：{{GetCompany}}</p>
                                     <span style="margin: 20px 0 20px 20px;  color:#666;font-size: 12px;">收件人：{{GetName}}</span>
                                     <span style="margin: 0px 20px 20px 0px;float: right;  color:#666; font-size: 12px;">收件人联系方式：{{GetTelephone}}</span>
@@ -652,7 +686,8 @@
                                             type="danger"
                                             plain
                                             :loading="true"
-                                    >投保信息</el-button>
+                                    >投保信息
+                                    </el-button>
                                     <div style="margin-top: 15px">
                                         <span style="margin: 20px 0 20px 20px;  color:#666;font-size: 12px;">是否投保：{{SafeItem}}</span>
                                         <span style="margin: 0px 20px 20px 0px;float: right;  color:#666; font-size: 12px;">投保金额：{{SafeMoney}}</span>
@@ -679,108 +714,182 @@
                 aaa: '', // 结算状态
                 tableData: [],
                 isFirst: true,
-                restaurants: [{name:'新旺角茶餐厅',value: '10000015456'},{name:'旺角茶餐厅',value:'100000154578'},{name:'旺角茶餐厅',value:'1000004578562'}],
-                state2:'',
+                restaurants: [{name: '新旺角茶餐厅', value: '10000015456'}, {
+                    name: '旺角茶餐厅',
+                    value: '100000154578'
+                }, {name: '旺角茶餐厅', value: '1000004578562'}],
+                state2: '',
                 cur_page: 1,//当前页
                 limit: 20, //每页多少条
                 ccc: 0, //总页数l
-                loading:true,
-                BillNumber:'',//运单号码
-                GetName:'',
-                Jian:'',
-                Aweight:'',
-                Cweight:'',
-                InCity:'',
-                CargoSize:'',
-                SendsCompany:'',
-                SendsName:'',
-                SendsTelephone:'',
-                SendsAddress:'',
-                GetAddress:'',
-                GetTelephone:'',
-                GetCompany:'',
-                SafeItem:'',
-                SafeMoney:'',
-                Bill:'',
-                AccountNumber:'',
-                select_cate:'',
-                IsInCome:''
+                loading: true,
+                BillNumber: '',//运单号码
+                GetName: '',
+                Jian: '',
+                Aweight: '',
+                Cweight: '',
+                InCity: '',
+                CargoSize: '',
+                SendsCompany: '',
+                SendsName: '',
+                SendsTelephone: '',
+                SendsAddress: '',
+                GetAddress: '',
+                GetTelephone: '',
+                GetCompany: '',
+                SafeItem: '',
+                SafeMoney: '',
+                Bill: '',
+                AccountNumber: '',
+                select_cate: '',
+                IsInCome: ''
             };
         },
         created() {
             this.getData();
         },
+        filters: {
+            rounding(value) {
+                return Number(value).toFixed(2)
+            },
+
+        },
         methods: {
+            //点击客户账号\收入、支出时的跳转
+            jumpDetails(row, column, cell, event) {
+                console.log(column.label, 0)
+                if (column.label == "运单号码") {
+                    this.$router.push("/StatementExpenditure");
+                }
+            },
+            //导出   导出时需要依赖xlsx file-saver Blob.js  Export2Excel
+            dataExport() {
+                this.loading = true;
+                let import_file;
+                new Promise((resolve, reject) => {
+                    import_file = this.multipleSelection;
+                    if (import_file.length == 0) {
+                        //this.limit = 10000;
+                        // this.getData();
+                        import_file = this.tableData;
+
+                    }
+                    resolve(import_file);
+                }).then(res => {
+                    // console.log(res);return;
+                    require.ensure([], () => {
+                        const {export_json_to_excel} = require("../../assets/js/Export2Excel");
+                        // 这就是表头 展示的表头
+                        const tHeader = [
+
+                            "运单号码",
+                            "温度区间",
+                            "货物名称",
+                            "车辆支出",
+                            "取件费",
+                            "发货费",
+                            "干冰费",
+                            "包装费",
+                            "派送费",
+                            "提货费",
+                            "返箱费",
+                            "返箱车费",
+                            "其他费用",
+                            "支出合计"
+
+                        ];
+                        // 这就是 对应的 字段
+                        const filterVal = [
+
+                            "BillNumber",
+                            "WDQJ",
+                            "CargoName",
+                            "ParkMoney",
+                            "TakePay",
+                            "TakeOutPay",
+                            "GBPay",
+                            "TakePackagePay",
+                            "NetPsPay",
+                            "NetTHPay",
+                            "BBackMoney",
+                            "BBCarMoney",
+                            "OtherFei",
+                            "BillNumber"
+
+                        ];
+                        const list = res;
+                        this.loading = false;
+                        const data = this.formatJson(filterVal, list);
+                        export_json_to_excel(tHeader, data, "客户支出明细表");  // 这是  excel文件名
+                    });
+                });
+
+            },
+            formatJson: function (filterVal, jsonData) {
+                return jsonData.map(v => filterVal.map(j => v[j]));
+            },
             //刷新
-            refresh(){
-                this.Bill= '';//yundanhaoma
+            refresh() {
+                this.Bill = '';//yundanhaoma
                 this.aaa = '';
                 this.isOne = true;
                 this.isWei = true;
                 this.getData();
             },
-            CLSD(val){
-                /**
-                 * 咱们只需要在  console.log('我要已结算的数据')  这些个位置
-                 *   改变一下  aaa值   走一下接口  页面自己会渲染
-                 *   这就是mvvm    数据  和 视图  同步更新
-                 *
-                 *   就完事了
-                 *
-                 *
-                 * **/
-              if(Number(val) === 1){  //已结算
-                  // isOne  true 第一次点   false  第二次点
-                  this.isWei = true;
-                if(this.isOne){
-                    // 筛选已结算  请求接口
-                    this.aaa =1;
+            CLSD(val) {
 
-                    this.getData()
-                    console.log('我要已结算的数据')
-                }else{
-                    //  所有的数据
-                    console.log('我要所有的数据')
-                    this.aaa ='';
-                    this.getData();
+                if (Number(val) === 1) {  //已结算
+                    // isOne  true 第一次点   false  第二次点
+                    this.isWei = true;
+                    if (this.isOne) {
+                        // 筛选已结算  请求接口
+                        this.aaa = 1;
+
+                        this.getData()
+                        console.log('我要已结算的数据')
+                    } else {
+                        //  所有的数据
+                        console.log('我要所有的数据')
+                        this.aaa = '';
+                        this.getData();
+                    }
+                    this.isOne = !this.isOne;
+                } else {    // 未结算
+                    this.isOne = true;
+                    if (this.isWei) {
+                        // 筛选未结算  请求接口
+                        this.aaa = 0;
+                        this.getData();
+                        console.log('我要未结算的数据')
+                    } else {
+                        //  所有的数据
+                        console.log('我要所有的数据')
+                        this.aaa = '';
+                        this.getData();
+                    }
+                    this.isWei = !this.isWei;
                 }
-                this.isOne = !this.isOne;
-              }else{    // 未结算
-                  this.isOne = true;
-                  if(this.isWei){
-                      // 筛选未结算  请求接口
-                      this.aaa =0;
-                      this.getData();
-                      console.log('我要未结算的数据')
-                  }else{
-                      //  所有的数据
-                    console.log('我要所有的数据')
-                      this.aaa ='';
-                      this.getData();
-                  }
-                  this.isWei = !this.isWei;
-              }
 
             },
-            details(val){
-                this.isFirst =false;
+            details(val) {
+                this.isFirst = false;
                 this.BillNumber = val.BillNumber; // zhe就是
                 this.GetName = val.GetName;
                 this.Jian = val.Jian;
                 this.Aweight = val.Aweight;
                 this.Cweight = val.Cweight;
-                this.InCity =val.InCity;
+                this.InCity = val.InCity;
                 this.CargoSize = val.CargoSize;
-                this.SendsCompany= val.SendsCompany;
+                this.SendsCompany = val.SendsCompany;
                 this.SendsName = val.SendsName;
-                this.SendsTelephone =val.SendsTelephone;
+                this.SendsTelephone = val.SendsTelephone;
                 this.SendsAddress = val.SendsAddress;
-                this.GetCompany= val.GetCompany;
+                this.GetCompany = val.GetCompany;
                 this.GetName = val.GetName;
-                this.GetTelephone =val.GetTelephone;
+                this.GetTelephone = val.GetTelephone;
                 this.GetAddress = val.GetAddress;
                 this.SafeItem = val.SafeItem;
-                this.SafeMoney =val.SafeMoney
+                this.SafeMoney = val.SafeMoney
             },
             querySearch(queryString, cb) {
                 var restaurants = this.restaurants; // 所有数据
@@ -815,15 +924,15 @@
             },
             getData() {
                 let AccountNumber = window.localStorage.getItem("AccountNumber");
-                this.AccountNumber =AccountNumber;
+                this.AccountNumber = AccountNumber;
                 this.$axios
                     .post(
                         "http://www.zjcoldcloud.com/zhanghaining/tms/public/index.php/statistical/customerspenddetails",
                         {
                             Page: this.cur_page,//当前页码
                             PageSize: this.limit,//每页条数
-                            AccountNumber:AccountNumber,
-                            Bill:this.Bill, //运单号码
+                            AccountNumber: AccountNumber,
+                            Bill: this.Bill, //运单号码
                             IsInCome: this.aaa // 这个就是  你传的  结算状态  问下海宁是传啥   比方说IsInCome这个给他传1  他给你已结算的数据 传0  他给你未结算的  传个100万给你所有的
                         }
                     )
@@ -851,26 +960,33 @@
         float: left;
         margin-left: 20px;
     }
+
     .rightContent div {
         margin-bottom: 10px;
     }
+
     .rightContent span {
         color: #333;
         font-size: 14px;
     }
+
     .detailesContent p {
         color: #666;
         font-size: 16px;
     }
+
     .mgb20 {
         margin-bottom: 20px;
     }
-    .rightLI  li{
-        font-size: 12px!important;
+
+    .rightLI li {
+        font-size: 12px !important;
     }
+
     .pointer {
         cursor: pointer;
     }
+
     td,
     th {
         border: solid #ccc;
@@ -885,18 +1001,20 @@
         border-collapse: collapse;
         width: 100%;
     }
+
     .table_td {
         background-color: #eff4f6;
         background-color: #eff4f6;
     }
 
-    .blackDefault{
-        background: #eee!important;
-        color:#000;
+    .blackDefault {
+        background: #eee !important;
+        color: #000;
 
     }
-    .blueActive{
-        background: #00d1b2!important;
-        color:#fff;
+
+    .blueActive {
+        background: #00d1b2 !important;
+        color: #fff;
     }
 </style>

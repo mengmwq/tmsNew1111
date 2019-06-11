@@ -394,12 +394,12 @@
                             </el-form-item>
 
 
-                            <el-form-item>
+                           <!-- <el-form-item>
                                 <el-button style="background:#eee;" :class="isOne ? 'blackDefault' : 'blueActive'"  @click="CLSD(1)">已结算</el-button>
                             </el-form-item>
                             <el-form-item>
                                 <el-button style="background:#eee;" :class="isWei ? 'blackDefault' : 'blueActive'"   @click="CLSD(0)">未结算</el-button>
-                            </el-form-item>
+                            </el-form-item>-->
 
                             <div style="float: right">
                                 <el-form-item
@@ -451,7 +451,7 @@
                                 fixed
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
-
+<!--
                         <el-table-column
 
                                 label="是否结算"
@@ -460,11 +460,11 @@
                                 :show-overflow-tooltip="true"
                                 width="100"
                         >
-                            <template slot-scope="scope">
+                          &lt;!&ndash;  <template slot-scope="scope">
                                 <span style="padding:10px;color:#000;cursor:pointer;border-radius: 10px;" v-if="scope.row.IsInCome == 0"  v-model="aaa">未结算</span>
                                 <span style="padding:15px;color:#000;cursor:pointer;border-radius: 10px;" v-if="scope.row.IsInCome == 1" v-model="aaa">已结算</span>
-                            </template>
-                        </el-table-column>
+                            </template>&ndash;&gt;
+                        </el-table-column>-->
 
 
                         <el-table-column
@@ -473,7 +473,7 @@
                                 align="center"
                         ></el-table-column>
                         <el-table-column
-                                type="index"
+                                prop="PayWay"
                                 width="50"
                                 label="结算方式"
                                 align="center"
@@ -481,43 +481,48 @@
                         ></el-table-column>
 
                         <el-table-column
-                                prop="BillNumber"
+                                prop="wayout"
                                 label="运输方式"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
                         <el-table-column
-                                prop="BillNumber"
+                                prop="Jian"
                                 label="件"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
                         <el-table-column
-                                prop="BillNumber"
+                                prop="Aweight"
                                 label="实际重量"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
                         <el-table-column
-                                prop="BillNumber"
+                                prop="Cweight"
                                 label="计费重量"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
                         <el-table-column
-                                prop="BillNumber"
+
                                 label="体积"
                                 align="center"
                                 :show-overflow-tooltip="true"
-                        ></el-table-column>
+
+                        >
+                            <template slot-scope="scope">
+                                <span>{{scope.row.Vweight  | rounding}}</span>
+                            </template>
+                        </el-table-column>
                         <el-table-column
-                                prop="BillNumber"
+                                prop="InDate"
                                 label="委托时间"
                                 align="center"
                                 :show-overflow-tooltip="true"
                         ></el-table-column>
                         <el-table-column
-                                prop="BillNumber"
+                                prop="ToGateTime"
                                 label="要求到货时间"
                                 align="center"
                                 :show-overflow-tooltip="true"
@@ -705,6 +710,12 @@
         created() {
             this.getData();
         },
+        filters: {
+            rounding (value) {
+                return Number(value).toFixed(2)
+            },
+
+        },
         methods: {
             //刷新
             refresh(){
@@ -716,8 +727,8 @@
             },
             //已结算
 
-            CLSD(val){
-                /**
+          /*  CLSD(val){
+                /!**
                  * 咱们只需要在  console.log('我要已结算的数据')  这些个位置
                  *   改变一下  aaa值   走一下接口  页面自己会渲染
                  *   这就是mvvm    数据  和 视图  同步更新
@@ -725,7 +736,7 @@
                  *   就完事了
                  *
                  *
-                 * **/
+                 * **!/
                 if(Number(val) === 1){  //已结算
                     // isOne  true 第一次点   false  第二次点
                     this.isWei = true;
@@ -758,7 +769,7 @@
                     this.isWei = !this.isWei;
                 }
 
-            },
+            },*/
 
             //导出   导出时需要依赖xlsx file-saver Blob.js  Export2Excel
             dataExport() {
@@ -779,40 +790,42 @@
                         const {export_json_to_excel} = require("../../assets/js/Export2Excel");
                         // 这就是表头 展示的表头
                         const tHeader = [
-                            "是否结算",
+
                             "运单号码",
-                            "货物名称",
                             "温度区间",
-                            "超远费",
-                            "运费",
-                            "仓储费",
-                            "温度计费",
-                            "专车费",
-                            "冷藏车费",
-                            "其他费用",
-                            "收入合计",
+                            "货物名称",
+
+                            "结算方式",
+                            "运输方式",
+                            "件",
+                            "实际重量",
+                            "计费重量",
+                            "体积",
+                            "委托时间",
+                            "要求到货时间",
 
                         ];
                         // 这就是 对应的 字段
                         const filterVal = [
-                            "IsInCome",
+
                             "BillNumber",
-                            "CargoName",
                             "WDQJ",
-                            "FarOutfei",
-                            "yunFei",
-                            "CangchuFei",
-                            "WDJFei",
-                            "CarFei",
-                            "LCarFei",
-                            "OtherFei",
-                            "BillNumber",//收入合计
+                            "CargoName",
+
+                            "PayWay",
+                            "wayout",
+                            "Jian",
+                            "Aweight",
+                            "Cweight",
+                            "Vweight",
+                            "InDate",
+                            "ToGateTime",//收入合计
 
                         ];
                         const list = res;
                         this.loading = false;
                         const data = this.formatJson(filterVal, list);
-                        export_json_to_excel(tHeader, data, "客户收入明细表");  // 这是  excel文件名
+                        export_json_to_excel(tHeader, data, "未录入运费明细表");  // 这是  excel文件名
                     });
                 });
 
@@ -957,14 +970,12 @@
         border-collapse: collapse;
         width: 100%;
     }
-
     .table_td {
         background-color: #eff4f6;
     }
     .blackDefault{
         background: #eee!important;
         color:#000;
-
     }
     .blueActive{
         background: #00d1b2!important;
