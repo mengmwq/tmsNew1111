@@ -32,7 +32,7 @@
                                                     <el-date-picker
                                                             v-model="value1"
                                                             type="datetime"
-                                                            placeholder="选择日期时间"
+                                                            placeholder="选择截止时间"
                                                     >
                                                     </el-date-picker>
                                                 </div>
@@ -47,13 +47,13 @@
                                         </el-col>
                                     </el-row>
                                 </el-form>
-                                <el-row>
-                                    <el-col>
+                                <el-row  :gutter="24">
+                                    <el-col :span="6">
                                         <el-row
                                                 :gutter="24"
                                                 class="mgb20"
                                         >
-                                            <el-col :span="6">
+                                            <el-col :span="24" class="mgb20">
                                                 <el-card
                                                         shadow="hover"
                                                         :body-style="{padding: '0px'}"
@@ -61,7 +61,7 @@
                                                     <div class="grid-content grid-con-1">
 
                                                         <div class="grid-cont-right">
-                                                            <h6 style="color: #fff">已录入票数合计</h6>
+                                                            <h4 style="color: #fff">2019年收入合计</h4>
                                                             <div class="grid-num">&yen; 4,232</div>
 
                                                         </div>
@@ -74,7 +74,7 @@
                                                     </div>
                                                 </el-card>
                                             </el-col>
-                                            <el-col :span="6">
+                                            <el-col :span="24">
                                                 <el-card
                                                         shadow="hover"
                                                         :body-style="{padding: '0px'}"
@@ -82,7 +82,7 @@
                                                     <div class="grid-content grid-con-2">
 
                                                         <div class="grid-cont-right">
-                                                            <h6 style="color: #fff">已录入件数合计</h6>
+                                                            <h4 style="color: #fff">2019年成本合计</h4>
                                                             <div class="grid-num">&yen; 4,232</div>
 
                                                         </div>
@@ -96,52 +96,16 @@
                                                     </div>
                                                 </el-card>
                                             </el-col>
-                                            <el-col :span="6">
-                                                <el-card
-                                                        shadow="hover"
-                                                        :body-style="{padding: '0px'}"
-                                                >
-                                                    <div class="grid-content grid-con-3">
 
-                                                        <div class="grid-cont-right">
-                                                            <h6 style="color: #fff">已录入重量合计</h6>
-                                                            <div class="grid-num">&yen; 4,232</div>
-
-                                                        </div>
-                                                        <div class="grid-img">
-                                                            <img
-                                                                    src="../../assets/img/毛利率上的图标.png"
-                                                                    alt=""
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                </el-card>
-                                            </el-col>
-                                            <el-col :span="6">
-                                                <el-card
-                                                        shadow="hover"
-                                                        :body-style="{padding: '0px'}"
-                                                >
-                                                    <div class="grid-content grid-con-4">
-
-                                                        <div class="grid-cont-right">
-                                                            <h6 style="color: #ffffff;">2019年成本合计</h6>
-                                                            <div class="grid-num">&yen; 4,232</div>
-
-                                                        </div>
-                                                        <div class="grid-img">
-                                                            <img
-                                                                    src="../../assets/img/未录入运费票数合计.png"
-                                                                    alt=""
-                                                            >
-                                                        </div>
-
-                                                    </div>
-                                                </el-card>
-                                            </el-col>
 
                                         </el-row>
 
+                                    </el-col>
+                                    <el-col :span="18">
+                                        <div
+                                                id="eight1"
+                                                style="width:100%;height:420px;"
+                                        ></div>
                                     </el-col>
                                 </el-row>
 
@@ -154,10 +118,24 @@
                                     >
                                         <el-row>
                                             <el-col>
+                                                <el-form-item>
+                                                    <div class="block">
+
+                                                        <el-date-picker
+                                                                v-model="value1"
+                                                                type="datetime"
+                                                                placeholder="选择截止时间"
+                                                        >
+                                                        </el-date-picker>
+                                                    </div>
+                                                </el-form-item>
                                                 <el-form-item label="客户账号">
                                                     <el-input></el-input>
                                                 </el-form-item>
-                                                <el-form-item label="结算类型">
+                                                <el-form-item label="销售员">
+                                                    <el-input></el-input>
+                                                </el-form-item>
+                                             <!--   <el-form-item label="结算类型">
                                                     <el-select
                                                             v-model="select_cate"
                                                             placeholder="请选择"
@@ -179,7 +157,7 @@
                                                                 value="现金"
                                                         ></el-option>
                                                     </el-select>
-                                                </el-form-item>
+                                                </el-form-item>-->
                                                 <img
                                                         src="../../assets/img/查询.png"
                                                         alt="查询图标"
@@ -195,17 +173,14 @@
                                                             src="../../assets/img/刷新.png"
                                                             alt
                                                     >
-                                                    <img
-                                                            src="../../assets/img/柱状图.png"
-                                                            alt
-                                                            style="margin: 0 20px"
-                                                    >
+
                                                 </div>
                                             </el-col>
                                         </el-row>
                                     </el-form>
                                 </div>
                                 <el-table
+
                                         :data="tableData"
                                         style="width: 100%"
                                         ref="multipleTable"
@@ -218,88 +193,330 @@
                                             width="60"
                                             align="center"
                                     ></el-table-column>
-                                    <el-table-column
+                                  <!--  <el-table-column
                                             type="index"
                                             width="50"
                                             label="序号"
                                             align="center"
                                             fixed
+                                    ></el-table-column>-->
+                                    <el-table-column
+                                            prop="Condition"
+                                            label="日期"
+                                            align="center"
+                                            fixed
+
+                                    ></el-table-column>
+                                    <el-table-column
+                                            prop="Condition"
+                                            label="部门"
+                                            align="center"
+                                            fixed
+
                                     ></el-table-column>
                                     <el-table-column
                                             prop="ID"
                                             label="客户账号"
                                             align="center"
                                             class-name="curstomNum"
+                                            width="120"
                                             label-class-name="aaa"
+                                            fixed
                                     ></el-table-column>
                                     <el-table-column
                                             prop="GetCompany"
                                             label="公司名称"
                                             align="center"
+                                            fixed
                                             :show-overflow-tooltip="true"
                                     ></el-table-column>
+                                    <el-table-column
+                                            show-summary
+                                            prop="Condition"
+                                            label="合计"
+                                            align="center"
+
+                                    >
+                                        <el-table-column
+                                                prop="province"
+                                                label="收入"
+                                                width="50">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="city"
+                                                label="支出"
+                                                width="50"
+                                              >
+                                        </el-table-column>
+
+                                    </el-table-column>
                                     <el-table-column
                                             prop="Condition"
-                                            label="结算类型"
+                                            label="12月"
                                             align="center"
-                                    ></el-table-column>
+
+                                    >
+                                        <el-table-column
+                                                prop="province"
+                                                label="收入"
+                                                width="50">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="city"
+                                                label="支出"
+                                                width="50"
+                                        >
+                                        </el-table-column>
+
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="Condition"
+                                            label="11月"
+                                            align="center"
+
+                                    >
+                                        <el-table-column
+                                                prop="province"
+                                                label="收入"
+                                                width="50">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="city"
+                                                label="支出"
+                                                width="50"
+                                        >
+                                        </el-table-column>
+
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="Condition"
+                                            label="10月"
+                                            align="center"
+
+                                    >
+                                        <el-table-column
+                                                prop="province"
+                                                label="收入"
+                                                width="50">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="city"
+                                                label="支出"
+                                                width="50"
+                                        >
+                                        </el-table-column>
+
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="Condition"
+                                            label="9月"
+                                            align="center"
+
+                                    >
+                                        <el-table-column
+                                                prop="province"
+                                                label="收入"
+                                                width="50">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="city"
+                                                label="支出"
+                                                width="50"
+                                        >
+                                        </el-table-column>
+
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="Condition"
+                                            label="8月"
+                                            align="center"
+
+                                    >
+                                        <el-table-column
+                                                prop="province"
+                                                label="收入"
+                                                width="50">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="city"
+                                                label="支出"
+                                                width="50"
+                                        >
+                                        </el-table-column>
+
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="Condition"
+                                            label="7月"
+                                            align="center"
+
+                                    >
+                                        <el-table-column
+                                                prop="province"
+                                                label="收入"
+                                                width="50">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="city"
+                                                label="支出"
+                                                width="50"
+                                        >
+                                        </el-table-column>
+
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="Condition"
+                                            label="6月"
+                                            align="center"
+
+                                    >
+                                        <el-table-column
+                                                prop="province"
+                                                label="收入"
+                                                width="50">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="city"
+                                                label="支出"
+                                                width="50"
+                                        >
+                                        </el-table-column>
+
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="Condition"
+                                            label="5月"
+                                            align="center"
+
+                                    >
+                                        <el-table-column
+                                                prop="province"
+                                                label="收入"
+                                                width="50">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="city"
+                                                label="支出"
+                                                width="50"
+                                        >
+                                        </el-table-column>
+
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="Condition"
+                                            label="4月"
+                                            align="center"
+
+                                    >
+                                        <el-table-column
+                                                prop="province"
+                                                label="收入"
+                                                width="50">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="city"
+                                                label="支出"
+                                                width="50"
+                                        >
+                                        </el-table-column>
+
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="Condition"
+                                            label="3月"
+                                            align="center"
+
+                                    >
+                                        <el-table-column
+                                                prop="province"
+                                                label="收入"
+                                                width="50">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="city"
+                                                label="支出"
+                                                width="50"
+                                        >
+                                        </el-table-column>
+
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="Condition"
+                                            label="2月"
+                                            align="center"
+
+                                    >
+                                        <el-table-column
+                                                prop="province"
+                                                label="收入"
+                                                width="50">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="city"
+                                                label="支出"
+                                                width="50"
+                                        >
+                                        </el-table-column>
+
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="Condition"
+                                            label="1月"
+                                            align="center"
+
+                                    >
+                                        <el-table-column
+                                                prop="province"
+                                                label="收入"
+                                                width="50">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="city"
+                                                label="支出"
+                                                width="50"
+                                        >
+                                        </el-table-column>
+
+                                    </el-table-column>
+
                                     <el-table-column
                                             prop="BillNumber"
-                                            label="收入"
+                                            label="销售员"
                                             align="center"
+                                            fixed="right"
                                             :show-overflow-tooltip="true"
                                     ></el-table-column>
                                     <el-table-column
                                             prop="BillNumber"
-                                            label="税后收入"
+                                            label="项目客服"
                                             align="center"
+                                            fixed="right"
                                             :show-overflow-tooltip="true"
                                     ></el-table-column>
                                     <el-table-column
                                             prop="BillNumber"
-                                            label="支出"
+                                            label="客户类型"
                                             align="center"
                                             :show-overflow-tooltip="true"
+                                            fixed="right"
                                     ></el-table-column>
                                     <el-table-column
                                             prop="BillNumber"
-                                            label="运输毛利率"
+                                            label="业务类型"
                                             align="center"
-                                            :show-overflow-tooltip="true"
-                                    ></el-table-column>
-                                    <el-table-column
-                                            prop="BillNumber"
-                                            label="税后运输毛利率"
-                                            align="center"
-                                            :show-overflow-tooltip="true"
-                                    ></el-table-column>
-                                    <el-table-column
-                                            prop="BillNumber"
-                                            label="票数"
-                                            align="center"
+                                            fixed="right"
                                             :show-overflow-tooltip="true"
                                             :sortable="true"
                                     ></el-table-column>
                                     <el-table-column
                                             prop="BillNumber"
-                                            label="件数"
+                                            label="结算模式"
                                             align="center"
+                                            fixed="right"
                                             :show-overflow-tooltip="true"
                                             :sortable="true"
                                     ></el-table-column>
-                                    <el-table-column
-                                            prop="BillNumber"
-                                            label="运费录入票数"
-                                            align="center"
-                                            :show-overflow-tooltip="true"
-                                    ></el-table-column>
-                                    <el-table-column
-                                            prop="BillNumber"
-                                            label="未审核票数"
-                                            align="center"
-                                            :show-overflow-tooltip="true"
-                                            :sortable="true"
-                                    ></el-table-column>
+
                                 </el-table>
                                 <div class="pagination">
                                     <el-pagination
@@ -548,6 +765,7 @@
 
 
 <style>
+
     ul > li {
         list-style: none !important;
     }
@@ -613,7 +831,7 @@
                 cur_page: 1,
                 limit: 10,
                 ccc: 500, //总页数
-                activeName: "first",
+                activeName: "second",
 
                 multipleSelection: []
             };
@@ -623,7 +841,204 @@
         },
         mounted() {
             var eight = echarts.init(document.getElementById("eight"));
+            var eight1 = echarts.init(document.getElementById("eight1"));
             eight.setOption({
+
+                backgroundColor: "#ccc",
+                tooltip: {
+                    trigger: "axis",
+                    axisPointer: {
+                        type: "shadow"
+                    }
+                },
+                legend: {
+                    data: ["票数", "件数", "重量", "成本"],
+                    align: "right",
+                    right: 20,
+                    textStyle: {
+                        color: "#fff"
+                    },
+                    itemGap: 30,
+                    itemWidth: 30,
+                    itemHeight: 10
+                },
+                grid: {
+                    left: "3%",
+                    right: "4%",
+                    bottom: "3%",
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: "category",
+                        data: [
+                            "1月",
+                            "2月",
+                            "3月",
+                            "4月",
+                            "5月",
+                            "6月",
+                            "7月",
+                            "8月",
+                            "9月",
+                            "10月",
+                            "11月",
+                            "12月"
+                        ],
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "#034e90",
+                                width: 2,
+                                type: "solid"
+                            }
+                        },
+                        axisTick: {
+                            show: false
+                        },
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: "#9fceff",
+                                fontSize: 14
+                            }
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: "value",
+                        splitNumber: 6,
+                        axisLabel: {
+                            formatter: "{value}",
+                            textStyle: {
+                                color: "#91bdeb",
+                                fontSize: 16
+                            }
+                        },
+                        axisTick: {
+                            show: false
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "#00a1e4",
+                                width: 2,
+                                type: "solid"
+                            }
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "#034e90",
+                                width: 2,
+                                type: "solid"
+                            }
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name: "票数",
+                        type: "line",
+                        data: (function () {
+                            var d = [];
+                            for (let i = 0; i < 12; i++) {
+                                d.push(parseInt(Math.random() * (100 - 50 + 1) + 50, 10));
+                            }
+                            return d;
+                        })(),
+                        itemStyle: {
+                            normal: {
+                                color: "#00a1e4"
+                            }
+                        },
+                        lineStyle: {
+                            normal: {
+                                width: 2,
+                                shadowColor: "rgba(0,0,0,0.4)",
+                                shadowBlur: 10,
+                                shadowOffsetY: 10
+                            }
+                        }
+                    },
+                    {
+                        name: "件数",
+                        type: "line",
+                        data: (function () {
+                            var d = [];
+                            for (let i = 0; i < 12; i++) {
+                                d.push(parseInt(Math.random() * (90 - 40) + 40, 10));
+                            }
+                            return d;
+                        })(),
+                        itemStyle: {
+                            normal: {
+                                color: "#ffc600"
+                            }
+                        },
+                        lineStyle: {
+                            normal: {
+                                width: 2,
+                                shadowColor: "rgba(0,0,0,0.4)",
+                                shadowBlur: 10,
+                                shadowOffsetY: 10
+                            }
+                        }
+                    },
+                    {
+                        name: "重量",
+                        type: "line",
+                        data: (function () {
+                            var d = [];
+                            for (let i = 0; i < 12; i++) {
+                                d.push(parseInt(Math.random() * (80 - 30 + 1) + 30, 10));
+                            }
+                            return d;
+                        })(),
+                        itemStyle: {
+                            normal: {
+                                color: "#24c768"
+                            }
+                        },
+                        lineStyle: {
+                            normal: {
+                                width: 2,
+                                shadowColor: "rgba(0,0,0,0.4)",
+                                shadowBlur: 10,
+                                shadowOffsetY: 10
+                            }
+                        }
+                    },
+                    {
+                        name: "成本",
+                        type: "line",
+                        data: (function () {
+                            var d = [];
+                            for (let i = 0; i < 12; i++) {
+                                d.push(parseInt(Math.random() * (70 - 20 + 1) + 20, 10));
+                            }
+                            return d;
+                        })(),
+                        itemStyle: {
+                            normal: {
+                                color: "#de7008"
+                            }
+                        },
+                        lineStyle: {
+                            normal: {
+                                width: 2,
+                                shadowColor: "rgba(0,0,0,0.4)",
+                                shadowBlur: 10,
+                                shadowOffsetY: 10
+                            }
+                        }
+                    }
+                ]
+            });
+
+            window.onresize = eight.resize; // 基于准备好的dom，初始化echarts实例
+            eight1.setOption({
                 /*baseOption: {
                               timeline: {
                                   show: false,
@@ -884,11 +1299,11 @@
                     }
                 },
                 legend: {
-                    data: ["票数", "件数", "重量", "成本"],
+                    data: ["票数", "件数"],
                     align: "right",
                     right: 20,
                     textStyle: {
-                        color: "#fff"
+                        color: "#000"
                     },
                     itemGap: 30,
                     itemWidth: 30,
@@ -920,7 +1335,7 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                color: "#034e90",
+                                color: "#000",
                                 width: 2,
                                 type: "solid"
                             }
@@ -931,7 +1346,7 @@
                         axisLabel: {
                             show: true,
                             textStyle: {
-                                color: "#9fceff",
+                                color: "#000",
                                 fontSize: 14
                             }
                         }
@@ -944,7 +1359,7 @@
                         axisLabel: {
                             formatter: "{value}",
                             textStyle: {
-                                color: "#91bdeb",
+                                color: "#000",
                                 fontSize: 16
                             }
                         },
@@ -1018,58 +1433,12 @@
                             }
                         }
                     },
-                    {
-                        name: "重量",
-                        type: "line",
-                        data: (function () {
-                            var d = [];
-                            for (let i = 0; i < 12; i++) {
-                                d.push(parseInt(Math.random() * (80 - 30 + 1) + 30, 10));
-                            }
-                            return d;
-                        })(),
-                        itemStyle: {
-                            normal: {
-                                color: "#24c768"
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                width: 2,
-                                shadowColor: "rgba(0,0,0,0.4)",
-                                shadowBlur: 10,
-                                shadowOffsetY: 10
-                            }
-                        }
-                    },
-                    {
-                        name: "成本",
-                        type: "line",
-                        data: (function () {
-                            var d = [];
-                            for (let i = 0; i < 12; i++) {
-                                d.push(parseInt(Math.random() * (70 - 20 + 1) + 20, 10));
-                            }
-                            return d;
-                        })(),
-                        itemStyle: {
-                            normal: {
-                                color: "#de7008"
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                width: 2,
-                                shadowColor: "rgba(0,0,0,0.4)",
-                                shadowBlur: 10,
-                                shadowOffsetY: 10
-                            }
-                        }
-                    }
+
+
                 ]
             });
 
-            window.onresize = eight.resize; // 基于准备好的dom，初始化echarts实例
+            window.onresize = eight1.resize; // 基于准备好的dom，初始化echarts实例
         },
         methods: {
             handleClick(tab, event) {

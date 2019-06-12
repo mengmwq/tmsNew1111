@@ -205,8 +205,8 @@
                                 ]
                             },
                             {
-                                index:'BoxStatistics',
-                                title:'箱型统计',
+                                index:'UsePackingBox',
+                                title:'包装箱统计',
 
                             },
                         ]

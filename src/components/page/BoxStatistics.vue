@@ -7,98 +7,7 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <div class="container">
-            <el-row :gutter="24">
-                <el-col>
-                    <p style="font-size: 14px;color:#333;  ;padding-left:5px;font-weight: 800;border-left: 3px solid green">
-                        包装箱使用</p>
-                    <div style="float: right">
-                        <img src="../../assets/img/导出.png" alt="" style="margin: 0 20px">
-                        <img src="../../assets/img/刷新.png" alt="">
-                    </div>
-                </el-col>
-                <el-col :span="15">
 
-                    <div class="handle-box">
-
-                        <el-form :inline="true" style="margin: 0 0 0 0;">
-                            <el-row>
-                                <el-col>
-                                    <el-form-item label="委托时间">
-                                        <div class="block">
-                                            <el-date-picker
-                                                    v-model="value6"
-                                                    type="daterange"
-                                                    range-separator="至"
-                                                    start-placeholder="开始日期"
-                                                    end-placeholder="结束日期">
-                                            </el-date-picker>
-                                        </div>
-                                    </el-form-item>
-
-
-                                    <el-form-item label="箱型">
-                                        <el-input v-model="SendCity"></el-input>
-
-                                    </el-form-item>
-                                    <el-form-item label="温区">
-                                        <el-input v-model="ReceiptCity"></el-input>
-
-                                    </el-form-item>
-                                    <img src="../../assets/img/查询.png" alt="查询图标"
-                                         style="margin-left: 10px;margin-top: 3px;">
-                                    <!-- <div style="float: right">
-
-                                         <img src="../../assets/img/导出.png" alt="" style="margin: 0 20px">
-                                         <img src="../../assets/img/刷新.png" alt="" >
-
-                                     </div>-->
-                                </el-col>
-                            </el-row>
-                        </el-form>
-
-                    </div>
-                    <el-table
-                            :data="tableData"
-                            style="width: 100%;
-"
-                            ref="multipleTable"
-                            border
-                            max-height="400"
-                    >
-                        <el-table-column type="BillNumber" width="60" align="center"></el-table-column>
-                        <el-table-column prop="BillNumber" label="始发省份" align="center"
-                                         :show-overflow-tooltip="true"></el-table-column>
-
-                        <el-table-column prop="BillNumber" label="始发城市" align="center"
-                                         :show-overflow-tooltip="true"></el-table-column>
-                        <el-table-column prop="BillNumber" label="箱型" align="center"></el-table-column>
-                        <el-table-column prop="BillNumber" label="温度区间" align="center"
-                                         :show-overflow-tooltip="true"></el-table-column>
-                        <el-table-column prop="BillNumber" label="件数" align="center"
-                                         :show-overflow-tooltip="true"></el-table-column>
-
-                    </el-table>
-                </el-col>
-                <el-col :span="9" style="margin-top:50px;border: 1px solid #ccc">
-
-                    <el-row :gutter="24">
-                        <el-col>
-                            <div style="font-size: 14px;padding: 10px 5px">件数合计：1265</div>
-                        </el-col>
-                        <el-col>
-                            <div id="eight" style="width:100%;height:200px;"></div>
-                        </el-col>
-                        <el-col>
-                            <div style="width:100%;height:200px;"></div>
-                        </el-col>
-
-                    </el-row>
-
-                </el-col>
-
-            </el-row>
-        </div>
         <div class="container" style="margin:20px 0px">
 
             <el-row :gutter="24">
@@ -221,11 +130,11 @@
                                         <div class="grid-content grid-con-4">
 
                                             <div class="grid-cont-right">
-                                                <h6 style="color: #fff">毛利率合计</h6>
+                                                <h6 style="color: #fff">毛利率合</h6>
 
                                             </div>
                                             <div class="grid-img">
-                                                210万元
+                                             50%
                                             </div>
 
                                         </div>
@@ -440,7 +349,7 @@
             };
         },
         mounted() {
-            var eight = echarts.init(document.getElementById('eight'));
+
             var eight2 = echarts.init(document.getElementById('eight2'));
             var eight3 = echarts.init(document.getElementById('eight3'));
             eight2.setOption({
@@ -637,74 +546,9 @@
             var symbolSize = 20;
             var data = [[15, 0], [-50, 10], [-56.5, 20], [-46.5, 30], [-22.1, 40]];
             var points = [];
-            eight.setOption({
-                backgroundColor: '#f3f3f4',
-                tooltip: {
-                    formatter: function (params) {
-                        var data = params.data || [0, 0];
-                        return data[0].toFixed(2) + ', ' + data[1].toFixed(2);
-                    }
-                },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                xAxis: {
-                    min: -60,
-                    max: 20,
-                    type: 'value',
-                    axisLine: {onZero: false}
-                },
-                yAxis: {
-                    min: 0,
-                    max: 40,
-                    type: 'value',
-                    axisLine: {onZero: false}
-                },
-                series: [
-                    {
-                        id: 'a',
-                        type: 'line',
-                        smooth: true,
-                        symbolSize: symbolSize,
-                        data: data
-                    }
-                ]
-            });
 
-            var zr = eight.getZr();
-            zr.on('click', function (params) {
-                var pointInPixel = [params.offsetX, params.offsetY];
-                var pointInGrid = eight.convertFromPixel('grid', pointInPixel);
 
-                if (eight.containPixel('grid', pointInPixel)) {
-                    data.push(pointInGrid);
 
-                    eight.setOption({
-                        series: [{
-                            id: 'a',
-                            data: data
-                        }]
-                    });
-                }
-            });
-            zr.on('mousemove', function (params) {
-                var pointInPixel = [params.offsetX, params.offsetY];
-                zr.setCursorStyle(eight.containPixel('grid', pointInPixel) ? 'copy' : 'default');
-            });
-            window.onresize = eight.resize;  // 基于准备好的dom，初始化echarts实例
-            var data = [{
-                "name": "1",
-                "value": 10
-            }, {
-                "name": "2",
-                "value": 10
-            }, {
-                "name": "3",
-                "value": 10
-            }]
 
 
         },
