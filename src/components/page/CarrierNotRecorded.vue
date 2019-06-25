@@ -63,7 +63,7 @@
                                                         </div>
                                                         <div class="grid-cont-right2">
                                                             <h6 style="color: #fff">占比</h6>
-                                                            <div class="grid-num2">{{YJbfb}}%</div>
+                                                            <div class="grid-num2">{{YJbfb}}</div>
 
                                                         </div>
 
@@ -319,6 +319,7 @@
             jumpDetails(row, column, cell, event) {
                 // console.log(row,column.label,222);
                 if (column.label == "票数") {
+                    window.localStorage.setItem("CountCompany", row.CountCompany);  window.localStorage.setItem("PayWay", row.PayWay);
                     this.$router.push("/NotEnterDetails");
                 }
             },

@@ -17,16 +17,17 @@
                         <el-row :gutter="24" >
                             <el-col :span="14">
                                 <el-form-item label="客户账号">
-                                    <el-input></el-input>
+                                    <el-input style="width: 120px;
+"></el-input>
                                 </el-form-item>
                                 <el-form-item label="销售员">
-                                    <el-input></el-input>
+                                    <el-input style="width: 120px;"></el-input>
                                 </el-form-item>
                                 <el-form-item>
                                     <div class="block">
 
                                         <el-date-picker
-
+                                                v-model="time"
                                                 type="datetime"
                                                 placeholder="选择截止时间"
                                         >
@@ -108,7 +109,7 @@
                     ref="multipleTable"
                     border
                     max-height="400"
-                    @cell-click="jumpDetails"
+
             >
                 <el-table-column
                         type="selection"
@@ -137,7 +138,7 @@
                         :show-overflow-tooltip="true"
                 ></el-table-column>
                 <el-table-column
-                        prop="BillNumber"
+                        prop="GetCompany"
                         label="公司名称"
                         align="center"
                         :show-overflow-tooltip="true"
@@ -206,8 +207,6 @@
     </div>
 
 </template>
-
-
 <style>
 
     ul > li {
@@ -235,8 +234,8 @@
     export default {
         data() {
             return {
+                time:'',
 
-                value1: "",
 
                 tableData: [
                     {

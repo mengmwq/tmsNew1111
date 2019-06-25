@@ -52,7 +52,7 @@
             <el-row :gutter="24" >
                 <el-col :span="13" >
                     <p  style="font-size: 18px;color:#333;margin: 10px 0 20px  ;padding-left:5px;font-weight: 800;border-left: 3px solid green">费用明细</p>
-                    <div id="eight" style="width:100%;height:400px;"></div>
+                    <div id="eight" style="width:100%;height:400px;"  v-loading="loading"></div>
                 </el-col>
                 <el-col :span="11">
                     <p  style="font-size: 18px;color:#333;margin: 10px 0 20px  ;padding-left:5px;font-weight: 800;border-left: 3px solid green">
@@ -60,13 +60,13 @@
                     </p>
                     <el-row :gutter="24" >
                         <el-col :span="8">
-                            <div id="eight2" style="width:100%;height:400px;"></div>
+                            <div id="eight2" style="width:100%;height:400px;"  v-loading="loading"></div>
                         </el-col>
                         <el-col :span="8">
-                            <div id="eight22" style="width:100%;height:400px;"></div>
+                            <div id="eight22" style="width:100%;height:400px;"  v-loading="loading"></div>
                         </el-col>
                         <el-col :span="8">
-                            <div id="eight222" style="width:100%;height:400px;"></div>
+                            <div id="eight222" style="width:100%;height:400px;"  v-loading="loading"></div>
                         </el-col>
                     </el-row>
 
@@ -105,7 +105,7 @@
             <el-table-column prop="TakePaySingle" label="取单件费" align="center" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="PsPay" label="分控派件费" align="center" :show-overflow-tooltip="true"  ></el-table-column>
             <el-table-column prop="PsPaySingle" label="派单件费" align="center" :show-overflow-tooltip="true"   ></el-table-column>
-            <el-table-column prop="Count" label="合计" align="center" :show-overflow-tooltip="true"   :sortable="true"  ></el-table-column>
+            <el-table-column prop="Count" label="合计" align="center" :show-overflow-tooltip="true"     class-name="curstomNum" label-class-name="aaa" :sortable="true"  ></el-table-column>
 
 
         </el-table>
@@ -146,6 +146,7 @@
             };
         },
         created() {
+
             this.getData();
         },
         mounted(){
@@ -539,6 +540,7 @@
                 // if (process.env.NODE_ENV === 'development') {
                 //     this.url = '/ms/table/list';
                 // };
+
                 this.$axios
                     .post(
                         "http://www.zjcoldcloud.com/zhanghaining/tms/public/index.php/carrierfees/linecoststatistics",
@@ -692,6 +694,18 @@
 
     };
 </script>
+<style>
+    .curstomNum:not(.aaa) .cell {
+        color: #649EFE !important;
+
+    }
+
+
+
+    .curstomNum:not(.aaa) .cell:hover {
+        cursor: pointer;
+    }
+</style>
 <style scoped>
 
 

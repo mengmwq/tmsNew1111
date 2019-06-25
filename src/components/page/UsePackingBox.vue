@@ -416,7 +416,7 @@
                             yAxis: {
                                 type: 'value',
                                 axisLabel: {
-                                    formatter: '{value} 件'
+                                    formatter: '{value} '
                                 },
                                 axisPointer: {
                                     snap: true
@@ -458,7 +458,7 @@
                             yAxis: {
                                 type: 'value',
                                 axisLabel: {
-                                    formatter: '{value} 件'
+                                    formatter: '{value}'
                                 },
                                 axisPointer: {
                                     snap: true

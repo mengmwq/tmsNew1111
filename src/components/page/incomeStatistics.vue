@@ -190,8 +190,8 @@
                     <span>{{scope.row.Pay  | rounding}}</span>
                 </template>
             </el-table-column>
-              <el-table-column prop="interest" label="运输毛利率" align="center" :show-overflow-tooltip="true"></el-table-column>
-              <el-table-column prop="GrossTax" label="税后运输毛利率" align="center" :show-overflow-tooltip="true"></el-table-column>
+              <el-table-column prop="interest" label="运输毛利率" align="center" :show-overflow-tooltip="true" :formatter="addtimesta2"></el-table-column>
+              <el-table-column prop="GrossTax" label="税后运输毛利率" align="center" :show-overflow-tooltip="true" :formatter="addtimesta22"></el-table-column>
             <el-table-column prop="Piao" label="票数" align="center" :show-overflow-tooltip="true"
                              :sortable="true"></el-table-column>
             <el-table-column prop="Jian" label="件数" align="center" :show-overflow-tooltip="true"
@@ -261,6 +261,14 @@
             }
         },
         methods: {
+            //毛利率
+            addtimesta2(row, colume) {
+                return row.interest == null ? '暂无' : row.interest;
+            },
+            addtimesta22(row, colume) {
+                return row.GrossTax == null ? '暂无' : row.GrossTax;
+            },
+
             //刷新
             refresh() {
                 this.loading = true;

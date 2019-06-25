@@ -7,6 +7,7 @@
                 </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
+        <div style="width: 100%;"ref="parentWidth"></div>
         <div class="container">
             <el-row :gutter="24">
                 <el-col :span="24">
@@ -135,29 +136,29 @@
                                                 <el-form-item label="销售员">
                                                     <el-input></el-input>
                                                 </el-form-item>
-                                             <!--   <el-form-item label="结算类型">
-                                                    <el-select
-                                                            v-model="select_cate"
-                                                            placeholder="请选择"
-                                                            class="handle-select mr10"
-                                                    >
-                                                        <el-option
-                                                                key="0"
-                                                                label="支付宝"
-                                                                value="支付宝"
-                                                        ></el-option>
-                                                        <el-option
-                                                                key="1"
-                                                                label="微信"
-                                                                value="微信"
-                                                        ></el-option>
-                                                        <el-option
-                                                                key="2"
-                                                                label="现金"
-                                                                value="现金"
-                                                        ></el-option>
-                                                    </el-select>
-                                                </el-form-item>-->
+                                                <!--   <el-form-item label="结算类型">
+                                                       <el-select
+                                                               v-model="select_cate"
+                                                               placeholder="请选择"
+                                                               class="handle-select mr10"
+                                                       >
+                                                           <el-option
+                                                                   key="0"
+                                                                   label="支付宝"
+                                                                   value="支付宝"
+                                                           ></el-option>
+                                                           <el-option
+                                                                   key="1"
+                                                                   label="微信"
+                                                                   value="微信"
+                                                           ></el-option>
+                                                           <el-option
+                                                                   key="2"
+                                                                   label="现金"
+                                                                   value="现金"
+                                                           ></el-option>
+                                                       </el-select>
+                                                   </el-form-item>-->
                                                 <img
                                                         src="../../assets/img/查询.png"
                                                         alt="查询图标"
@@ -193,13 +194,13 @@
                                             width="60"
                                             align="center"
                                     ></el-table-column>
-                                  <!--  <el-table-column
-                                            type="index"
-                                            width="50"
-                                            label="序号"
-                                            align="center"
-                                            fixed
-                                    ></el-table-column>-->
+                                    <!--  <el-table-column
+                                              type="index"
+                                              width="50"
+                                              label="序号"
+                                              align="center"
+                                              fixed
+                                      ></el-table-column>-->
                                     <el-table-column
                                             prop="Condition"
                                             label="日期"
@@ -246,7 +247,7 @@
                                                 prop="city"
                                                 label="支出"
                                                 width="50"
-                                              >
+                                        >
                                         </el-table-column>
 
                                     </el-table-column>
@@ -674,10 +675,16 @@
 
                                     </el-col>
                                 </el-row>
-                                <div
-                                        id="eight"
-                                        style="width:100%;height:700px;"
-                                ></div>
+                                <el-row>
+                                    <el-col :span="24">
+                                        <div
+                                                id="fgf"
+                                                style="width: 100%;height: 500px"
+                                        ></div>
+                                    </el-col>
+
+                                </el-row>
+
                             </div>
                             <div v-show="tableShow">
                                 <el-form
@@ -1219,33 +1226,6 @@
                             </div>
 
                         </el-tab-pane>
-                        <!-- <el-tab-pane label="线路" name="first" v-if="!temp">
-                                        <el-form :inline="true" style="margin: 20px 0 0 0;">
-                                            <el-row>
-                                                <el-col>
-                                                    <el-form-item  >
-                                                        <div class="block">
-
-                                                            <el-date-picker
-                                                                    v-model="value1"
-                                                                    type="datetime"
-                                                                    placeholder="选择日期时间">
-                                                            </el-date-picker>
-                                                        </div>
-                                                    </el-form-item>
-
-                                                    <img src="../../assets/img/查询.png" alt="查询图标" style="margin-left: 10px;margin-top: 3px;">
-
-
-                                                </el-col>
-                                            </el-row>
-                                        </el-form>
-                                    <div>biaoge </div>
-
-
-
-                                    </el-tab-pane> -->
-
                     </el-tabs>
                 </el-col>
 
@@ -1486,9 +1466,10 @@
             });
 
             window.onresize = eight1.resize; // 基于准备好的dom，初始化echarts实例
-            var eight = echarts.init(document.getElementById("eight"));
+            document.getElementById("fgf").style.width = this.$refs.parentWidth.offsetWidth - 50 +'px';
+            var fgf = echarts.init(document.getElementById("fgf"));
 
-            eight.setOption({
+            fgf.setOption({
 
                 backgroundColor: "#ccc",
                 tooltip: {
@@ -1683,7 +1664,9 @@
                 ]
             });
 
-            window.onresize = eight.resize; // 基于准备好的dom，初始化echarts实例
+            window.onresize = fgf.resize; // 基于准备好的dom，初始化echarts实例
+
+
 
         },
         methods: {
@@ -1766,7 +1749,7 @@
     }
 
     .grid-num {
-        font-size: 28px;
+        font-size: 24px;
         font-weight: 800;
         margin: 5px 0px;
         color: #fff;

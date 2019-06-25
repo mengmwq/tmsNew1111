@@ -288,7 +288,7 @@
         width: 0;
     }
     .sidebar-el-menu:not(.el-menu--collapse){
-        width: 250px;
+        width: 210px;
         background-image: url(../../assets/img/menu-bg.png)  ;
        background-repeat: no-repeat;
         background-size: 100% 100%;
