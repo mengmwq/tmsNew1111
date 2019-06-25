@@ -1203,6 +1203,13 @@
                                     <el-pagination
                                             :page-sizes="[50, 100, 500, 2000]"
                                             :page-size="50"
+
+
+
+
+
+
+
                                             layout="total, sizes, prev, pager, next, jumper"
                                             :total="ccc"
                                     ></el-pagination>
