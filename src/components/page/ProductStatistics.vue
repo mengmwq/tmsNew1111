@@ -275,7 +275,7 @@ export default {
         //   true 第一次点   false  第二次点
         this.isQuyu = true;
         if (this.isZhandian) {
-          // 筛选已结算  请求接口
+
 
 
 
@@ -285,7 +285,7 @@ export default {
       } else {    // 全区域
         this.isZhandian = true;
         if (this.isQuyu) {
-          // 筛选未结算  请求接口
+
 
           console.log('我要全区域的数据')
         }
