@@ -53,13 +53,26 @@
                 </div>
               </el-form-item>
               <el-form-item label="区域选择">
-                <el-input style="width: 80px"></el-input>
+                <el-select v-model="form.tera" placeholder="请选择大区"  @change="getArea()">
+                  <el-option label="请选择" value=""></el-option>
+                  <el-option label="华北区" value="华北区"></el-option>
+                  <el-option label="西北区" value="西北区"></el-option>
+                </el-select>
+                <el-select v-model="form.pro" placeholder="请选择省份"  @change="getPro()">
+                  <el-option label="请选择" value=""></el-option>
+                  <el-option :label="item.name" :value="item.name" v-for="(item,index) in optionPro" :key="index"></el-option>
+                </el-select>
+                <el-select v-model="form.city" placeholder="请选择城市">
+                  <el-option label="请选择" value=""></el-option>
+                  <el-option :label="item.name" :value="item.name" v-for="(item,index) in optionCity" :key="index"></el-option>
+                </el-select>
               </el-form-item>
 
               <img
                 src="../../assets/img/查询.png"
                 alt="查询图标"
-                style="margin-left: 10px;margin-top: 3px;"
+                style="margin-left: 10px;margin-top: 3px;cursor:pointer;"
+                @click="getSearch()"
               >
 
               <span style="margin-left: 10px;  position: relative;top: -9px;">票数合计：500票</span>
@@ -116,7 +129,6 @@
         v-loading="loading"
         text-align="center"
         height="350"
-        v-show="table1"
       >
         <el-table-column
           type="selection"
@@ -282,6 +294,7 @@
         ></el-table-column>
 
       </el-table>
+<<<<<<< HEAD
       <el-table
               :data="tableData"
               style="width: 100%"
@@ -460,6 +473,8 @@
         ></el-table-column>
 
       </el-table>
+=======
+>>>>>>> 629812d23443df9e9ee22d4a2a63c390020d864b
       <div class="pagination">
         <el-pagination
           :page-sizes="[20,30,40,50,60,100, ]"
@@ -476,11 +491,17 @@
 
 <script>
 import echarts from "echarts";
+
 export default {
   data() {
     return {
-      table1:true,
-      table2:false,
+      form:{
+        tera: "",
+        city:"",
+        pro:""
+      },
+      optionPro:[],
+      optionCity:[],
       isZhandian: false, // 判断已结算  点击次数
       isQuyu: true, // 判断未结算  点击次数
       serviceObject: "", //服务对象
@@ -613,18 +634,46 @@ export default {
     this.get_zhandian(d, x);
   },
   methods: {
+
+    getArea(){
+      // console.log(this.form.tera);
+      this.form.city = '';
+      this.form.pro = '';
+      if(this.form.tera == '西北区'){
+        this.optionPro = [{name:"新疆"},{name:"孟健康"}];
+      }else{
+        this.optionPro = [{name:"李洋"},{name:"李洋1"}];
+      }
+    },
+
+    getPro(){
+      this.form.city = '';
+      if(this.form.pro == '新疆'){
+        this.optionCity = [{name:'乌鲁木齐'},{name:"哈撒给"},{name:"维吾尔族"}];
+      }else if(this.form.pro == '孟健康'){
+        this.optionCity = [{name:'老贺'},{name:"顺利"},{name:"平安"}];
+      }else if(this.form.pro == '李洋'){
+        this.optionCity = [{name:'李三'},{name:"李四"},{name:"李五"}];
+      }else if(this.form.pro == '李洋1'){
+        this.optionCity = [{name:'李三1'},{name:"李四1"},{name:"李五1"}];
+      }
+    },
+    getSearch(){
+      // 也是走的  getTableData   这个方法  传参数
+      console.log(this.form.tera,this.form.pro,this.form.city);
+      // this.getTableData();
+    },
+
     CLSD(val) {
       if (Number(val) === 1) {
         //全站点
 
         this.isZhandian = false;
         this.isQuyu = true;
-        this.table1 = true;
-        this.table2 = false;
         // 请求接口  走一个方法  然后  再走 this.get_zhandian(d,x);  一样得传这俩  渲染图标
 
         new Promise((resolve, reject) => {
-          let data = this.getData("站点");
+          let data = this.getTableData("站点");
           resolve(data);
           console.log(data,9)
         }).then(res => {
@@ -635,11 +684,9 @@ export default {
         // 全区域
         this.isZhandian = true;
         this.isQuyu = false;
-        this.table1 = false;   this.table2 = true;
-
 
         new Promise((resolve, reject) => {
-          let data = this.getData("区域");
+          let data = this.getTableData("区域");
           resolve(data);
         }).then(res => {
           this.get_zhandian(res.a, res.b);
@@ -733,7 +780,7 @@ export default {
       });
     },
     // 请求接口
-    getData(type) {
+    getTableData(type) {
       // 到时候  接口  就写到这里
       if (type == "站点") {
         let d = [
@@ -794,8 +841,8 @@ export default {
         let obj = { 'a': d, 'b': x };
         return obj;
       } else if (type == "区域") {
-        let d = ["华北区", "东北区", "华东区",'华中区',"华南区","西南区","西北区" ];
-        let x = [1000, 900, 800,700,600,500,400,300,200,100];
+        let d = ["华北区", "东北区", "老孟区"];
+        let x = [1000, 900, 800];
         let obj = { 'a': d, 'b': x };
         return obj;
       }
