@@ -166,7 +166,7 @@
                                         ref="multipleTable"
                                         border
                                         max-height="400"
-                                        @cell-click="jumpDetails"
+
                                 >
                                     <el-table-column
                                             type="selection"
@@ -198,9 +198,9 @@
                                             prop="ID"
                                             label="客户账号"
                                             align="center"
-                                            class-name="curstomNum"
+
                                             width="120"
-                                            label-class-name="aaa"
+
                                             fixed
                                     ></el-table-column>
                                     <el-table-column
@@ -1945,13 +1945,13 @@
                     this.clientExcel = this.excelActive;
                 }
             },
-            // 2019.5.5 李洋 点击客户账号 跳转
+           /* // 2019.5.5 李洋 点击客户账号 跳转
             jumpDetails(row, column, cell, event) {
                 // console.log(row,column.label,222);
                 if (column.label == "客户账号") {
                     this.$router.push("/customeDatails");
                 }
-            }
+            }*/
         }
     };
 </script>
