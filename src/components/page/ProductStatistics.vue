@@ -116,6 +116,7 @@
         v-loading="loading"
         text-align="center"
         height="350"
+        v-show="table1"
       >
         <el-table-column
           type="selection"
@@ -281,6 +282,183 @@
         ></el-table-column>
 
       </el-table>
+      <el-table
+              :data="tableData"
+              style="width: 100%"
+              ref="multipleTable"
+              border
+              element-loading-spinner="el-icon-loading2"
+              element-loading-background="rgba(0, 0, 0, 0.2)"
+              @selection-change="handleSelectionChange"
+              v-loading="loading"
+              text-align="center"
+              height="350"
+              v-show="table2"
+      >
+        <el-table-column
+                type="selection"
+                width="60"
+                align="center"
+        ></el-table-column>
+
+        <el-table-column
+                prop="UnitName"
+                label="区域"
+                align="center"
+                :show-overflow-tooltip="true"
+        ></el-table-column>
+        <el-table-column
+                prop="CountType"
+                label="票数"
+                align="center"
+        ></el-table-column>
+<!--        <el-table-column-->
+<!--                prop="abc"-->
+<!--                label="城市"-->
+<!--                align="center"-->
+<!--        ></el-table-column>-->
+<!--        <el-table-column-->
+<!--                prop="qq"-->
+<!--                label="票数"-->
+<!--                align="center"-->
+<!--        ></el-table-column>-->
+        <el-table-column
+                prop="qq"
+                label="4L"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="12L"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="28L"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="35L"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="45L"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="56L"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="70L"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="97L"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="130L"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="150L"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="CW"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="CW(冬)"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="xps保温箱"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="XS26"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="XS27"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="XS28"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="XS29"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="A箱"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="B箱"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="新GB(大)"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="GB(大)"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="GB(小)"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="托盘保温箱"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="冷藏专车"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="普货重量"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="标准箱数量"
+                align="center"
+        ></el-table-column>
+        <el-table-column
+                prop="qq"
+                label="费用"
+                align="center"
+        ></el-table-column>
+
+      </el-table>
       <div class="pagination">
         <el-pagination
           :page-sizes="[20,30,40,50,60,100, ]"
@@ -300,6 +478,8 @@ import echarts from "echarts";
 export default {
   data() {
     return {
+      table1:true,
+      table2:false,
       isZhandian: false, // 判断已结算  点击次数
       isQuyu: true, // 判断未结算  点击次数
       serviceObject: "", //服务对象
@@ -438,6 +618,8 @@ export default {
 
         this.isZhandian = false;
         this.isQuyu = true;
+        this.table1 = true;
+        this.table2 = false;
         // 请求接口  走一个方法  然后  再走 this.get_zhandian(d,x);  一样得传这俩  渲染图标
 
         new Promise((resolve, reject) => {
@@ -452,6 +634,8 @@ export default {
         // 全区域
         this.isZhandian = true;
         this.isQuyu = false;
+        this.table1 = false;   this.table2 = true;
+
 
         new Promise((resolve, reject) => {
           let data = this.getData("区域");

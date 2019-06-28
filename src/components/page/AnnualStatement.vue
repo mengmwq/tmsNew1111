@@ -21,7 +21,7 @@
                                 name="second"
                         >
                             <div v-show="tempShow2">
-                                <el-form
+                           <!--     <el-form
                                         :inline="true"
                                         style="margin: 20px 0 0 0;"
                                 >
@@ -47,7 +47,7 @@
 
                                         </el-col>
                                     </el-row>
-                                </el-form>
+                                </el-form>-->
                                 <el-row  :gutter="24">
                                     <el-col :span="6">
                                         <el-row
@@ -219,11 +219,12 @@
                                             prop="ID"
                                             label="客户账号"
                                             align="center"
-                                            class-name="curstomNum"
+
                                             width="120"
-                                            label-class-name="aaa"
+
                                             fixed
                                     ></el-table-column>
+
                                     <el-table-column
                                             prop="GetCompany"
                                             label="公司名称"
@@ -550,7 +551,7 @@
                                 name="first"
                         >
                             <div v-show="tempShow">
-                                <el-form
+                              <!--  <el-form
                                         :inline="true"
                                         style="margin: 20px 0 0 0;"
                                 >
@@ -577,7 +578,7 @@
 
                                         </el-col>
                                     </el-row>
-                                </el-form>
+                                </el-form>-->
                                 <el-row>
                                     <el-col>
                                         <el-row
@@ -707,6 +708,7 @@
                                             <el-form-item label="客户账号">
                                                 <el-input style="width: 80px"></el-input>
                                             </el-form-item>
+
                                             <el-form-item label="发货城市">
                                                 <el-input style="width: 80px"></el-input>
                                             </el-form-item>
@@ -753,7 +755,7 @@
                                         ref="multipleTable"
                                         border
                                         max-height="400"
-                                        @cell-click="jumpDetails"
+
                                 >
                                     <el-table-column
                                             type="selection"
@@ -767,6 +769,22 @@
                                               align="center"
                                               fixed
                                       ></el-table-column>-->
+                                    <el-table-column
+                                            prop="Condition"
+                                            label="客户账号"
+                                            align="center"
+                                            fixed
+
+                                    ></el-table-column>
+                                    <el-table-column
+                                            prop="jjj"
+                                            label="运输方式"
+                                            align="center"
+                                            class-name="curstomNum"
+                                            width="120"
+                                            label-class-name="aaa"
+
+                                    ></el-table-column>
                                     <el-table-column
                                             prop="Condition"
                                             label="发货城市"
@@ -1187,15 +1205,7 @@
                                         </el-table-column>
 
                                     </el-table-column>
-                                    <el-table-column
-                                            prop="jjj"
-                                            label="运输方式"
-                                            align="center"
-                                            class-name="curstomNum"
-                                            width="120"
-                                            label-class-name="aaa"
-                                            fixed="right"
-                                    ></el-table-column>
+
 
 
                                 </el-table>
@@ -1727,12 +1737,12 @@
                 }
             },
             // 2019.5.5 李洋 点击客户账号 跳转
-            jumpDetails(row, column, cell, event) {
-                // console.log(row,column.label,222);
-                if (column.label == "客户账号") {
-                    this.$router.push("/customeDatails");
-                }
-            }
+            // jumpDetails(row, column, cell, event) {
+            //     // console.log(row,column.label,222);
+            //     if (column.label == "客户账号") {
+            //         this.$router.push("/customeDatails");
+            //     }
+            // }
         }
     };
 </script>
