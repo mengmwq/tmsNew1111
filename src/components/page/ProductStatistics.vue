@@ -14,9 +14,10 @@
             <el-col>
               <el-form-item label="服务对象">
                 <el-select
-                        v-model="serviceObject"
+                        v-model="selectData"
                         placeholder="请选择"
                         class="handle-select mr10"
+                        @change="selectTrigger(selectData)"
 
                 >
                   <el-option key="0" label="站点" value="站点"></el-option>
@@ -145,6 +146,7 @@ export default {
       limit: 20, //每页多少条
       ccc: 0, //总页数
       loading:false,
+      selectData:'',
       tableData: [
         {
           UnitName: "ceshizhanghao1",
@@ -263,6 +265,19 @@ export default {
   });
   },
   methods: {
+    //区域选择触发事件
+    selectTrigger(val) {
+      if(val=="分控"){
+        alert('fenk')
+//请求分控页面
+      }else if(val=='员工'){
+        alert('yuangong')
+      //请求员工页面
+      }else{
+        alert("zhandian")
+      }
+
+    },
     handleCurrentChange(val) {
       this.loading = true;
       this.cur_page = val;
