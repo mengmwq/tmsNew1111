@@ -87,11 +87,13 @@
                             style="width: 100%"
                             ref="multipleTable"
                             border
+
+
                             v-loading="loading"
                     >
                         <el-table-column
                                 type="selection"
-                                width="60"
+
                                 align="center"
                         ></el-table-column>
 
@@ -101,7 +103,7 @@
                                 prop="BillNumber"
                                 label="运单号码"
                                 align="center"
-                                width="120"
+
                                 fixed
                         ></el-table-column>
                         <el-table-column
@@ -134,7 +136,7 @@
                         ></el-table-column>
                         <el-table-column
                                 prop="PayWay"
-                                width="50"
+
                                 label="结算方式"
                                 align="center"
 

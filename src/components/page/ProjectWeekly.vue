@@ -226,6 +226,7 @@
                                                     width="120"
                                                     :render-header="renderHeader2"
                                                     v-if="isfive"
+                                                    key="1"
                                             >
                                             </el-table-column>
 
@@ -1866,14 +1867,14 @@
                     this.bbbb1 = 'el-icon-remove';
                     this.isMondy = true;
                     this.isfive = false;
-                    this.bbbb  = 'el-icon-circle-plus';
+                    this.bbbb  = 'el-icon-remove';
 
                 //
                 // }
             },
             collpaseTodey1(){
                 this.bbbb1 = 'el-icon-circle-plus';
-                this.bbbb = 'el-icon-remove';
+                this.bbbb = 'el-icon-circle-plus';
                     this.isMondy = false;
                 this.isfive = true;
                 // console.log(this.bbbb)
@@ -1884,7 +1885,6 @@
                     // 点击  减号
                     this.aaaa = 'el-icon-circle-plus';
                     this.isSum = false;
-                    // this.isFirst = false;
                 }else{
                     // 点击  加号
                     this.aaaa = 'el-icon-remove';

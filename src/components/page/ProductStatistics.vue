@@ -1,278 +1,294 @@
 <template>
-  <div style="height:100%;">
-    <div id="container" style="height:100%;"></div>
+  <div class="table">
+    <div class="crumbs">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>
+          <i class="el-icon-tickets"></i> 产品货量统计列表
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="container">
+      <div class="handle-box">
+        <el-form :inline="true" style="margin: 20px 0 0 0;border-bottom:1px solid #ccc">
+          <el-row>
+            <el-col>
+              <el-form-item label="服务对象">
+                <el-select
+                        v-model="serviceObject"
+                        placeholder="请选择"
+                        class="handle-select mr10"
 
+                >
+                  <el-option key="0" label="站点" value="站点"></el-option>
+                  <el-option key="1" label="分控" value="分控"></el-option>
+                  <el-option key="2" label="员工" value="员工"></el-option>
+
+                </el-select>
+              </el-form-item>
+              <el-form-item  label="委托时间">
+                <div class="block">
+                  <el-date-picker
+                          v-model="time"
+                          type="daterange"
+                          range-separator="至"
+                          start-placeholder="开始日期"
+                          end-placeholder="结束日期">
+                  </el-date-picker>
+                </div>
+              </el-form-item>
+              <el-form-item label="区域选择">
+                <el-input style="width: 80px"></el-input>
+              </el-form-item>
+
+              <img src="../../assets/img/查询.png" alt="查询图标" style="margin-left: 10px;margin-top: 3px;">
+
+              <span style="margin-left: 10px;  position: relative;top: -9px;">票数合计：500票</span>
+              <div style="float: right">
+
+                <img src="../../assets/img/导出.png" alt="" style="margin: 0 20px">
+                <img src="../../assets/img/刷新.png" alt="" >
+
+              </div>
+
+            </el-col>
+          </el-row>
+        </el-form>
+        <div style="margin:15px 0">
+          <span style="font-size: 18px;color:#333;  ;padding-left:5px;font-weight: 800;border-left: 3px solid green;font-family: cursive;">
+            全国货量排名-分控操作</span>
+          <div style="float: right">
+
+            <el-button type="primary">全站点</el-button>
+            <el-button type="success">全区域</el-button>
+<!--            <el-button type="info">信息按钮</el-button>-->
+<!--            <el-button type="warning">警告按钮</el-button>-->
+<!--            <el-button type="danger">危险按钮</el-button>-->
+
+          </div>
+
+        </div>
+        <div id="tubiao" style="width:100%;height:200px;margin-bottom: 20px;"></div>
+      </div>
+      <el-table
+              :data="tableData"
+              style="width: 100%"
+              ref="multipleTable"
+              border
+              element-loading-spinner="el-icon-loading2"
+              element-loading-background="rgba(0, 0, 0, 0.2)"
+              @selection-change="handleSelectionChange"
+              v-loading="loading"
+              text-align="center"
+              height="350"
+      >
+        <el-table-column type="selection" width="60" align="center"></el-table-column>
+
+        <el-table-column prop="UnitName" label="区域" align="center"
+                         :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column prop="CountType" label="站点" align="center" ></el-table-column>
+        <el-table-column prop="abc" label="城市" align="center"></el-table-column>
+        <el-table-column prop="qq" label="票数" align="center"></el-table-column>
+        <el-table-column prop="qq" label="4L" align="center"></el-table-column>
+        <el-table-column prop="qq" label="12L" align="center"></el-table-column>
+        <el-table-column prop="qq" label="28L" align="center"></el-table-column>
+        <el-table-column prop="qq" label="35L" align="center"></el-table-column>
+        <el-table-column prop="qq" label="45L" align="center"></el-table-column>
+        <el-table-column prop="qq" label="56L" align="center"></el-table-column>
+        <el-table-column prop="qq" label="70L" align="center"></el-table-column>
+        <el-table-column prop="qq" label="97L" align="center"></el-table-column>
+        <el-table-column prop="qq" label="130L" align="center"></el-table-column>
+        <el-table-column prop="qq" label="150L" align="center"></el-table-column>
+        <el-table-column prop="qq" label="CW" align="center"></el-table-column>
+        <el-table-column prop="qq" label="CW(冬)" align="center"></el-table-column>
+        <el-table-column prop="qq" label="xps保温箱" align="center"></el-table-column>
+        <el-table-column prop="qq" label="XS26" align="center"></el-table-column>
+        <el-table-column prop="qq" label="XS27" align="center"></el-table-column>
+        <el-table-column prop="qq" label="XS28" align="center"></el-table-column>
+        <el-table-column prop="qq" label="XS29" align="center"></el-table-column>
+        <el-table-column prop="qq" label="A箱" align="center"></el-table-column>
+        <el-table-column prop="qq" label="B箱" align="center"></el-table-column>
+        <el-table-column prop="qq" label="新GB(大)" align="center"></el-table-column>
+        <el-table-column prop="qq" label="GB(大)" align="center"></el-table-column>
+        <el-table-column prop="qq" label="GB(小)" align="center"></el-table-column>
+        <el-table-column prop="qq" label="托盘保温箱" align="center"></el-table-column>
+        <el-table-column prop="qq" label="冷藏专车" align="center"></el-table-column>
+        <el-table-column prop="qq" label="普货重量" align="center"></el-table-column>
+        <el-table-column prop="qq" label="标准箱数量" align="center"></el-table-column>
+        <el-table-column prop="qq" label="费用" align="center"></el-table-column>
+
+
+      </el-table>
+      <div class="pagination">
+        <el-pagination
+                :page-sizes="[20,30,40,50,60,100, ]"
+                :page-size="20"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="ccc"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+
+        ></el-pagination>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+  import echarts from 'echarts';
 export default {
-  name: "ProductStatistics",
-  mounted() {
-    this.showMap();
-  },
-  methods: {
-    showMap() {
-      var o = void 0,
-              u = void 0,
-              f = {},
-              d = {
-                color: "#000",
-                borderWidth: "0",
-                padding: "0",
-                  borderRadius: "50%",
-                zIndex: "2",
-                backgroundColor: "#508DF2",
-                textAlign: "center",
-                fontFamily: '"Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei", "微软雅黑", "Segoe UI", Tahoma, "宋体\\5b8b\\4f53", SimSun, sans-serif'
-              },
-              m = function(e) {
-                clearTimeout(u),
-                        u = setTimeout(function() {
-                          /*List.default.trigger("update", {
-                              channel: e
-                          })*/
-                        }, "zoom" === e || "drag" === e ? 100 / 3 : 100)
-              };
-      var g_conf = {
-        city: 'bj',
-        cityId: '100000',
-        cityName: '北京',
-        mapWrapper: 'container'
-      };
-
-      var area = ["海淀", "朝阳区", "昌平", "门头沟", "石景山", "东城", "西城", "大兴", "房山", "通州", "怀柔", "延庆", "顺义", "丰台", "密云"]
-
-      var MokaData = [];
-
-      /**
-       * 工具函数集合
-       * @type {Object}
-       */
-      var Utils = {
-        init: function() {
-          this.addNewMethods();
+  data(){
+    return{
+      serviceObject:'',//服务对象
+      time:'',//时间
+      tableData: [],//table数据
+      cur_page: 1,//当前页
+      limit: 20, //每页多少条
+      ccc: 0, //总页数
+      loading:false,
+      tableData: [
+        {
+          UnitName: "ceshizhanghao1",
+          CountType: "测试公司1",
+          abc: "beij",
+          qq: "100000"
         },
-        rnd: function(n, m) {
-          var random = Math.floor(Math.random() * (m - n + 1) + n);
-          return random;
+        {
+          UnitName: "ceshizhanghao2",
+          CountType: "测试公司2",
+          abc: "山西",
+          qq: "100000"
         },
-        addNewMethods: function() {
-          String.trim || (String.prototype.trim = function() {
-            for (var e = this.replace(/^\s\s*/, ""), t = /\s/, a = e.length; t.test(e.charAt(--a));)
-              ;
-            return e.slice(0, a + 1)
-          });
-          String.replaceTpl || (String.prototype.replaceTpl = function(e) {
-            return this.replace(/#\{([^}]*)\}/gm, function(t, a) {
-              return e[a.trim()]
-            })
-          });
-          String.htmlEncode || (String.prototype.htmlEncode = function() {
-            return String(this).replace(/\x26/g, "&amp;").replace(/\x3c/g, "&lt;").replace(/\x3E/g, "&gt;").replace(/\x22/g, "&quot;").replace(/\x27/g, "&#39;").replace(/\xA9/g, "&copy;")
-          });
+        {
+          UnitName: "ceshizhanghao2",
+          CountType: "测试公司2",
+          abc: "河北",
+          qq: "100000"
         },
-        replaceTpl: function(e, t, a) {
-          var n = String(e),
-                  i = a || /#\{([^}]*)\}/gm,
-                  l = String.trim || function(e) {
-                    return e.replace(/^\s+|\s+$/g, "")
-                  };
-          return n.replace(i, function(e, a) {
-            return t[l(a)]
-          })
+        {
+          UnitName: "ceshizhanghao2",
+          CountType: "测试公司2",
+          abc: "湖南",
+          qq: "100000"
+        },
+        {
+          UnitName: "ceshizhanghao2",
+          CountType: "测试公司2",
+          abc: "湖南",
+          qq: "100000"
+        },
+        {
+          UnitName: "ceshizhanghao2",
+          CountType: "测试公司2",
+          abc: "湖南",
+          qq: "100000"
+        },
+        {
+          UnitName: "ceshizhanghao2",
+          CountType: "测试公司2",
+          abc: "湖南",
+          qq: "100000"
+        },
+        {
+          UnitName: "ceshizhanghao2",
+          CountType: "测试公司2",
+          abc: "湖南",
+          qq: "100000"
         }
-      };
 
-      Utils.init();
+      ],
+    }
+  },
+  name: "ProductStatistics",
+  created(){
+    //this.getData();
+  },
 
-      /**
-       * 地图组件
-       * @type {Object}
-       */
-      var Maps = {
-        tpl: '<div class="bubble bubble-1" style="background: url(../../assets/img/district-circle.png) no-repeat 0 0;box-shadow: 0 2px 2px rgba(0, 0, 0, .2);border-radius: 50%;overflow: hidden;width: 92px;height: 92px;line-height: 1.6" data-xftrack="10144" data-longitude="#{longitude}" data-latitude="#{latitude}" data-id="#{id}"><p class="name" title="#{name}" style="font-size: 14px;font-weight: 800;margin-top: 24px">#{name}</p><p><span class="count">#{count}</span>个楼盘</p></div>',
-        init: function() {
-          (o = new BMap.Map(g_conf.mapWrapper, {
-            enableMapClick: !1,
-            minZoom: 12
-          })).enableScrollWheelZoom(),
-                  o.disableInertialDragging();
-          o.addEventListener("tilesloaded", function e() {
-            var t = $(".progress-bar");
-            t.addClass("progress-bar-done"),
-                    setTimeout(function() {
-                      t.addClass("progress-bar-over"),
-                              setTimeout(function() {
-                                t.hide(200)
-                              }, 150)
-                      $('#loading').hide();
-                    }, 20),
-                    o.addControl(new BMap.ScaleControl({
-                      anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
-                      offset: new BMap.Size(20, 20)
-                    })),
-                    setTimeout(function() {
-                      o.removeEventListener("tilesloaded", e)
-                    }, 0);
-            Maps.getBundury();
-          }),
-                  o.centerAndZoom(g_conf.cityName, 11),
-                  setTimeout(function() {
-                    o.addEventListener("zoomend", function() {
-                      console.log("zoom")
-                      m("zoom")
-                    });
-                    o.addEventListener("dragend", function() {
-                      console.log("drag")
-                      m("drag")
-                    });
-                  }, 100)
+  mounted() {
+    var tubiao = echarts.init(document.getElementById('tubiao'));
+    var data = [1000, 900, 800, 700, 600, 500, 400, 300,200, 100, 90, 80, 70, 60, 50, 40,30, 20, 10, 60, 80, 100, 120, 100,10, 20, 40, 60, 80, 100, 120, 100];
+    var dataShadow = [];
+    var yMax = 120;
+    for (var i = 0; i < data.length; i++) {
+      dataShadow.push(yMax);
+    }
+    tubiao.setOption ({
+
+
+      grid: {
+        top: '10%',
+        left: '0',
+        right: '0',
+        bottom: '5%',
+        containLabel: true
+      },
+      xAxis: {
+        data: ['北京', '上海', '重庆', '山西', '南京', '云南', '河北', '上海','湖南','湖北','东北','山东','江苏','安徽','上海','浙江','江西','福建','台湾'],
+        axisTick: {
+          show: false
         },
-        boundary: {
-          add: function(e, t) {
-            if (!f[e]) {
-              var a = new BMap.Polygon(t, {
-                strokeWeight: 2,
-                strokeColor: "#4285f4",
-                strokeOpacity: 1,
-                fillOpacity: .1,
-                fillColor: "#4285f4",
-                enableMassClear: !1
-              });
-              f[e] = a, f[e].hide(),
-                      o.addOverlay(a)
-            }
-          },
-          show: function(e) {
-            f[e] && f[e].show()
-          },
-          hide: function(e) {
-            f[e] && f[e].hide()
-          },
-        },
-        bubble: {
-          clear: function() {
-            o.clearOverlays()
-          },
-          render: function(data, tpl, a, n) {
-            $.each(data, function(e, i) {
-              var r = void 0,
-                      s = [];
-
-              r = new BMap.Label(Utils.replaceTpl(tpl, i), {
-                position: new BMap.Point(i.longitude, i.latitude),
-                offset: new BMap.Size(-46, -46)
-              });
-              if (void 0 !== i.border && i.border.length > 0) {
-                var e = i.id;
-                Maps.boundary.add(e, i.border);
-              }
-              r.addEventListener("mouseover", function() {
-                this.setStyle({
-                  zIndex: "4"
-                })
-                Maps.boundary.show($(this.V).children(".bubble-1").data("id"))
-              }),
-                      r.addEventListener("mouseout", function() {
-                        this.setStyle({
-                          zIndex: "2"
-                        })
-                        Maps.boundary.hide($(this.V).children(".bubble-1").data("id"))
-                      }),
-                      r.setStyle(d),
-                      o.addOverlay(r),
-                      function(e) {
-                        setTimeout(function() {
-                          e.setStyle({
-                            zIndex: "2"
-                          })
-                        }, 1)
-                      }(r);
-            })
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: '#ccc'
           }
         },
-
-        getBundury: function() {
-          var bdary = new BMap.Boundary();
-
-
-          $.each(area, function(index, item) {
-            (function(item) {
-              bdary.get(item, function(rs) { //获取行政区域
-
-                var a = {};
-                a.id = item;
-                a.name = item;
-                a.border = rs.boundaries[0];
-                a.count = 100;
-                MokaData.push(a);
-                if (MokaData.length == area.length) {
-                  Maps.getBunduryCenter();
-                }
-              });
-            })(item)
-          })
+        axisLabel: {
+          interval: 0,
+          rotate: 45
         },
+      },
+      yAxis: {
+        show: false
+      },
+      series: [{
+        name: '销量',
+        type: 'bar',
+        barWidth: '10%',
+        data: [1000, 900, 800, 700, 600, 500, 400, 300,200, 100, 90, 80, 70, 60, 50, 40,44, 43, 42, 60, 80, 100, 120, 100,10, 20, 40, 60, 80, 100, 120, 100],
+        itemStyle: {
+          normal: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+              offset: 0,
+              color: '#00fcae'
+            }, {
+              offset: 1,
+              color: '#006388'
+            }]),
+            opacity: 1,
+          }
+        }
+      }]
 
-        getBunduryCenter: function(param) {
-          var myGeo = new BMap.Geocoder();
-          // 将地址解析结果显示在地图上,并调整地图视野
-          var count = 0;
-          $.each(MokaData, function(index, item) {
-            (function(i, t) {
-              myGeo.getPoint("北京市" + t.name, function(point) { //获取行政区域
-                if (point) {
-                  MokaData[i].longitude = point.lng;
-                  MokaData[i].latitude = point.lat;
-                }
-                count++;
-                if (count == MokaData.length) {
-                  console.info(MokaData);
-                  Maps.bubble.clear();
-                  Maps.bubble.render(MokaData, Maps.tpl, 1)
-                }
-              }, "北京市");
-            })(index, item)
-          })
-        },
-      }
 
-      Maps.init();
-    }
+  });
+  },
+  methods: {
+    handleCurrentChange(val) {
+      this.loading = true;
+      this.cur_page = val;
+      this.getData();
+    },
+    handleSelectionChange(val) {
+      // 选中的  当前条 数据
+      this.multipleSelection = val;
+
+    },
+    handleSizeChange(val) {
+      this.loading = true;
+
+      // console.log(val); // 每页显示  条数
+      this.limit = val;
+      this.getData();
+    },
+    //渲染表格
+
+
   }
 };
 </script>
 
 <style scoped>
-  .bubble {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    transition: background-color .15s ease-in-out;
-    cursor: pointer
-  }
 
-  .bubble p {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis
-  }
 
-  .bubble-1 {
-    background: url(../../assets/img/district-circle.png) no-repeat 0 0;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
-    border-radius: 50%;
-    overflow: hidden;
-    width: 92px;
-    height: 92px;
-    line-height: 1.6
-  }
 
-  .bubble-1 .name {
-    font-size: 14px;
-    font-weight: 800;
-    margin-top: 24px
-  }
 </style>

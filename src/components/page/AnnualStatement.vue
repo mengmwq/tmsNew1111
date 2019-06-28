@@ -1209,7 +1209,6 @@
 
 
 
-
                                             layout="total, sizes, prev, pager, next, jumper"
                                             :total="ccc"
                                     ></el-pagination>
@@ -1790,4 +1789,11 @@
     .grid-con-3 .grid-num {
         color: #fff;
     }
+
+
+
+
+
+
+
 </style>

@@ -559,9 +559,10 @@
 
     .grid-cont-right {
         flex: 2;
-        margin: 0px 30px 0 20px;
+      /*  //margin: 0px 30px 0 20px;*/
         font-size: 14px;
         color: #999;
+        text-align: center;
     }
 
     .grid-num {
@@ -605,13 +606,13 @@
     }
     td,
     th {
-        border: solid #ccc;
+        border: solid #000;
         border-width: 0px 1px 1px 0px;
         padding: 10px 0px;
         text-align: center;
     }
     table {
-        border: solid #ccc;
+        border: solid #000;
         border-width: 1px 0px 0px 1px;
         border-collapse: collapse;
         width: 100%;
