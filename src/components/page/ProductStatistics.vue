@@ -59,8 +59,8 @@
             全国货量排名-分控操作</span>
           <div style="float: right">
 
-            <el-button type="primary">全站点</el-button>
-            <el-button type="success">全区域</el-button>
+            <el-button   :class="isZhandian ? 'blackDefault' : 'blueActive'"  @click="CLSD(1)">全站点</el-button>
+            <el-button   :class="isQuyu ? 'blackDefault' : 'blueActive'"  @click="CLSD(0)">全区域</el-button>
 <!--            <el-button type="info">信息按钮</el-button>-->
 <!--            <el-button type="warning">警告按钮</el-button>-->
 <!--            <el-button type="danger">危险按钮</el-button>-->
@@ -139,6 +139,9 @@
 export default {
   data(){
     return{
+
+      isZhandian: true, // 判断已结算  点击次数
+      isQuyu : true,// 判断未结算  点击次数
       serviceObject:'',//服务对象
       time:'',//时间
       tableData: [],//table数据
@@ -202,6 +205,7 @@ export default {
   },
   name: "ProductStatistics",
   created(){
+
     //this.getData();
   },
 
@@ -265,6 +269,30 @@ export default {
   });
   },
   methods: {
+    CLSD(val) {
+
+      if (Number(val) === 1) {  //全站点
+        //   true 第一次点   false  第二次点
+        this.isQuyu = true;
+        if (this.isZhandian) {
+          // 筛选已结算  请求接口
+
+
+
+          console.log('我要全站点的数据')
+        }
+        this.isZhandian = !this.isZhandian;
+      } else {    // 全区域
+        this.isZhandian = true;
+        if (this.isQuyu) {
+          // 筛选未结算  请求接口
+
+          console.log('我要全区域的数据')
+        }
+        this.isQuyu = !this.isQuyu;
+      }
+
+    },
     //区域选择触发事件
     selectTrigger(val) {
       if(val=="分控"){
@@ -305,5 +333,15 @@ export default {
 <style scoped>
 
 
+  .blackDefault {
+    background: #eee;
+    color: #000;
+
+  }
+
+  .blueActive {
+    background: #00d1b2 !important;
+    color: #fff;
+  }
 
 </style>
