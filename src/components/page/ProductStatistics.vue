@@ -407,6 +407,7 @@
                 label="XS29"
                 align="center"
         ></el-table-column>
+
         <el-table-column
                 prop="qq"
                 label="A箱"
