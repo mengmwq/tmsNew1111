@@ -441,7 +441,7 @@ export default {
         // 请求接口  走一个方法  然后  再走 this.get_zhandian(d,x);  一样得传这俩  渲染图标
 
         new Promise((resolve, reject) => {
-          let data = this.getTableData("站点");
+          let data = this.getData("站点");
           resolve(data);
           console.log(data,9)
         }).then(res => {
@@ -454,7 +454,7 @@ export default {
         this.isQuyu = false;
 
         new Promise((resolve, reject) => {
-          let data = this.getTableData("区域");
+          let data = this.getData("区域");
           resolve(data);
         }).then(res => {
           this.get_zhandian(res.a, res.b);
@@ -548,7 +548,7 @@ export default {
       });
     },
     // 请求接口
-    getTableData(type) {
+    getData(type) {
       // 到时候  接口  就写到这里
       if (type == "站点") {
         let d = [
@@ -609,8 +609,8 @@ export default {
         let obj = { 'a': d, 'b': x };
         return obj;
       } else if (type == "区域") {
-        let d = ["华北区", "东北区", "老孟区"];
-        let x = [1000, 900, 800];
+        let d = ["华北区", "东北区", "华东区",'华中区',"华南区","西南区","西北区" ];
+        let x = [1000, 900, 800,700,600,500,400,300,200,100];
         let obj = { 'a': d, 'b': x };
         return obj;
       }
