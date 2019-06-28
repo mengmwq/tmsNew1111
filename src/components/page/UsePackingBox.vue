@@ -10,7 +10,7 @@
         <div class="container">
             <el-row :gutter="24">
                 <el-col>
-                    <p style="font-size: 14px;color:#333;  ;padding-left:5px;font-weight: 800;border-left: 3px solid green">
+                    <p style="font-size: 14px;color:#333;  ;padding-left:5px;font-weight: 800;border-left: 3px solid green;font-family: cursive;">
                         包装箱使用</p>
                     <div style="float: right">
                         <img src="../../assets/img/导出.png" alt="" style="margin: 0 20px" @click="dataExport()">
@@ -84,13 +84,14 @@
                             style="width: 100%"
                             ref="multipleTable"
                             border
+                            element-loading-text="拼命加载中……"
+                            element-loading-background="rgba(0, 0, 0, 0.7)"
 
-                            element-loading-background="rgba(0, 0, 0, 0.2)"
                             @selection-change="handleSelectionChange"
                             v-loading="loading"
 
 
-                            max-height="450"
+                            height="500"
                     >
                         <el-table-column type="selection" width="60" align="center"></el-table-column>
 
@@ -123,7 +124,6 @@
 
             </el-row>
         </div>
-
         <div class="pagination">
             <el-pagination
                     :page-sizes="[10,20,30,40,50,60,100, ]"
@@ -136,7 +136,6 @@
         </div>
     </div>
 </template>
-
 <script>
     import echarts from 'echarts';
     export default {
@@ -163,11 +162,10 @@
                 PackageJian:'',
                 PackageXX:'',
                 csvS : [],
-
-
             };
 
         },
+        //chuangjan
         created() {
             this.getData();
         },
@@ -290,6 +288,7 @@
                 this.WDQJ = '';//温区
                 this.time = '';
                 this.PackageName = '';
+                this. cur_page= 1;//当前页
                 this.getData();
                 this.loading = false;
             },
@@ -403,18 +402,29 @@
                             xAxis: {
                                 type: 'category',
                                 data: this.PackageXX,
+                                boundaryGap: false, //坐标轴两边留白策略，类目轴和非类目轴的设置和表现不一样
                                 axisLabel: {
                                     interval:0,
                                     rotate:40
                                 },
+                                textStyle: {
+                                    //更改坐标轴文字颜色
+                                    fontSize : 10      //更改坐标轴文字大小
+                                }
                             },
                             tooltip: {
                                 show: true,
-                                formatter: "{b} </br>{c}件"
-
+                                formatter: "{b} </br>{c}件",
+                                trigger: 'axis'
                             },
                             yAxis: {
                                 type: 'value',
+                                splitLine: {
+                                    lineStyle: {
+                                        type: 'dashed',
+                                        color: '#DDD'
+                                    }
+                                },
                                 axisLabel: {
                                     formatter: '{value} '
                                 },
@@ -423,6 +433,42 @@
                                 }
                             },
                             series: [{
+                                lineStyle: {
+                                    normal: {
+                                        width: 2,
+                                        color: {
+                                            type: 'linear',
+
+                                            colorStops: [{
+                                                offset: 0,
+                                                color: '#FFCAD4' // 0% 处的颜色
+                                            }, {
+                                                offset: 0.4,
+                                                color: '#F58080' // 100% 处的颜色
+                                            }, {
+                                                offset: 1,
+                                                color: '#F58080' // 100% 处的颜色
+                                            }],
+                                            globalCoord: false // 缺省为 false
+                                        },
+                                        shadowColor: 'rgba(245,128,128, 0.5)',
+                                        shadowBlur: 10,
+                                        shadowOffsetY: 7
+                                    }
+                                },
+                                areaStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0, 0, 0, 9, [{
+                                            offset: 0,
+                                            color: 'rgba(0, 136, 212, 0.3)'
+                                        }, {
+                                            offset: 0.8,
+                                            color: 'rgba(0, 136, 212, 0)'
+                                        }], false),
+                                        shadowColor: 'rgba(0, 0, 0, 0.1)',
+                                        shadowBlur: 10
+                                    }
+                                },
                                 data: this.PackageJian,
                                 type: 'line',
                                 smooth: true
@@ -442,21 +488,37 @@
                                 },
 
                             },
+
                             xAxis: {
                                 type: 'category',
                                 data: this.WDQJ1,
+                                boundaryGap: false, //坐标轴两边留白策略，类目轴和非类目轴的设置和表现不一样
                                 axisLabel: {
                                     interval:0,
-                                    rotate:40
+                                    rotate:40,
+                                    lineStyle: {
+                                        color: "#999"
+                                    },
+                                    textStyle: {
+                                       //更改坐标轴文字颜色
+                                        fontSize : 10      //更改坐标轴文字大小
+                                    }
                                 },
                             },
                             tooltip: {
                                 show: true,
-                                formatter: "{b} </br>{c}件"
+                                formatter: "{b} </br>{c}件",
+                                trigger: 'axis'
 
                             },
                             yAxis: {
                                 type: 'value',
+                                splitLine: {
+                                    lineStyle: {
+                                        type: 'dashed',
+                                        color: '#DDD'
+                                    }
+                                },
                                 axisLabel: {
                                     formatter: '{value}'
                                 },
@@ -465,6 +527,53 @@
                                 }
                             },
                             series: [{
+                                lineStyle: {
+                                    normal: {
+                                        width: 2,
+                                        color: {
+                                            type: 'linear',
+
+                                            colorStops: [{
+                                                offset: 0,
+                                                color: '#AAF487' // 0% 处的颜色
+                                            },
+                                                {
+                                                    offset: 0.4,
+                                                    color: '#47D8BE' // 100% 处的颜色
+                                                }, {
+                                                    offset: 1,
+                                                    color: '#47D8BE' // 100% 处的颜色
+                                                }
+                                            ],
+                                            globalCoord: false // 缺省为 false
+                                        },
+                                        shadowColor: 'rgba(71,216,190, 0.5)',
+                                        shadowBlur: 10,
+                                        shadowOffsetY: 7
+                                    },
+
+                                },
+                                areaStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0, 0, 0, 9, [{
+                                            offset: 0,
+                                            color: 'rgba(0, 136, 212, 0.3)'
+                                        }, {
+                                            offset: 0.8,
+                                            color: 'rgba(0, 136, 212, 0)'
+                                        }], false),
+                                        shadowColor: 'rgba(0, 0, 0, 0.1)',
+                                        shadowBlur: 10
+                                    }
+                                },
+                                // itemStyle: {
+                                //     normal: {
+                                //         color: 'rgb(0,136,212)',
+                                //         borderColor: 'rgba(0,136,212,0.2)',
+                                //         borderWidth: 12
+                                //
+                                //     }
+                                // },
                                 data: this.WDJian,
                                 type: 'line',
                                 smooth: true,
@@ -486,10 +595,20 @@
     }
 </script>
 <style>
-
+    .el-table thead {
+        color: #909399!important;
+        font-weight: 500;
+    }
+ /*   .el-table th, .el-table tr {
+        background-color: #ccc!important;
+    }*/
+ .el-table tbody tr:hover>td { background-color: #ccc!important; }
 </style>
 <style scoped>
     input.el-input__inner {
         width: 100px;
     }
+ /* table{
+      border:1px solid @hhfeh
+  }*/
 </style>

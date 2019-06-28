@@ -118,6 +118,8 @@
                             style="width: 100%"
                             ref="multipleTable"
                             border
+                            element-loading-text="拼命加载中……"
+                            element-loading-background="rgba(0, 0, 0, 0.5)"
                             height="600"
                             v-loading="loading"
                             show-summary

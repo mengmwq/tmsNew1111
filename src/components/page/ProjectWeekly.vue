@@ -1875,7 +1875,7 @@
             collpaseTodey1(){
                 this.bbbb1 = 'el-icon-circle-plus';
                 this.bbbb = 'el-icon-circle-plus';
-                this.isMondy = false;
+                    this.isMondy = false;
                 this.isfive = true;
                 // console.log(this.bbbb)
             },
@@ -1885,10 +1885,6 @@
                     // 点击  减号
                     this.aaaa = 'el-icon-circle-plus';
                     this.isSum = false;
-                    // this.isFirst = false;
-                    // this.bbbb1 = '';
-                    // this.bbbb = '';
-
                 }else{
                     // 点击  加号
                     this.aaaa = 'el-icon-remove';

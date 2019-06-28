@@ -87,13 +87,13 @@
             <el-table-column type="selection" width="60" align="center"></el-table-column>
             <el-table-column prop="CYCompany" label="承运商" align="center"></el-table-column>
 
-            <el-table-column prop="CYNumber" label="承运单号" align="center"></el-table-column>
+            <el-table-column prop="CYNumber" label="承运单号" align="center" :formatter ="cydanhao"></el-table-column>
             <el-table-column prop="BillNumber" label="运单号码" align="center" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="AccountNumber" label="客户账号" align="center"></el-table-column>
-            <el-table-column prop="CargoName" label="货物名称" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="CargoName" label="货物名称" align="center" :show-overflow-tooltip="true"  :formatter ="abc"  ></el-table-column>
 
 
-            <el-table-column prop="CYNO" label="班次" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="CYNO" label="班次" align="center" :show-overflow-tooltip="true" :formatter = "banci"></el-table-column>
             <el-table-column prop="WayOut" label="运输方式" align="center" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="Jian" label="件" align="center" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column  label="实际重量" align="center" :show-overflow-tooltip="true">
@@ -112,9 +112,9 @@
                 </template>
             </el-table-column>
             <el-table-column prop="CargoSize" label="货物尺寸" align="center" :show-overflow-tooltip="true"   ></el-table-column>
-            <el-table-column prop="Cypay" label="承运费用" align="center" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="Cypay" label="承运费用" align="center" :show-overflow-tooltip="true" :formatter ="chengyunFei"></el-table-column>
             <el-table-column prop="PayWay" label="结算方式" align="center" :show-overflow-tooltip="true"   ></el-table-column>
-            <el-table-column prop="WTNO" label="委托书编号" align="center" :show-overflow-tooltip="true"   ></el-table-column>
+            <el-table-column prop="WTNO" label="委托书编号" align="center" :show-overflow-tooltip="true"  :formatter ="weituoNumber"  ></el-table-column>
 
         </el-table>
         <div class="pagination">
@@ -159,9 +159,28 @@
             },
             weightGuo(value) {
                 return Number(value).toFixed(3)
-            }
+            },
+
         },
         methods:{
+            //承运费运
+
+            chengyunFei(row,colume){
+                return row.Cypay == null ? '暂无' : row.Cypay
+            },
+            weituoNumber(row,colume){
+                return row.WTNO  == null ? '暂无': row.WTNO
+            },
+            abc(row,colume){
+                return row.CargoName == null ? '暂无' : row.CargoName
+            },
+            banci(row,colume){
+                return row.CYNO == null ? '暂无' : row.CYNO
+            },
+            cydanhao(row,colume){
+                return row.CYNumber == null ? '暂无' : row.CYNumber
+            },
+
             //刷新
             refresh() {
                 this.loading = true;
@@ -313,55 +332,27 @@
 
     };
 </script>
+<style>
+    .el-table tbody tr:hover>td { background-color: #ccc!important; }
+</style>
 <style scoped>
 
-    .grid-content {
-        display: flex;
-        align-items: center;
-        height: 150px;
-    }
-    .grid-img {
-        flex: 1;
-    }
-    .grid-cont-right {
-        flex: 1;
-        margin:0px 80px 0 40px;
-        font-size: 14px;
-        color: #999;
-    }
-
-    .grid-num {
-        font-size: 28px;
-        font-weight: 800;
-        margin: 5px 0px;
-        color: #fff;
-    }
 
 
 
-    .grid-con-1 {
-        background-color: #23c6c8;
-        color: #fff;
-    }
+
 
     .grid-con-1 .grid-num {
         color: #fff;
     }
 
-    .grid-con-2  {
-        background-color:#1ab394;
-    }
-    .grid-con-3 {
-        background-color: #23c6c8;
-    }
+
 
     .grid-con-2 .grid-num {
         color: #fff;
     }
 
-    .grid-con-4  {
-        background: #f8ac59;
-    }
+
 
     .grid-con-3 .grid-num {
         color: #fff;
@@ -400,7 +391,5 @@
         border-collapse: collapse;
         width: 100%;
     }
-    .table_td {
-        background-color: #eff4f6;
-    }
+
 </style>

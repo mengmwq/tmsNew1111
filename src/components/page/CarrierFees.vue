@@ -151,6 +151,9 @@
                 style="width: 100%"
                 ref="multipleTable"
                 border
+                element-loading-text="拼命加载中……"
+                element-loading-background="rgba(0, 0, 0, 0.8)"
+
                 height="410"
                 v-loading="loading"
         >
@@ -406,7 +409,9 @@
         margin:0px 80px 0 10px;
         font-size: 14px;
         color: #999;
+        text-align: center;
     }
+
 
     .grid-num {
         font-size: 16px;

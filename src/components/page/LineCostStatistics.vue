@@ -212,7 +212,9 @@
                                     show: false
                                 }
                             },
+
                             data: [{
+
                                 value: this.setPiao,
                                 name: this.setPiao+'%',
                                 label: {
@@ -245,6 +247,7 @@
                     eight22.setOption({
 
                         series: [{
+
                             color:["#f8ac59","#00F5FF"],
                             type: 'pie',
                             radius: ['60%', '70%'],
