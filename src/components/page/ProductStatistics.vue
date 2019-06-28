@@ -443,11 +443,11 @@ export default {
         new Promise((resolve, reject) => {
           let data = this.getTableData("站点");
           resolve(data);
-          console.log(data,9)
+          // console.log(data,9)
         }).then(res => {
           this.get_zhandian(res.a, res.b);
         });
-        console.log("我要全站点的数据");
+        // console.log("我要全站点的数据");
       } else {
         // 全区域
         this.isZhandian = true;
@@ -459,7 +459,7 @@ export default {
         }).then(res => {
           this.get_zhandian(res.a, res.b);
         });
-        console.log("我要全区域的数据");
+        // console.log("我要全区域的数据");
       }
     },
     //区域选择触发事件
