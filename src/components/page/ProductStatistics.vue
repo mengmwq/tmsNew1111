@@ -11,7 +11,7 @@
       <div class="handle-box">
         <el-form
           :inline="true"
-          style="margin: 20px 0 0 0;border-bottom:1px solid #ccc"
+          style="margin: 20px 0 0 0;border-bottom:1px solid #ccc;"
         >
           <el-row>
             <el-col>
@@ -479,7 +479,7 @@ export default {
     },
     getSearch(){
       // 也是走的  getTableData   这个方法  传参数
-      console.log(this.form.tera,this.form.pro,this.form.city);
+      // console.log(this.form.tera,this.form.pro,this.form.city);
       // this.getTableData();
     },
 
