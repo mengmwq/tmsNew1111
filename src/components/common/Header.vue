@@ -2,7 +2,7 @@
     <div class="header">
         <!-- 折叠按钮 -->
 
-        <div class="logo"><img src="../../assets/img/中集冷云.png" alt=""></div>
+        <div class="logo"><img src="../../assets/img/中集冷云.png" alt="" style="width: 170px;"></div>
         <div class="collapse-btn" @click="collapseChage">
             <i class="el-icon-menu"></i>
         </div>

@@ -1,12 +1,12 @@
 <template>
     <div class="table">
-        <div class="crumbs">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item>
-                    <i class="el-icon-tickets"></i> 收支统计列表
-                </el-breadcrumb-item>
-            </el-breadcrumb>
-        </div>
+<!--        <div class="crumbs">-->
+<!--            <el-breadcrumb separator="/">-->
+<!--                <el-breadcrumb-item>-->
+<!--                    <i class="el-icon-tickets"></i> 收支统计列表-->
+<!--                </el-breadcrumb-item>-->
+<!--            </el-breadcrumb>-->
+<!--        </div>-->
         <div class="container" style="padding: 10px 30px">
             <div class="handle-box">
                 <el-form :inline="true" style="margin: 10px 0 0 0;">
@@ -66,12 +66,12 @@
                                     <div class="grid-content grid-con-1" @click="linkRevenue">
 
                                         <div class="grid-cont-right">
-                                            <h6 style="color: #fff">收入合计</h6>
+                                            <h4 style="color: #fff">收入合计</h4>
                                             <div class="grid-num">&yen; {{ToTalAll |rounding}}</div>
-                                            <h6 style="color:#000;">同期环比 &nbsp{{TotalHb}}</h6>
+                                            <h6 style="color:#fff;">同期环比 &nbsp{{TotalHb}}</h6>
                                         </div>
                                         <div class="grid-img">
-                                            <img src="../../assets/img/收入合计上的图标.png" alt="">
+                                            <img src="../../assets/img/qian.png" alt="">
                                         </div>
                                     </div>
                                 </el-card>
@@ -81,13 +81,13 @@
                                     <div class="grid-content grid-con-2" @click="linkSpending">
 
                                         <div class="grid-cont-right">
-                                            <h6 style="color: #fff">支出合计</h6>
+                                            <h4 style="color: #fff">支出合计</h4>
                                             <div class="grid-num">&yen; {{PayAll |rounding}}</div>
-                                            <h6 style="color:#000;">同期环比 &nbsp{{PayHb}}</h6>
+                                            <h6 style="color:#fff;">同期环比 &nbsp{{PayHb}}</h6>
 
                                         </div>
                                         <div class="grid-img">
-                                            <img src="../../assets/img/支出合计上的图标.png" alt="">
+                                            <img src="../../assets/img/hqian.png" alt="">
                                         </div>
 
                                     </div>
@@ -103,7 +103,7 @@
 
                                         </div>
                                         <div class="grid-img">
-                                            <img src="../../assets/img/毛利率上的图标.png" alt="">
+                                            <img src="../../assets/img/mao.png" alt="">
                                         </div>
                                     </div>
                                 </el-card>
@@ -118,7 +118,7 @@
 
                                         </div>
                                         <div class="grid-img">
-                                            <img src="../../assets/img/未录入运费票数合计.png" alt="">
+                                            <img src="../../assets/img/weilu.png" alt="">
                                         </div>
                                     </div>
                                 </el-card>
@@ -551,14 +551,23 @@
         display: flex;
         align-items: center;
         height: 150px;
+        border-radius: 10px;
+        border:none;
     }
 
     .grid-img {
         flex: 1;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+
+        top: -20px;
+        position: relative;
+        right: 0px;
+
     }
 
     .grid-cont-right {
-        flex: 2;
+        flex: 3;
       /*  //margin: 0px 30px 0 20px;*/
         font-size: 14px;
         color: #999;
@@ -566,29 +575,30 @@
     }
 
     .grid-num {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 800;
         margin: 10px 0px;
         color: #fff;
     }
     .grid-con-1 {
-        background-color: #23c6c8;
+
         color: #fff;
+        background: linear-gradient(45deg, #2187C7,  #BDD7E8);
     }
     .grid-con-1 .grid-num {
         color: #fff;
     }
     .grid-con-2 {
-        background-color: #1ab394;
+        background: linear-gradient(45deg, #F5AB56,  #ECE3DA);
     }
     .grid-con-3 {
-        background-color: #23c6c8;
+        background: linear-gradient(45deg, #ED6070,  #EBC6CE);
     }
     .grid-con-2 .grid-num {
         color: #fff;
     }
     .grid-con-4 {
-        background: #f8ac59;
+        background: linear-gradient(45deg, #2CB89D,  #C1E1E0);
     }
 
     .grid-con-3 .grid-num {

@@ -561,6 +561,9 @@ export default {
             let x = [10, 900, 800, 700, 60, 500];
             this.get_zhandian(d, x);
         } else if (this.form.tera == "华北区") {
+          let d = ["内蒙", "北京", '天津', "山西", "河北"];
+          let x = [10, 900, 800, 700, 60, 500];
+          this.get_zhandian(d, x);
             if(this.form.pro == '山西省'){
                 let d = ["临汾", "运城", "太原", "大同", "洪洞"];
                 let x = [100, 90, 80, 70, 600, 50];
