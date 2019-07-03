@@ -63,7 +63,7 @@
 
                                                         <div class="grid-cont-right">
                                                             <h4 style="color: #fff">2019年收入合计</h4>
-                                                            <div class="grid-num">&yen; 4,232</div>
+                                                            <div class="grid-num">￥{{Total}}</div>
 
                                                         </div>
                                                         <div class="grid-img">
@@ -84,7 +84,7 @@
 
                                                         <div class="grid-cont-right">
                                                             <h4 style="color: #fff">2019年成本合计</h4>
-                                                            <div class="grid-num">&yen; 4,232</div>
+                                                            <div class="grid-num">￥{{Pay}}</div>
 
                                                         </div>
                                                         <div class="grid-img">
@@ -106,6 +106,7 @@
                                         <div
                                                 id="eight1"
                                                 style="width:100%;height:420px;"
+                                                v-loading="loading"
                                         ></div>
                                     </el-col>
                                 </el-row>
@@ -187,7 +188,7 @@
                                         ref="multipleTable"
                                         border
                                         max-height="400"
-                                        @cell-click="jumpDetails"
+
                                 >
                                     <el-table-column
                                             type="selection"
@@ -594,7 +595,7 @@
 
                                                         <div class="grid-cont-right">
                                                             <h6 style="color: #fff">已录入票数合计</h6>
-                                                            <div class="grid-num">4556票</div>
+                                                            <div class="grid-num">{{CountPiaoYLR}}</div>
 
                                                         </div>
                                                         <div class="grid-img">
@@ -615,7 +616,7 @@
 
                                                         <div class="grid-cont-right">
                                                             <h6 style="color: #fff">已录入件数合计</h6>
-                                                            <div class="grid-num">2444件</div>
+                                                            <div class="grid-num">{{CountJianYLR}}</div>
 
                                                         </div>
                                                         <div class="grid-img">
@@ -637,7 +638,7 @@
 
                                                         <div class="grid-cont-right">
                                                             <h6 style="color: #fff">已录入重量合计</h6>
-                                                            <div class="grid-num">557g</div>
+                                                            <div class="grid-num">{{CountCweightYLR}}</div>
 
                                                         </div>
                                                         <div class="grid-img">
@@ -658,7 +659,7 @@
 
                                                         <div class="grid-cont-right">
                                                             <h6 style="color: #ffffff;">2019年成本合计</h6>
-                                                            <div class="grid-num">￥88832</div>
+                                                            <div class="grid-num">￥{{Pay}}</div>
 
                                                         </div>
                                                         <div class="grid-img">
@@ -681,6 +682,7 @@
                                         <div
                                                 id="fgf"
                                                 style="width: 100%;height: 500px"
+                                                v-loading="loading"
                                         ></div>
                                     </el-col>
 
@@ -1213,12 +1215,6 @@
                                     <el-pagination
                                             :page-sizes="[50, 100, 500, 2000]"
                                             :page-size="50"
-
-
-
-
-
-
                                             layout="total, sizes, prev, pager, next, jumper"
                                             :total="ccc"
                                     ></el-pagination>
@@ -1285,8 +1281,18 @@
     export default {
         data() {
             return {
+                loading:true,
                 WayOut:'',
-
+                Total:'',
+                Pay:'',
+                piao:'',
+                month:'',
+                JianYLR:'',
+                CweightYLR:'',
+                CountCweightYLR:'',
+                CountJianYLR:'',
+                CountPiaoYLR:'',
+                PiaoYLR:'',
                 lineLine: lineActive,
                 lineExcel: excelDefault,
                 clientLine: lineActive,
@@ -1295,7 +1301,7 @@
                 excelActive: home, // 表格 蓝色
                 lineActive: lineActive, // 折线 蓝色
                 excelDefault: excelDefault, // 表格 默认
-
+                Jian:'',
                 tempShow: true,
                 tempShow2: true,
                 tableShow: false,
@@ -1328,364 +1334,498 @@
             };
         },
         created() {
-
+            this.getEcharts()
         },
-        mounted() {
-            var eight1 = echarts.init(document.getElementById("eight1"));
-            eight1.setOption({
-
-                backgroundColor: "#ccc",
-                tooltip: {
-                    trigger: "axis",
-                    axisPointer: {
-                        type: "shadow"
-                    }
-                },
-                legend: {
-                    data: ["票数", "件数"],
-                    align: "right",
-                    right: 20,
-                    textStyle: {
-                        color: "#000"
-                    },
-                    itemGap: 30,
-                    itemWidth: 30,
-                    itemHeight: 10
-                },
-                grid: {
-                    left: "3%",
-                    right: "4%",
-                    bottom: "3%",
-                    containLabel: true
-                },
-                xAxis: [
-                    {
-                        type: "category",
-                        data: [
-                            "1月",
-                            "2月",
-                            "3月",
-                            "4月",
-                            "5月",
-                            "6月",
-                            "7月",
-                            "8月",
-                            "9月",
-                            "10月",
-                            "11月",
-                            "12月"
-                        ],
-                        axisLine: {
-                            show: true,
-                            lineStyle: {
-                                color: "#000",
-                                width: 2,
-                                type: "solid"
-                            }
-                        },
-                        axisTick: {
-                            show: false
-                        },
-                        axisLabel: {
-                            show: true,
-                            textStyle: {
-                                color: "#000",
-                                fontSize: 14
-                            }
-                        }
-                    }
-                ],
-                yAxis: [
-                    {
-                        type: "value",
-                        splitNumber: 6,
-                        axisLabel: {
-                            formatter: "{value}",
-                            textStyle: {
-                                color: "#000",
-                                fontSize: 16
-                            }
-                        },
-                        axisTick: {
-                            show: false
-                        },
-                        axisLine: {
-                            show: true,
-                            lineStyle: {
-                                color: "#00a1e4",
-                                width: 2,
-                                type: "solid"
-                            }
-                        },
-                        splitLine: {
-                            show: true,
-                            lineStyle: {
-                                color: "#034e90",
-                                width: 2,
-                                type: "solid"
-                            }
-                        }
-                    }
-                ],
-                series: [
-                    {
-                        name: "票数",
-                        type: "line",
-                        data: (function () {
-                            var d = [];
-                            for (let i = 0; i < 12; i++) {
-                                d.push(parseInt(Math.random() * (100 - 50 + 1) + 50, 10));
-                            }
-                            return d;
-                        })(),
-                        itemStyle: {
-                            normal: {
-                                color: "#00a1e4"
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                width: 2,
-                                shadowColor: "rgba(0,0,0,0.4)",
-                                shadowBlur: 10,
-                                shadowOffsetY: 10
-                            }
-                        }
-                    },
-                    {
-                        name: "件数",
-                        type: "line",
-                        data: (function () {
-                            var d = [];
-                            for (let i = 0; i < 12; i++) {
-                                d.push(parseInt(Math.random() * (90 - 40) + 40, 10));
-                            }
-                            return d;
-                        })(),
-                        itemStyle: {
-                            normal: {
-                                color: "#ffc600"
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                width: 2,
-                                shadowColor: "rgba(0,0,0,0.4)",
-                                shadowBlur: 10,
-                                shadowOffsetY: 10
-                            }
-                        }
-                    },
-
-
-                ]
-            });
-
-            window.onresize = eight1.resize; // 基于准备好的dom，初始化echarts实例
-            document.getElementById("fgf").style.width = this.$refs.parentWidth.offsetWidth - 50 +'px';
-            var fgf = echarts.init(document.getElementById("fgf"));
-
-            fgf.setOption({
-
-                backgroundColor: "#ccc",
-                tooltip: {
-                    trigger: "axis",
-                    axisPointer: {
-                        type: "shadow"
-                    }
-                },
-                legend: {
-                    data: ["票数", "件数", "重量", "成本"],
-                    align: "right",
-                    right: 20,
-                    textStyle: {
-                        color: "#000"
-                    },
-                    itemGap: 30,
-                    itemWidth: 30,
-                    itemHeight: 10
-                },
-                grid: {
-                    left: "3%",
-                    right: "4%",
-                    bottom: "3%",
-                    containLabel: true
-                },
-                xAxis: [
-                    {
-                        type: "category",
-                        data: [
-                            "1月",
-                            "2月",
-                            "3月",
-                            "4月",
-                            "5月",
-                            "6月",
-                            "7月",
-                            "8月",
-                            "9月",
-                            "10月",
-                            "11月",
-                            "12月"
-                        ],
-                        axisLine: {
-                            show: true,
-                            lineStyle: {
-                                color: "#034e90",
-                                width: 2,
-                                type: "solid"
-                            }
-                        },
-                        axisTick: {
-                            show: false
-                        },
-                        axisLabel: {
-                            show: true,
-                            textStyle: {
-                                color: "#9fceff",
-                                fontSize: 14
-                            }
-                        }
-                    }
-                ],
-                yAxis: [
-                    {
-                        type: "value",
-                        splitNumber: 6,
-                        axisLabel: {
-                            formatter: "{value}",
-                            textStyle: {
-                                color: "#91bdeb",
-                                fontSize: 16
-                            }
-                        },
-                        axisTick: {
-                            show: false
-                        },
-                        axisLine: {
-                            show: true,
-                            lineStyle: {
-                                color: "#00a1e4",
-                                width: 2,
-                                type: "solid"
-                            }
-                        },
-                        splitLine: {
-                            show: true,
-                            lineStyle: {
-                                color: "#034e90",
-                                width: 2,
-                                type: "solid"
-                            }
-                        }
-                    }
-                ],
-                series: [
-                    {
-                        name: "票数",
-                        type: "line",
-                        data: (function () {
-                            var d = [];
-                            for (let i = 0; i < 12; i++) {
-                                d.push(parseInt(Math.random() * (100 - 50 + 1) + 50, 10));
-                            }
-                            return d;
-                        })(),
-                        itemStyle: {
-                            normal: {
-                                color: "#00a1e4"
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                width: 2,
-                                shadowColor: "rgba(0,0,0,0.4)",
-                                shadowBlur: 10,
-                                shadowOffsetY: 10
-                            }
-                        }
-                    },
-                    {
-                        name: "件数",
-                        type: "line",
-                        data: (function () {
-                            var d = [];
-                            for (let i = 0; i < 12; i++) {
-                                d.push(parseInt(Math.random() * (90 - 40) + 40, 10));
-                            }
-                            return d;
-                        })(),
-                        itemStyle: {
-                            normal: {
-                                color: "#ffc600"
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                width: 2,
-                                shadowColor: "rgba(0,0,0,0.4)",
-                                shadowBlur: 10,
-                                shadowOffsetY: 10
-                            }
-                        }
-                    },
-                    {
-                        name: "重量",
-                        type: "line",
-                        data: (function () {
-                            var d = [];
-                            for (let i = 0; i < 12; i++) {
-                                d.push(parseInt(Math.random() * (80 - 30 + 1) + 30, 10));
-                            }
-                            return d;
-                        })(),
-                        itemStyle: {
-                            normal: {
-                                color: "#24c768"
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                width: 2,
-                                shadowColor: "rgba(0,0,0,0.4)",
-                                shadowBlur: 10,
-                                shadowOffsetY: 10
-                            }
-                        }
-                    },
-                    {
-                        name: "成本",
-                        type: "line",
-                        data: (function () {
-                            var d = [];
-                            for (let i = 0; i < 12; i++) {
-                                d.push(parseInt(Math.random() * (70 - 20 + 1) + 20, 10));
-                            }
-                            return d;
-                        })(),
-                        itemStyle: {
-                            normal: {
-                                color: "#de7008"
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                width: 2,
-                                shadowColor: "rgba(0,0,0,0.4)",
-                                shadowBlur: 10,
-                                shadowOffsetY: 10
-                            }
-                        }
-                    }
-                ]
-            });
-
-            window.onresize = fgf.resize; // 基于准备好的dom，初始化echarts实例
-
-
-
-        },
+        // mounted() {
+        //     var eight1 = echarts.init(document.getElementById("eight1"));
+        //     eight1.setOption({
+        //
+        //         backgroundColor: "#ccc",
+        //         tooltip: {
+        //             trigger: "axis",
+        //             axisPointer: {
+        //                 type: "shadow"
+        //             }
+        //         },
+        //         legend: {
+        //             data: ["票数", "件数"],
+        //             align: "right",
+        //             right: 20,
+        //             textStyle: {
+        //                 color: "#000"
+        //             },
+        //             itemGap: 30,
+        //             itemWidth: 30,
+        //             itemHeight: 10
+        //         },
+        //         grid: {
+        //             left: "3%",
+        //             right: "4%",
+        //             bottom: "3%",
+        //             containLabel: true
+        //         },
+        //         xAxis: [
+        //             {
+        //                 type: "category",
+        //                 data: [
+        //                     "1月",
+        //                     "2月",
+        //                     "3月",
+        //                     "4月",
+        //                     "5月",
+        //                     "6月",
+        //                     "7月",
+        //                     "8月",
+        //                     "9月",
+        //                     "10月",
+        //                     "11月",
+        //                     "12月"
+        //                 ],
+        //                 axisLine: {
+        //                     show: true,
+        //                     lineStyle: {
+        //                         color: "#000",
+        //                         width: 2,
+        //                         type: "solid"
+        //                     }
+        //                 },
+        //                 axisTick: {
+        //                     show: false
+        //                 },
+        //                 axisLabel: {
+        //                     show: true,
+        //                     textStyle: {
+        //                         color: "#000",
+        //                         fontSize: 14
+        //                     }
+        //                 }
+        //             }
+        //         ],
+        //         yAxis: [
+        //             {
+        //                 type: "value",
+        //                 splitNumber: 6,
+        //                 axisLabel: {
+        //                     formatter: "{value}",
+        //                     textStyle: {
+        //                         color: "#000",
+        //                         fontSize: 16
+        //                     }
+        //                 },
+        //                 axisTick: {
+        //                     show: false
+        //                 },
+        //                 axisLine: {
+        //                     show: true,
+        //                     lineStyle: {
+        //                         color: "#00a1e4",
+        //                         width: 2,
+        //                         type: "solid"
+        //                     }
+        //                 },
+        //                 splitLine: {
+        //                     show: true,
+        //                     lineStyle: {
+        //                         color: "#034e90",
+        //                         width: 2,
+        //                         type: "solid"
+        //                     }
+        //                 }
+        //             }
+        //         ],
+        //         series: [
+        //             {
+        //                 name: "票数",
+        //                 type: "line",
+        //                 data: (function () {
+        //                     var d = [];
+        //                     for (let i = 0; i < 12; i++) {
+        //                         d.push(parseInt(Math.random() * (100 - 50 + 1) + 50, 10));
+        //                     }
+        //                     return d;
+        //                 })(),
+        //                 itemStyle: {
+        //                     normal: {
+        //                         color: "#00a1e4"
+        //                     }
+        //                 },
+        //                 lineStyle: {
+        //                     normal: {
+        //                         width: 2,
+        //                         shadowColor: "rgba(0,0,0,0.4)",
+        //                         shadowBlur: 10,
+        //                         shadowOffsetY: 10
+        //                     }
+        //                 }
+        //             },
+        //             {
+        //                 name: "件数",
+        //                 type: "line",
+        //                 data: (function () {
+        //                     var d = [];
+        //                     for (let i = 0; i < 12; i++) {
+        //                         d.push(parseInt(Math.random() * (90 - 40) + 40, 10));
+        //                     }
+        //                     return d;
+        //                 })(),
+        //                 itemStyle: {
+        //                     normal: {
+        //                         color: "#ffc600"
+        //                     }
+        //                 },
+        //                 lineStyle: {
+        //                     normal: {
+        //                         width: 2,
+        //                         shadowColor: "rgba(0,0,0,0.4)",
+        //                         shadowBlur: 10,
+        //                         shadowOffsetY: 10
+        //                     }
+        //                 }
+        //             },
+        //
+        //
+        //         ]
+        //     });
+        //
+        //     window.onresize = eight1.resize; // 基于准备好的dom，初始化echarts实例
+        //     document.getElementById("fgf").style.width = this.$refs.parentWidth.offsetWidth - 50 +'px';
+        //     var fgf = echarts.init(document.getElementById("fgf"));
+        //
+        //     fgf.setOption({
+        //
+        //         backgroundColor: "#ccc",
+        //         tooltip: {
+        //             trigger: "axis",
+        //             axisPointer: {
+        //                 type: "shadow"
+        //             }
+        //         },
+        //         legend: {
+        //             data: ["票数", "件数", "重量", "成本"],
+        //             align: "right",
+        //             right: 20,
+        //             textStyle: {
+        //                 color: "#000"
+        //             },
+        //             itemGap: 30,
+        //             itemWidth: 30,
+        //             itemHeight: 10
+        //         },
+        //         grid: {
+        //             left: "3%",
+        //             right: "4%",
+        //             bottom: "3%",
+        //             containLabel: true
+        //         },
+        //         xAxis: [
+        //             {
+        //                 type: "category",
+        //                 data: [
+        //                     "1月",
+        //                     "2月",
+        //                     "3月",
+        //                     "4月",
+        //                     "5月",
+        //                     "6月",
+        //                     "7月",
+        //                     "8月",
+        //                     "9月",
+        //                     "10月",
+        //                     "11月",
+        //                     "12月"
+        //                 ],
+        //                 axisLine: {
+        //                     show: true,
+        //                     lineStyle: {
+        //                         color: "#034e90",
+        //                         width: 2,
+        //                         type: "solid"
+        //                     }
+        //                 },
+        //                 axisTick: {
+        //                     show: false
+        //                 },
+        //                 axisLabel: {
+        //                     show: true,
+        //                     textStyle: {
+        //                         color: "#9fceff",
+        //                         fontSize: 14
+        //                     }
+        //                 }
+        //             }
+        //         ],
+        //         yAxis: [
+        //             {
+        //                 type: "value",
+        //                 splitNumber: 6,
+        //                 axisLabel: {
+        //                     formatter: "{value}",
+        //                     textStyle: {
+        //                         color: "#91bdeb",
+        //                         fontSize: 16
+        //                     }
+        //                 },
+        //                 axisTick: {
+        //                     show: false
+        //                 },
+        //                 axisLine: {
+        //                     show: true,
+        //                     lineStyle: {
+        //                         color: "#00a1e4",
+        //                         width: 2,
+        //                         type: "solid"
+        //                     }
+        //                 },
+        //                 splitLine: {
+        //                     show: true,
+        //                     lineStyle: {
+        //                         color: "#034e90",
+        //                         width: 2,
+        //                         type: "solid"
+        //                     }
+        //                 }
+        //             }
+        //         ],
+        //         series: [
+        //             {
+        //                 name: "票数",
+        //                 type: "line",
+        //                 data: (function () {
+        //                     var d = [];
+        //                     for (let i = 0; i < 12; i++) {
+        //                         d.push(parseInt(Math.random() * (100 - 50 + 1) + 50, 10));
+        //                     }
+        //                     return d;
+        //                 })(),
+        //                 itemStyle: {
+        //                     normal: {
+        //                         color: "#00a1e4"
+        //                     }
+        //                 },
+        //                 lineStyle: {
+        //                     normal: {
+        //                         width: 2,
+        //                         shadowColor: "rgba(0,0,0,0.4)",
+        //                         shadowBlur: 10,
+        //                         shadowOffsetY: 10
+        //                     }
+        //                 }
+        //             },
+        //             {
+        //                 name: "件数",
+        //                 type: "line",
+        //                 data: (function () {
+        //                     var d = [];
+        //                     for (let i = 0; i < 12; i++) {
+        //                         d.push(parseInt(Math.random() * (90 - 40) + 40, 10));
+        //                     }
+        //                     return d;
+        //                 })(),
+        //                 itemStyle: {
+        //                     normal: {
+        //                         color: "#ffc600"
+        //                     }
+        //                 },
+        //                 lineStyle: {
+        //                     normal: {
+        //                         width: 2,
+        //                         shadowColor: "rgba(0,0,0,0.4)",
+        //                         shadowBlur: 10,
+        //                         shadowOffsetY: 10
+        //                     }
+        //                 }
+        //             },
+        //             {
+        //                 name: "重量",
+        //                 type: "line",
+        //                 data: (function () {
+        //                     var d = [];
+        //                     for (let i = 0; i < 12; i++) {
+        //                         d.push(parseInt(Math.random() * (80 - 30 + 1) + 30, 10));
+        //                     }
+        //                     return d;
+        //                 })(),
+        //                 itemStyle: {
+        //                     normal: {
+        //                         color: "#24c768"
+        //                     }
+        //                 },
+        //                 lineStyle: {
+        //                     normal: {
+        //                         width: 2,
+        //                         shadowColor: "rgba(0,0,0,0.4)",
+        //                         shadowBlur: 10,
+        //                         shadowOffsetY: 10
+        //                     }
+        //                 }
+        //             },
+        //             {
+        //                 name: "成本",
+        //                 type: "line",
+        //                 data: (function () {
+        //                     var d = [];
+        //                     for (let i = 0; i < 12; i++) {
+        //                         d.push(parseInt(Math.random() * (70 - 20 + 1) + 20, 10));
+        //                     }
+        //                     return d;
+        //                 })(),
+        //                 itemStyle: {
+        //                     normal: {
+        //                         color: "#de7008"
+        //                     }
+        //                 },
+        //                 lineStyle: {
+        //                     normal: {
+        //                         width: 2,
+        //                         shadowColor: "rgba(0,0,0,0.4)",
+        //                         shadowBlur: 10,
+        //                         shadowOffsetY: 10
+        //                     }
+        //                 }
+        //             }
+        //         ]
+        //     });
+        //
+        //     window.onresize = fgf.resize; // 基于准备好的dom，初始化echarts实例
+        //
+        //
+        //
+        // },
         methods: {
+            //得到客户图表部分数据和线路部分的数据
+            getEcharts(){
+                 this.$axios
+                     .post("http://www.zjcoldcloud.com/zhanghaining/tms/public/index.php/annualstatement/index",
+                         {
+                             State:'Chart',
+                     }
+                     ).then(res=>{
+                         console.log(res);
+                         this.Total =res.data.Total;
+                         this.CountCweightYLR = res.data.CountCweightYLR;
+                         this.CountJianYLR =res.data.CountJianYLR;
+                         this.CountPiaoYLR =res.data.CountPiaoYLR;
+                         this.CweightYLR =res.data.CweightYLR;
+                         this.Pay = res.data.Pay;
+                         this.month = res.data.month;
+                         this.piao = res.data.Piao;
+                         this.Jian =res.data.Jian;
+                         this.JianYLR = res.data.JianYLR;
+                         this.PiaoYLR = res.data.PiaoYLR;
+                         this.CweightYLR = res.data.CweightYLR
+
+                     var xAxisData =  this.month;
+                     var legendData= ['票数','件数'];
+                      var eight1 = echarts.init(document.getElementById("eight1"));
+                     this.loading = false;
+                     var serieData = [];
+                     var metaDate = [
+                         this.piao,
+                         this.Jian
+                     ]
+                     for(var v=0; v < legendData.length ; v++){
+                         var serie = {
+                             name:legendData[v],
+                             type: 'line',
+                             symbol:"circle",
+                             symbolSize:10,
+                             data: metaDate[v]
+                         };
+                         serieData.push(serie)
+                     }
+                     var colors = ["#00a1e4","#ffc600"];
+                     eight1.setOption( {
+                         backgroundColor: '#0f375f',
+
+                         legend: {
+                             show:true,left:"center",data:legendData,y:"3%",
+                             itemWidth:18,itemHeight:12,textStyle:{color:"#fff",fontSize:14},
+                         },
+                         color:colors,
+                         grid: {left: '2%',top:"12%",bottom: "5%",right:"5%",containLabel: true},
+                         tooltip : { trigger: 'axis',axisPointer : { type : 'shadow'}},
+                         xAxis: [
+                             {
+                                 type: 'category',
+                                 axisLine: { show: true,lineStyle:{ color:'#6173A3' }},
+                                 axisLabel:{interval:0,textStyle:{color:'#9ea7c4',fontSize:14} },
+                                 axisTick : {show: false},
+                                 data:xAxisData,
+                             },
+                         ],
+                         yAxis: [
+                             {
+                                 axisTick : {show: false},
+                                 splitLine: {show:false},
+                                 axisLabel:{textStyle:{color:'#9ea7c4',fontSize:14} },
+                                 axisLine: { show: true,lineStyle:{ color:'#6173A3'}},
+                             },
+                         ],
+                         series:serieData
+                     });
+
+
+                     window.onresize = eight1.resize; // 基于准备好的dom，初始化echarts实例
+                     document.getElementById("fgf").style.width = this.$refs.parentWidth.offsetWidth - 50 +'px';
+
+
+                 //线路图表渲染
+                     var xAxisData =  this.month;
+                     var legendData= ["票数", "件数", "重量", "成本"];
+                     var fgf = echarts.init(document.getElementById("fgf"));
+                     this.loading = false;
+                     var serieData2 = [];
+                     var metaDate = [
+                        this.JianYLR,
+                         this.PiaoYLR,
+                         this.CweightYLR,
+                     ]
+                     for(var v=0; v < legendData.length ; v++){
+                         var serie = {
+                             name:legendData[v],
+                             type: 'line',
+                             symbol:"circle",
+                             symbolSize:10,
+                             data: metaDate[v]
+                         };
+                         serieData2.push(serie)
+                     }
+                     var colors = ["#625bef","#2EF7F3","#ffc600","#2EF7F3","#FFFFFF"];
+                     fgf.setOption({
+
+
+                         backgroundColor: '#0f375f',
+
+                         legend: {
+                             show:true,left:"center",data:legendData,y:"3%",
+                             itemWidth:18,itemHeight:12,textStyle:{color:"#fff",fontSize:16},
+                         },
+                         color:colors,
+                         grid: {left: '2%',top:"12%",bottom: "5%",right:"5%",containLabel: true},
+                         tooltip : { trigger: 'axis',axisPointer : { type : 'shadow'}},
+                         xAxis: [
+                             {
+                                 type: 'category',
+                                 axisLine: { show: true,lineStyle:{ color:'#6173A3' }},
+                                 axisLabel:{interval:0,textStyle:{color:'#9ea7c4',fontSize:14} },
+                                 axisTick : {show: false},
+                                 data:xAxisData,
+                             },
+                         ],
+                         yAxis: [
+                             {
+                                 axisTick : {show: false},
+                                 splitLine: {show:false},
+                                 axisLabel:{textStyle:{color:'#9ea7c4',fontSize:14} },
+                                 axisLine: { show: true,lineStyle:{ color:'#6173A3'}},
+                             },
+                         ],
+                         series:serieData2
+                     });
+                     window.onresize = fgf.resize; // 基于准备好的dom，初始化echarts实例
+
+                 })
+            },
             handleClick(tab, event) {
                 // console.log(tab.name);
                 if (tab.name == "second") {
@@ -1765,7 +1905,7 @@
     }
 
     .grid-num {
-        font-size: 24px;
+        font-size: 16px;
         font-weight: 800;
         margin: 5px 0px;
         color: #fff;
