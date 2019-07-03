@@ -22,6 +22,7 @@
                   placeholder="请选择"
                   class="handle-select mr10"
                   @change="selectTrigger"
+
                 >
                   <el-option
                     key="1"
@@ -134,52 +135,73 @@
             </el-col>
           </el-row>
         </el-form>
-        <div style="margin:15px 0">
-          <span style="font-size: 18px;color:#333;  ;padding-left:5px;font-weight: 800;border-left: 3px solid green;font-family: cursive;">{{echart_title}}</span>
-          <div style="float: right">
+        <el-row  :gutter="24">
 
-              <div style="display:flex;align-items:center;float:left;">
-                <el-select
-                  style="width:100px;"
-                  v-model="selectDataEchar"
-                  placeholder="请选择"
-                  class="handle-select mr10"
-                  @change="selectTriggerEchar"
-                >
-                  <el-option
-                    key="1"
-                    label="类型"
-                    value="类型"
-                  ></el-option>
-                  <el-option
-                    key="0"
-                    label="业务类型"
-                    value="业务类型"
-                  ></el-option>
-                </el-select>
-                <div v-for="(item,index) in selectEcharData" :key="index" class="selectDataClass">
-                    <span>{{item}}</span>
-                </div>
-                
+            <div style="margin:15px 0">
+              <el-col :span="16">
+                <span style="font-size: 18px;color:#333;  ;padding-left:5px;font-weight: 800;border-left: 3px solid green;font-family: cursive;">{{echart_title}}</span>
+              </el-col>
+              <el-col :span="5" >
+                <template v-if="qiehuan">
+                  <div>
+
+                    <div style="display:flex;align-items:center;float:left;">
+                      <el-select
+                              style="width:100px;"
+                              v-model="selectDataEchar"
+                              placeholder="请选择"
+                              class="handle-select mr10"
+                              @change="selectTriggerEchar"
+                      >
+                        <el-option
+                                key="1"
+                                label="类型"
+                                value="类型"
+                        ></el-option>
+                        <el-option
+                                key="0"
+                                label="业务类型"
+                                value="业务类型"
+                        ></el-option>
+                      </el-select>
+                      <div v-for="(item,index) in selectEcharData" :key="index" class="selectDataClass">
+                        <span style="font-size: 14px">{{item}}</span>
+                      </div>
+
+                    </div>
+                  </div>
+                </template>
+              </el-col>
+             <el-col :span="3" >
+             <template>
+
+
+              <div style="float: right">
+                <el-button
+                        :class="isZhandian ? 'blackDefault' : 'blueActive'"
+                        @click="CLSD(1)"
+                >全站点
+                </el-button>
+                <el-button
+                        :class="isQuyu ? 'blackDefault' : 'blueActive'"
+                        @click="CLSD(0)"
+                >全区域
+                </el-button>
               </div>
 
 
 
 
-            <el-button
-              :class="isZhandian ? 'blackDefault' : 'blueActive'"
-              @click="CLSD(1)"
-            >全站点
-            </el-button>
-            <el-button
-              :class="isQuyu ? 'blackDefault' : 'blueActive'"
-              @click="CLSD(0)"
-            >全区域
-            </el-button>
+            </template>
 
-          </div>
+            </el-col>
 
-        </div>
+
+            </div>
+
+
+        </el-row>
+
         <div
           id="tubiao"
           style="width:100%;height:200px;margin-bottom: 20px;"
@@ -389,6 +411,7 @@ export default {
         city: "",
         pro: ""
       },
+      qiehuan:false,
       selectDataEchar: '类型', //  图标上的下拉 仅站点操作
       selectEcharData: ['始发','中转','派送'],   
       table1: true,
@@ -673,17 +696,21 @@ export default {
     //区域选择触发事件
     selectTrigger() {
         let val = this.selectData;
+        console.log(val)
       if (val == "分控") {
-        // alert("fenk");
+         this.qiehuan =false
+         alert("fenk");
         //请求分控页面
         this.echart_title = '全国货量排名-分控操作';
       } else if (val == "员工") {
-        // alert("yuangong");
+        this.qiehuan =false;
+        alert("yuangong");
         //请求员工页面
         this.echart_title = '全国货量排名-员工操作';
       } else {
         // alert("zhandian");
-        // 站点 
+        // 站点
+        this.qiehuan =true
         this.echart_title = '全国货量排名-站点操作';
       }
     },
