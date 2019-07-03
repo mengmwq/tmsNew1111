@@ -1700,7 +1700,7 @@
                              State:'Chart',
                      }
                      ).then(res=>{
-                         console.log(res);
+                         console.log(res,11111);
                          this.Total =res.data.Total;
                          this.CountCweightYLR = res.data.CountCweightYLR;
                          this.CountJianYLR =res.data.CountJianYLR;
