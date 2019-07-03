@@ -1779,6 +1779,7 @@
                         this.JianYLR,
                          this.PiaoYLR,
                          this.CweightYLR,
+                         [100,200, 140, 300, 200, 180, 100, 300, 230, 130, 100 ,300,]
                      ]
                      for(var v=0; v < legendData.length ; v++){
                          var serie = {
@@ -1790,7 +1791,7 @@
                          };
                          serieData2.push(serie)
                      }
-                     var colors = ["#625bef","#2EF7F3","#ffc600","#2EF7F3","#FFFFFF"];
+                     var colors = ["#625bef","#2EF7F3","#ffc600","#ED6070","#ED6070"];
                      fgf.setOption({
 
 
