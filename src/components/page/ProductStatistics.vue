@@ -699,12 +699,12 @@ export default {
         console.log(val)
       if (val == "分控") {
          this.qiehuan =false
-         alert("fenk");
+        //  alert("fenk");
         //请求分控页面
         this.echart_title = '全国货量排名-分控操作';
       } else if (val == "员工") {
         this.qiehuan =false;
-        alert("yuangong");
+        // alert("yuangong");
         //请求员工页面
         this.echart_title = '全国货量排名-员工操作';
       } else {
@@ -733,59 +733,107 @@ export default {
     //  渲染图标
     get_zhandian(xData, sData) {
       var tubiao = echarts.init(document.getElementById("tubiao"));
-
-      var yMax = 120;
       tubiao.setOption({
-        grid: {
-          top: "10%",
-          left: "0",
-          right: "0",
-          bottom: "5%",
-          containLabel: true
+            "tooltip": {
+        "trigger": "axis"
+    },
+    "color": ["#37b70c", "#fae521", "#f29c00", "#dd3f36", "#b3013f", "#a00398"],
+ 
+    "xAxis": [{
+        "name": "月份",
+        "type": "category",
+        "axisTick": {
+            "alignWithLabel": true
         },
-        xAxis: {
-          data: xData,
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: true,
-            lineStyle: {
-              color: "#ccc"
-            }
-          },
-          axisLabel: {
-            interval: 0,
-            rotate: 45
-          }
-        },
-        yAxis: {
-          show: false
-        },
-        series: [
-          {
-            name: "销量",
-            type: "bar",
-            barWidth: "10%",
-            data: sData,
-            itemStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  {
-                    offset: 0,
-                    color: "#00fcae"
-                  },
-                  {
-                    offset: 1,
-                    color: "#006388"
-                  }
-                ]),
-                opacity: 1
-              }
-            }
-          }
-        ]
-      });
+        "data": ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+    }],
+    "yAxis": [{
+        "type": "value",
+        "name": "天数"
+    }],
+    "series": [{
+        "data": [5, 2, 5, 7, 5, 6, 9, 14],
+        "name": "优",
+        "stack": "one",
+        "type": "bar"
+    }, {
+        "data": [2, 5, 7, 5, 6, 5 ,0 ,6,8],
+        "name": "良",
+        "stack": "one",
+        "type": "bar"
+    }, {
+        "data": [5, 7, 5, 6, 5, 2, 5],
+        "name": "轻度",
+        "stack": "one",
+        "type": "bar"
+    }, {
+        "data": [7, 5, 6, 5, 2, 5],
+        "name": "中度",
+        "stack": "one",
+        "type": "bar"
+    }, {
+        "data": [5, 6, 5, 2, 5, 7],
+        "name": "重度",
+        "stack": "one",
+        "type": "bar"
+    }, {
+        "data": [6, 5, 2, 5, 7, 5],
+        "name": "严重",
+        "stack": "one",
+        "type": "bar"
+    }]
+      })
+      // tubiao.setOption({
+      //   grid: {
+      //     top: "10%",
+      //     left: "0",
+      //     right: "0",
+      //     bottom: "5%",
+      //     containLabel: true
+      //   },
+      //   xAxis: {
+      //     data: xData,
+      //     axisTick: {
+      //       show: false
+      //     },
+      //     axisLine: {
+      //       show: true,
+      //       lineStyle: {
+      //         color: "#ccc"
+      //       }
+      //     },
+      //     axisLabel: {
+      //       interval: 0,
+      //       rotate: 45
+      //     }
+      //   },
+      //   yAxis: {
+      //     show: false
+      //   },
+      //   series: [
+      //     {
+      //       name: "销量",
+      //       type: "bar",
+      //       barWidth: "10%",
+      //       data: sData,
+      //       itemStyle: {
+      //         normal: {
+      //           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+      //             {
+      //               offset: 0,
+      //               color: "#00fcae"
+      //             },
+      //             {
+      //               offset: 1,
+      //               color: "#006388"
+      //             }
+      //           ]),
+      //           opacity: 1
+      //         }
+      //       }
+      //     }
+      //   ]
+      // });
     },
     // 请求接口
     getTableData(type) {
