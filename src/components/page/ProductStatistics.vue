@@ -21,19 +21,20 @@
                   v-model="selectData"
                   placeholder="请选择"
                   class="handle-select mr10"
-                  @change="selectTrigger(selectData)"
+                  @change="selectTrigger"
 
                 >
-                  <el-option
-                    key="0"
-                    label="站点"
-                    value="站点"
-                  ></el-option>
                   <el-option
                     key="1"
                     label="分控"
                     value="分控"
                   ></el-option>
+                  <el-option
+                    key="0"
+                    label="站点"
+                    value="站点"
+                  ></el-option>
+
                   <el-option
                     key="2"
                     label="员工"
@@ -134,25 +135,73 @@
             </el-col>
           </el-row>
         </el-form>
-        <div style="margin:15px 0">
-          <span style="font-size: 18px;color:#333;  ;padding-left:5px;font-weight: 800;border-left: 3px solid green;font-family: cursive;">
-            全国货量排名-分控操作</span>
-          <div style="float: right">
+        <el-row  :gutter="24">
 
-            <el-button
-              :class="isZhandian ? 'blackDefault' : 'blueActive'"
-              @click="CLSD(1)"
-            >全站点
-            </el-button>
-            <el-button
-              :class="isQuyu ? 'blackDefault' : 'blueActive'"
-              @click="CLSD(0)"
-            >全区域
-            </el-button>
+            <div style="margin:15px 0">
+              <el-col :span="16">
+                <span style="font-size: 18px;color:#333;  ;padding-left:5px;font-weight: 800;border-left: 3px solid green;font-family: cursive;">{{echart_title}}</span>
+              </el-col>
+              <el-col :span="5" >
+                <template v-if="qiehuan">
+                  <div>
 
-          </div>
+                    <div style="display:flex;align-items:center;float:left;">
+                      <el-select
+                              style="width:100px;"
+                              v-model="selectDataEchar"
+                              placeholder="请选择"
+                              class="handle-select mr10"
+                              @change="selectTriggerEchar"
+                      >
+                        <el-option
+                                key="1"
+                                label="类型"
+                                value="类型"
+                        ></el-option>
+                        <el-option
+                                key="0"
+                                label="业务类型"
+                                value="业务类型"
+                        ></el-option>
+                      </el-select>
+                      <div v-for="(item,index) in selectEcharData" :key="index" class="selectDataClass">
+                        <span style="font-size: 14px">{{item}}</span>
+                      </div>
 
-        </div>
+                    </div>
+                  </div>
+                </template>
+              </el-col>
+             <el-col :span="3" >
+             <template>
+
+
+              <div style="float: right">
+                <el-button
+                        :class="isZhandian ? 'blackDefault' : 'blueActive'"
+                        @click="CLSD(1)"
+                >全站点
+                </el-button>
+                <el-button
+                        :class="isQuyu ? 'blackDefault' : 'blueActive'"
+                        @click="CLSD(0)"
+                >全区域
+                </el-button>
+              </div>
+
+
+
+
+            </template>
+
+            </el-col>
+
+
+            </div>
+
+
+        </el-row>
+
         <div
           id="tubiao"
           style="width:100%;height:200px;margin-bottom: 20px;"
@@ -362,8 +411,11 @@ export default {
         city: "",
         pro: ""
       },
+      qiehuan:false,
+      selectDataEchar: '类型', //  图标上的下拉 仅站点操作
+      selectEcharData: ['始发','中转','派送'],   
       table1: true,
-
+      echart_title: '全国货量排名-分控操作',
       optionPro: [],
       optionCity: [],
       isZhandian: false, // 判断全站点  颜色是否蓝色
@@ -375,7 +427,7 @@ export default {
       limit: 20, //每页多少条
       ccc: 0, //总页数
       loading: false,
-      selectData: "",
+      selectData: "分控",
       tableData: [
         {
           UnitName: "ceshizhanghao1",
@@ -498,6 +550,14 @@ export default {
     this.get_zhandian(d, x);
   },
   methods: {
+      selectTriggerEchar(){
+          let val = this.selectDataEchar;
+          if(val == "类型"){
+              this.selectEcharData = ['始发','中转','派送'];
+          }else{
+              this.selectEcharData = ['临床临检','非临床临检'];
+          }
+      },
     getArea() {
       // 点击 大区
       // console.log(this.form.tera);
@@ -562,9 +622,6 @@ export default {
             let x = [10, 900, 800, 700, 60, 500];
             this.get_zhandian(d, x);
         } else if (this.form.tera == "华北区") {
-          let d = ["内蒙", "北京", '天津', "山西", "河北"];
-          let x = [10, 900, 800, 700, 60, 500];
-          this.get_zhandian(d, x);
             if(this.form.pro == '山西省'){
                 let d = ["临汾", "运城", "太原", "大同", "洪洞"];
                 let x = [100, 90, 80, 70, 600, 50];
@@ -637,15 +694,24 @@ export default {
       }
     },
     //区域选择触发事件
-    selectTrigger(val) {
+    selectTrigger() {
+        let val = this.selectData;
+        console.log(val)
       if (val == "分控") {
-        alert("fenk");
+         this.qiehuan =false
+         alert("fenk");
         //请求分控页面
+        this.echart_title = '全国货量排名-分控操作';
       } else if (val == "员工") {
+        this.qiehuan =false;
         alert("yuangong");
         //请求员工页面
+        this.echart_title = '全国货量排名-员工操作';
       } else {
-        alert("zhandian");
+        // alert("zhandian");
+        // 站点
+        this.qiehuan =true
+        this.echart_title = '全国货量排名-站点操作';
       }
     },
     handleCurrentChange(val) {
@@ -803,4 +869,22 @@ export default {
   background: #00d1b2 !important;
   color: #fff;
 }
+.selectDataClass{
+    padding: 5px 10px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    color:#fff;
+
+}
+.selectDataClass:nth-of-type(2){
+    background: #00d1b2;
+}
+.selectDataClass:nth-of-type(3){
+        background: #ff0000;
+}
+.selectDataClass:nth-of-type(4){
+        background: #00ff00;
+}
+
 </style>
