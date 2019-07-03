@@ -803,13 +803,13 @@
 
                                     <el-table-column
                                             show-summary
-                                            prop="Condition"
+                                            
                                             label="合计"
                                             align="center"
 
                                     >
                                         <el-table-column
-                                                prop="province"
+                                                prop="BillNumber"
                                                 label="费用"
                                                 width="50">
                                         </el-table-column>
