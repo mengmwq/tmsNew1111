@@ -30,9 +30,10 @@
                                                 <div class="block">
 
                                                     <el-date-picker
-                                                            v-model="value1"
+                                                            v-model="EndTime"
                                                             type="datetime"
                                                             placeholder="选择截止时间"
+                                                            value-format="yyyy-MM-dd"
                                                     >
                                                     </el-date-picker>
                                                 </div>
@@ -42,6 +43,7 @@
                                                     src="../../assets/img/查询.png"
                                                     alt="查询图标"
                                                     style="margin-left: 10px;margin-top: 3px;"
+                                                    @click="getEcharts()"
                                             >
 
                                         </el-col>
@@ -58,8 +60,8 @@
                                                         <div class="grid-content grid-con-1">
 
                                                             <div class="grid-cont-right">
-                                                                <h4 style="color: #fff;font-size: 12px;">2019年收入合计</h4>
-                                                                <div class="grid-num">&yen; 4,232</div>
+                                                                <h4 style="color: #fff;font-size: 12px;">{{Year}}年收入合计</h4>
+                                                                <div class="grid-num">&yen; {{CountTotal}}</div>
 
                                                             </div>
                                                             <div class="grid-img">
@@ -84,6 +86,7 @@
                                         <div
                                                 id="eight1"
                                                 style="width:100%;height:420px;"
+                                                v-loading="loading"
                                         ></div>
                                     </el-col>
                                 </el-row>
@@ -884,7 +887,7 @@
                                         ref="multipleTable"
                                         border
                                         max-height="400"
-                                        @cell-click="jumpDetails"
+
                                 >
                                     <el-table-column
                                             type="selection"
@@ -1427,10 +1430,10 @@
     export default {
         data() {
             return {
-
+                loading:true,
                 isfive: true, // 53-50周
-
-
+                Year:'',
+                EndTime:'',
                 isMondy6:false,
                 isMondy5:false,
                 isMondy4:false,
@@ -1447,7 +1450,7 @@
                 eeee : 'el-icon-circle-plus',
                 ffff : 'el-icon-circle-plus',
                 gggg : 'el-icon-circle-plus',
-
+                CountTotal:'',
                 WayOut:'',
                 lineLine: lineActive,
                 lineExcel: excelDefault,
@@ -1502,255 +1505,80 @@
             };
         },
         created() {
-
+            this.getEcharts()
         },
         mounted() {
-            var eight1 = echarts.init(document.getElementById("eight1"));
-            eight1.setOption({
-                backgroundColor: "#eee",
-                tooltip: {
-                    trigger: 'axis',
 
-                },
-                "dataZoom": [{
-                    "show": true,
-                    "height": 10,
-                    "xAxisIndex": [
-                        0
-                    ],
-                    bottom: 0,
-                    "start": 10,
-                    "end": 80,
-                    handleIcon: 'path://M306.1,413c0,2.2-1.8,4-4,4h-59.8c-2.2,0-4-1.8-4-4V200.8c0-2.2,1.8-4,4-4h59.8c2.2,0,4,1.8,4,4V413z',
-                    handleSize: '110%',
-                    handleStyle:{
-                        color:"#000",
-                    },
-                    textStyle:{
-                        color:"#000"},
-                    borderColor:"#90979c"
-                }, {
-                    "type": "inside",
-                    "show": true,
-                    "height": 15,
-                    "start": 1,
-                    "end": 35
-                }],
-                xAxis: {
-                    type: 'category',
-                    data: ['一周', '二周', '三周', '四周', '五周', '六周', '七周','八周',"九周"]
-                },
-                yAxis: {
-                    type: 'value'
-                },
-                series: [{
-                    data: [820, 932, 901, 934, 1290, 1330, 1320,112,445],
-                    type: 'line'
-                }]
-            });
-
-            window.onresize = eight1.resize; // 基于准备好的dom，初始化echarts实例
-            var eight = echarts.init(document.getElementById("eight"));
-
-            eight.setOption({
-
-                backgroundColor: "#ccc",
-                tooltip: {
-                    trigger: "axis",
-                    axisPointer: {
-                        type: "shadow"
-                    }
-                },
-                legend: {
-                    data: ["票数", "件数", "重量", "成本"],
-                    align: "right",
-                    right: 20,
-                    textStyle: {
-                        color: "#000"
-                    },
-                    itemGap: 30,
-                    itemWidth: 30,
-                    itemHeight: 10
-                },
-                grid: {
-                    left: "3%",
-                    right: "4%",
-                    bottom: "3%",
-                    containLabel: true
-                },
-                xAxis: [
-                    {
-                        type: "category",
-                        data: [
-                            "1月",
-                            "2月",
-                            "3月",
-                            "4月",
-                            "5月",
-                            "6月",
-                            "7月",
-                            "8月",
-                            "9月",
-                            "10月",
-                            "11月",
-                            "12月"
-                        ],
-                        axisLine: {
-                            show: true,
-                            lineStyle: {
-                                color: "#034e90",
-                                width: 2,
-                                type: "solid"
-                            }
-                        },
-                        axisTick: {
-                            show: false
-                        },
-                        axisLabel: {
-                            show: true,
-                            textStyle: {
-                                color: "#9fceff",
-                                fontSize: 14
-                            }
-                        }
-                    }
-                ],
-                yAxis: [
-                    {
-                        type: "value",
-                        splitNumber: 6,
-                        axisLabel: {
-                            formatter: "{value}",
-                            textStyle: {
-                                color: "#91bdeb",
-                                fontSize: 16
-                            }
-                        },
-                        axisTick: {
-                            show: false
-                        },
-                        axisLine: {
-                            show: true,
-                            lineStyle: {
-                                color: "#00a1e4",
-                                width: 2,
-                                type: "solid"
-                            }
-                        },
-                        splitLine: {
-                            show: true,
-                            lineStyle: {
-                                color: "#034e90",
-                                width: 2,
-                                type: "solid"
-                            }
-                        }
-                    }
-                ],
-                series: [
-                    {
-                        name: "票数",
-                        type: "line",
-                        data: (function () {
-                            var d = [];
-                            for (let i = 0; i < 12; i++) {
-                                d.push(parseInt(Math.random() * (100 - 50 + 1) + 50, 10));
-                            }
-                            return d;
-                        })(),
-                        itemStyle: {
-                            normal: {
-                                color: "#00a1e4"
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                width: 2,
-                                shadowColor: "rgba(0,0,0,0.4)",
-                                shadowBlur: 10,
-                                shadowOffsetY: 10
-                            }
-                        }
-                    },
-                    {
-                        name: "件数",
-                        type: "line",
-                        data: (function () {
-                            var d = [];
-                            for (let i = 0; i < 12; i++) {
-                                d.push(parseInt(Math.random() * (90 - 40) + 40, 10));
-                            }
-                            return d;
-                        })(),
-                        itemStyle: {
-                            normal: {
-                                color: "#ffc600"
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                width: 2,
-                                shadowColor: "rgba(0,0,0,0.4)",
-                                shadowBlur: 10,
-                                shadowOffsetY: 10
-                            }
-                        }
-                    },
-                    {
-                        name: "重量",
-                        type: "line",
-                        data: (function () {
-                            var d = [];
-                            for (let i = 0; i < 12; i++) {
-                                d.push(parseInt(Math.random() * (80 - 30 + 1) + 30, 10));
-                            }
-                            return d;
-                        })(),
-                        itemStyle: {
-                            normal: {
-                                color: "#24c768"
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                width: 2,
-                                shadowColor: "rgba(0,0,0,0.4)",
-                                shadowBlur: 10,
-                                shadowOffsetY: 10
-                            }
-                        }
-                    },
-                    {
-                        name: "成本",
-                        type: "line",
-                        data: (function () {
-                            var d = [];
-                            for (let i = 0; i < 12; i++) {
-                                d.push(parseInt(Math.random() * (70 - 20 + 1) + 20, 10));
-                            }
-                            return d;
-                        })(),
-                        itemStyle: {
-                            normal: {
-                                color: "#de7008"
-                            }
-                        },
-                        lineStyle: {
-                            normal: {
-                                width: 2,
-                                shadowColor: "rgba(0,0,0,0.4)",
-                                shadowBlur: 10,
-                                shadowOffsetY: 10
-                            }
-                        }
-                    }
-                ]
-            });
-
-            window.onresize = eight.resize; // 基于准备好的dom，初始化echarts实例
 
         },
         methods: {
+            //得到项目周报图表部分的数据
+
+            getEcharts(){
+                this.$axios
+                    .post("http://www.zjcoldcloud.com/zhanghaining/tms/public/index.php/projectweekly/chart",
+                        {
+                            EndTime:this.EndTime,
+                        }
+                    ).then(res=> {
+                    console.log(res, 11111);
+                    this.CountTotal = Number(res.data.CountTotal).toFixed(2);
+                    this.month = res.data.Week;
+                    this.Total = res.data.Total;
+                    this.Year = res.data.Year;
+
+                    var eight1 = echarts.init(document.getElementById("eight1"));
+                    this.loading = false;
+                    eight1.setOption({
+                        backgroundColor: "#eee",
+                        tooltip: {
+                            trigger: 'axis',
+
+                        },
+                        "dataZoom": [{
+                            "show": true,
+                            "height": 10,
+                            "xAxisIndex": [
+                                0
+                            ],
+                            bottom: 0,
+                            "start": 10,
+                            "end": 80,
+                            handleIcon: 'path://M306.1,413c0,2.2-1.8,4-4,4h-59.8c-2.2,0-4-1.8-4-4V200.8c0-2.2,1.8-4,4-4h59.8c2.2,0,4,1.8,4,4V413z',
+                            handleSize: '110%',
+                            handleStyle: {
+                                color: "#000",
+                            },
+                            textStyle: {
+                                color: "#000"
+                            },
+                            borderColor: "#90979c"
+                        }, {
+                            "type": "inside",
+                            "show": true,
+                            "height": 15,
+                            "start": 1,
+                            "end": 35
+                        }],
+                        xAxis: {
+                            type: 'category',
+                            data: this.month
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [{
+                            data: this.Total,
+                            type: 'line'
+                        }]
+                    });
+
+                    window.onresize = eight1.resize; // 基于准备好的dom，初始化echarts实例
+
+
+                })
+
+                    },
             getRender (h,column,c,d,num){
                     return h(
                         'div',
@@ -1945,13 +1773,7 @@
                     this.clientExcel = this.excelActive;
                 }
             },
-           /* // 2019.5.5 李洋 点击客户账号 跳转
-            jumpDetails(row, column, cell, event) {
-                // console.log(row,column.label,222);
-                if (column.label == "客户账号") {
-                    this.$router.push("/customeDatails");
-                }
-            }*/
+
         }
     };
 </script>
@@ -1974,7 +1796,7 @@
     }
 
     .grid-num {
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 800;
         margin: 5px 0px;
         color: #fff;
