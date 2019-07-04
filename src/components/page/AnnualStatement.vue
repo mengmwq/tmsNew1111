@@ -176,6 +176,7 @@
                                                     <img
                                                             src="../../assets/img/刷新.png"
                                                             alt
+                                                            @click="refresh()"
                                                     >
 
                                                 </div>
@@ -245,12 +246,12 @@
                                         <el-table-column
                                                 prop="province"
                                                 label="收入"
-                                                width="50">
+                                                >
                                         </el-table-column>
                                         <el-table-column
                                                 prop="city"
                                                 label="支出"
-                                                width="50"
+
                                         >
                                         </el-table-column>
 
@@ -550,6 +551,7 @@
                                                 <img
                                                         src="../../assets/img/刷新.png"
                                                         alt
+                                                        @click="refresh2()"
                                                 >
 
                                             </div>
@@ -620,18 +622,18 @@
                                                 <el-table-column
                                                         prop="Cweight"
                                                         label="费用"
-                                                        width="50">
+                                                     >
                                                 </el-table-column>
                                                 <el-table-column
                                                         prop="Piao"
                                                         label="票数"
-                                                        width="50"
+
                                                 >
                                                 </el-table-column>
                                                 <el-table-column
                                                         prop="Jian"
                                                         label="件数"
-                                                        width="50"
+
                                                 >
                                                 </el-table-column>
                                                 <el-table-column
@@ -1141,6 +1143,26 @@
             this.getEcharts()
         },
         methods: {
+            refresh(){
+                State:'Account';
+                this.EndTime='';
+                this.AccountNumber='';
+                this.SaleName0='';
+                this.loading = false;
+                this.getTableData()
+
+            },
+            refresh2() {
+
+                    this.EndTime='';
+                    this.AccountNumber='';
+                    this.StartCity='';
+                    this.EndCity='';
+                    this.WayOut='';
+                     this.getLineTable()
+
+            },
+
              handleCurrentChange(val) {
                 this.isLoading = true;
                 this.cur_page = val;
