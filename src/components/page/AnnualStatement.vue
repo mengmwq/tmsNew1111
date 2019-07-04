@@ -1135,7 +1135,7 @@
 
                 option: [],
                  cur_page: 1,//当前页
-                limit: 20, //每页多少条
+                limit: 2, //每页多少条
                 ccc: 0, //总页数
                 activeName: "second",
 
@@ -1308,6 +1308,7 @@
                     this.clientExcel = this.excelDefault;
                 } else {
                     // 线路
+                    this.getLineTable()
                     this.tempShow = true;
                     this.tableShow = false;
                     this.lineLine = this.lineActive;
@@ -1366,9 +1367,28 @@
                      }
                      ).then(res => {
                          this.isLoading = false;
-                         
+                         this.ccc = res.data.sum;
                          this.monthData = res.data;
                      })
+            },
+            //获得线路的数据
+            getLineTable(){
+                this.isLoading = true;
+                this.$axios
+                    .post("http://www.zjcoldcloud.com/zhanghaining/tms/public/index.php/annualstatement/index",
+                        {
+                            State:'Way',
+
+                            Page: this.cur_page,//当前页码
+                            PageSize: this.limit,//每页条数
+
+
+                        }
+                    ).then(res => {
+                    this.isLoading = false;
+                  /*  this.ccc = res.data.sum;
+                    this.monthData = res.data;*/
+                })
             }
         }
     };
