@@ -504,22 +504,24 @@
                                                 <div class="block">
 
                                                     <el-date-picker
-                                                            v-model="value1"
+                                                            v-model="EndTime"
                                                             type="datetime"
                                                             placeholder="选择日期时间"
+                                                            value-format="yyyy-MM-dd"
+
                                                     >
                                                     </el-date-picker>
                                                 </div>
                                             </el-form-item>
                                             <el-form-item label="客户账号">
-                                                <el-input style="width: 80px"></el-input>
+                                                <el-input style="width: 80px" v-model="AccountNumber"></el-input>
                                             </el-form-item>
 
                                             <el-form-item label="发货城市">
-                                                <el-input style="width: 80px"></el-input>
+                                                <el-input style="width: 80px" v-model="StartCity"></el-input>
                                             </el-form-item>
                                             <el-form-item label="收货城市">
-                                                <el-input style="width: 80px"></el-input>
+                                                <el-input style="width: 80px" v-model="EndCity"></el-input>
                                             </el-form-item>
                                             <el-form-item label="运输方式">
                                                 <el-select
@@ -537,6 +539,7 @@
                                                     src="../../assets/img/查询.png"
                                                     alt="查询图标"
                                                     style="margin-left: 10px;margin-top: 3px;"
+                                                    @click="getLineTable"
                                             >
                                             <div style="float: right">
                                                 <img
@@ -561,7 +564,7 @@
                                                 ref="multipleTable"
                                                 border
                                                 max-height="400"
-
+                                                v-loading="isLoading"
                                         >
                                             <el-table-column
                                                     type="selection"
@@ -576,14 +579,14 @@
                                                     fixed
                                             ></el-table-column>-->
                                             <el-table-column
-                                                    prop="Condition"
+                                                    prop="AccountNumber"
                                                     label="客户账号"
                                                     align="center"
                                                     fixed
 
                                             ></el-table-column>
                                             <el-table-column
-                                                    prop="jjj"
+                                                    prop="WayOut"
                                                     label="运输方式"
                                                     align="center"
                                                     class-name="curstomNum"
@@ -592,14 +595,14 @@
 
                                             ></el-table-column>
                                             <el-table-column
-                                                    prop="Condition"
+                                                    prop="StartCity"
                                                     label="发货城市"
                                                     align="center"
                                                     fixed
 
                                             ></el-table-column>
                                             <el-table-column
-                                                    prop="Condition"
+                                                    prop="EndCity"
                                                     label="收货城市"
                                                     align="center"
                                                     fixed
@@ -615,18 +618,18 @@
 
                                             >
                                                 <el-table-column
-                                                        prop="BillNumber"
+                                                        prop="Cweight"
                                                         label="费用"
                                                         width="50">
                                                 </el-table-column>
                                                 <el-table-column
-                                                        prop="city"
+                                                        prop="Piao"
                                                         label="票数"
                                                         width="50"
                                                 >
                                                 </el-table-column>
                                                 <el-table-column
-                                                        prop="city"
+                                                        prop="Jian"
                                                         label="件数"
                                                         width="50"
                                                 >
@@ -1017,8 +1020,10 @@
                                         </el-table>
                                 <div class="pagination">
                                     <el-pagination
-                                            :page-sizes="[50, 100, 500, 2000]"
-                                            :page-size="50"
+                                            :page-sizes="[20,50, 100, 500, 2000]"
+                                            :page-size="20"
+                                            @size-change="handleSizeChange"
+                                            @current-change="handleCurrentChange"
                                             layout="total, sizes, prev, pager, next, jumper"
                                             :total="ccc"
                                     ></el-pagination>
@@ -1088,6 +1093,9 @@
                 loading:true,
                 isLoading: false,
                 monthData:[],
+                StartCity:'',
+                EndCity:'',
+             
                 WayOut:'',
                 Total:'',
                 Pay:'',
@@ -1116,26 +1124,13 @@
                 AccountNumber:'',
                 SaleName0:'',
                 select_cate: "", //运单状态
-                tableData: [
-                    {
-                        ID: "ceshizhanghao1",
-                        GetCompany: "测试公司1",
-                        Condition: "现金",
-                        BillNumber: "100000"
-                    },
-                    {
-                        ID: "ceshizhanghao2",
-                        GetCompany: "测试公司2",
-                        Condition: "现金",
-                        BillNumber: "100000"
-                    }
-                ],
+                tableData: [],
                 value6: "",
                 value1: "",
 
                 option: [],
                  cur_page: 1,//当前页
-                limit: 2, //每页多少条
+                limit: 20, //每页多少条
                 ccc: 0, //总页数
                 activeName: "second",
 
@@ -1308,7 +1303,7 @@
                     this.clientExcel = this.excelDefault;
                 } else {
                     // 线路
-                    this.getLineTable()
+                    
                     this.tempShow = true;
                     this.tableShow = false;
                     this.lineLine = this.lineActive;
@@ -1331,6 +1326,7 @@
                     this.lineExcel = this.excelActive;
                     this.tempShow = false;
                     this.tableShow = true;
+                    this.getLineTable()
                 }
             },
             switcher2(t) {
@@ -1371,14 +1367,18 @@
                          this.monthData = res.data;
                      })
             },
-            //获得线路的数据
+            //获得线路   表格数据
             getLineTable(){
                 this.isLoading = true;
                 this.$axios
                     .post("http://www.zjcoldcloud.com/zhanghaining/tms/public/index.php/annualstatement/index",
                         {
                             State:'Way',
-
+                             EndTime:this.EndTime,
+                             AccountNumber:this.AccountNumber,
+                             StartCity:this.StartCity,
+                             EndCity:this.EndCity,
+                             WayOut:this.WayOut,
                             Page: this.cur_page,//当前页码
                             PageSize: this.limit,//每页条数
 
@@ -1386,8 +1386,10 @@
                         }
                     ).then(res => {
                     this.isLoading = false;
-                  /*  this.ccc = res.data.sum;
-                    this.monthData = res.data;*/
+                    this.tableData = res.data.data;
+                    
+                    this.ccc = res.data.sum;
+                   
                 })
             }
         }
