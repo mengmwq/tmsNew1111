@@ -7,8 +7,8 @@
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div class="container">
-      <div class="handle-box">
+    <div>
+       <div class="handle-box">
         <el-form
           :inline="true"
           style="margin: 20px 0 0 0;border-bottom:1px solid #ccc"
@@ -135,349 +135,41 @@
             </el-col>
           </el-row>
         </el-form>
-        <el-row  :gutter="24">
-
-            <div style="margin:15px 0">
-              <el-col :span="16">
-                <span style="font-size: 18px;color:#333;  ;padding-left:5px;font-weight: 800;border-left: 3px solid green;font-family: cursive;">{{echart_title}}</span>
-              </el-col>
-              <el-col :span="5" >
-                <template v-if="qiehuan">
-                  <div>
-
-                    <div style="display:flex;align-items:center;float:left;">
-                      <el-select
-                              style="width:100px;"
-                              v-model="selectDataEchar"
-                              placeholder="请选择"
-                              class="handle-select mr10"
-                              @change="selectTriggerEchar"
-                      >
-                        <el-option
-                                key="1"
-                                label="类型"
-                                value="类型"
-                        ></el-option>
-                        <el-option
-                                key="0"
-                                label="业务类型"
-                                value="业务类型"
-                        ></el-option>
-                      </el-select>
-                      <div v-for="(item,index) in selectEcharData" :key="index" class="selectDataClass">
-                        <span style="font-size: 14px">{{item}}</span>
-                      </div>
-
-                    </div>
-                  </div>
-                </template>
-              </el-col>
-             <el-col :span="3" >
-             <template>
-
-
-              <div style="float: right">
-                <el-button
-                        :class="isZhandian ? 'blackDefault' : 'blueActive'"
-                        @click="CLSD(1)"
-                >全站点
-                </el-button>
-                <el-button
-                        :class="isQuyu ? 'blackDefault' : 'blueActive'"
-                        @click="CLSD(0)"
-                >全区域
-                </el-button>
-              </div>
-
-
-
-
-            </template>
-
-            </el-col>
-
-
-            </div>
-
-
-        </el-row>
-
-        <div
-          id="tubiao"
-          style="width:100%;height:200px;margin-bottom: 20px;"
-        ></div>
-      </div>
-      <el-table
-        :data="tableData"
-        style="width: 100%"
-        ref="multipleTable"
-        border
-        element-loading-spinner="el-icon-loading2"
-        element-loading-background="rgba(0, 0, 0, 0.2)"
-        @selection-change="handleSelectionChange"
-        v-loading="loading"
-        text-align="center"
-        height="350"
-      >
-        <el-table-column
-          type="selection"
-          width="60"
-          align="center"
-        ></el-table-column>
-
-        <el-table-column
-          prop="UnitName"
-          label="区域"
-          align="center"
-          :show-overflow-tooltip="true"
-        ></el-table-column>
-        <template v-if="table1">
-          <el-table-column
-            prop="CountType"
-            label="站点"
-            align="center"
-          ></el-table-column>
-          <el-table-column
-            prop="abc"
-            label="城市"
-            align="center"
-          ></el-table-column>
-        </template>
-        <el-table-column
-          prop="qq"
-          label="票数"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="4L"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="12L"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="28L"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="35L"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="45L"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="56L"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="70L"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="97L"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="130L"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="150L"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="CW"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="CW(冬)"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="xps保温箱"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="XS26"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="XS27"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="XS28"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="XS29"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="A箱"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="B箱"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="新GB(大)"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="GB(大)"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="GB(小)"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="托盘保温箱"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="冷藏专车"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="普货重量"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="标准箱数量"
-          align="center"
-        ></el-table-column>
-        <el-table-column
-          prop="qq"
-          label="费用"
-          align="center"
-        ></el-table-column>
-
-      </el-table>
-
-      <div class="pagination">
-        <el-pagination
-          :page-sizes="[20,30,40,50,60,100, ]"
-          :page-size="20"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="ccc"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        ></el-pagination>
-      </div>
+        <!-- 组件 -->
+          <v-zhandian v-if="iszhandian" :searchParams='searchParams'></v-zhandian>
+          <v-fenkong v-if="isfenkong" :searchParams='searchParams'></v-fenkong>
+          <v-yuangong v-if="isyuangong" :searchParams='searchParams'></v-yuangong>
+        </div>
     </div>
   </div>
 </template>
 
 <script>
 import echarts from "echarts";
+import vZhandian from './product/zhandian.vue';
+import vFenkong from './product/fenkong.vue';
+import vYuangong from './product/yuangong.vue';
 
 export default {
+  components:{
+    vZhandian,vFenkong,vYuangong
+  },
   data() {
     return {
+      selectData:'分控',
+      time:'',
       form: {
         tera: "",
         city: "",
         pro: ""
       },
-      qiehuan:false,
-      selectDataEchar: '类型', //  图标上的下拉 仅站点操作
-      selectEcharData: ['始发','中转','派送'],   
-      table1: true,
-      echart_title: '全国货量排名-分控操作',
-      optionPro: [],
       optionCity: [],
-      isZhandian: false, // 判断全站点  颜色是否蓝色
-      isQuyu: true, // 判断全区域  颜色是否蓝色
-      serviceObject: "", //服务对象
-      time: "", //时间
-      tableData: [], //table数据
-      cur_page: 1, //当前页
-      limit: 20, //每页多少条
-      ccc: 0, //总页数
-      loading: false,
-      selectData: "分控",
-      tableData: [
-        {
-          UnitName: "ceshizhanghao1",
-          CountType: "测试公司1",
-          abc: "beij",
-          qq: "100000"
-        },
-        {
-          UnitName: "ceshizhanghao2",
-          CountType: "测试公司2",
-          abc: "山西",
-          qq: "100000"
-        },
-        {
-          UnitName: "ceshizhanghao2",
-          CountType: "测试公司2",
-          abc: "河北",
-          qq: "100000"
-        },
-        {
-          UnitName: "ceshizhanghao2",
-          CountType: "测试公司2",
-          abc: "湖南",
-          qq: "100000"
-        },
-        {
-          UnitName: "ceshizhanghao2",
-          CountType: "测试公司2",
-          abc: "湖南",
-          qq: "100000"
-        },
-        {
-          UnitName: "ceshizhanghao2",
-          CountType: "测试公司2",
-          abc: "湖南",
-          qq: "100000"
-        },
-        {
-          UnitName: "ceshizhanghao2",
-          CountType: "测试公司2",
-          abc: "湖南",
-          qq: "100000"
-        },
-        {
-          UnitName: "ceshizhanghao2",
-          CountType: "测试公司2",
-          abc: "湖南",
-          qq: "100000"
-        }
-      ]
+      optionPro:[],
+      iszhandian: false,
+      isfenkong: true,
+      isyuangong: false,
+      searchParams: ''
+
     };
   },
   name: "ProductStatistics",
@@ -486,78 +178,35 @@ export default {
   },
 
   mounted() {
-    // 默认  请求 全站点
-    let d = [
-      "北京",
-      "上海",
-      "重庆",
-      "山西",
-      "南京",
-      "云南",
-      "河北",
-      "上海",
-      "湖南",
-      "湖北",
-      "东北",
-      "山东",
-      "江苏",
-      "安徽",
-      "上海",
-      "浙江",
-      "江西",
-      "福建",
-      "台湾"
-    ];
-    let x = [
-      1000,
-      900,
-      800,
-      700,
-      600,
-      500,
-      400,
-      300,
-      200,
-      100,
-      90,
-      80,
-      70,
-      60,
-      50,
-      40,
-      44,
-      43,
-      42,
-      60,
-      80,
-      100,
-      120,
-      100,
-      10,
-      20,
-      40,
-      60,
-      80,
-      100,
-      120,
-      100
-    ];
 
-    /**
-     *  等有接口  直接就请求接口获取数据   一个 d  x轴数据   x  对应的value
-     * 默认全站点
-     */
-    this.get_zhandian(d, x);
   },
   methods: {
-      selectTriggerEchar(){
-          let val = this.selectDataEchar;
-          if(val == "类型"){
-              this.selectEcharData = ['始发','中转','派送'];
-          }else{
-              this.selectEcharData = ['临床临检','非临床临检'];
-          }
-      },
+    //服务对象选择触发事件   清空搜索条件
+    selectTrigger() {
+        let val = this.selectData;
+        this.form.city = "";
+        this.form.pro = "";
+        this.form.tera = "";
+        this.time = '';
+      if (val == "分控") {
+
+        //请求分控页面
+        this.iszhandian = false;
+        this.isfenkong = true;
+        this.isyuangong = false;
+
+
+      } else if (val == "员工") {
+        this.iszhandian = false;
+        this.isfenkong = false;
+        this.isyuangong = true;
+      } else {
+        // 站点
+        this.iszhandian = true;
+        this.isfenkong = false;
+        this.isyuangong = false;
+      }
+    },
     getArea() {
       // 点击 大区
       // console.log(this.form.tera);
@@ -600,318 +249,22 @@ export default {
       }
     },
     getSearch() {
-      // 点击  搜索      也是走的  getTableData   这个方法  传参数 
-
-      // 我先 给你写死  到时候 有了接口 就是传参数 走getTableData   就完事  不用这么麻烦
-    console.log(this.form.tera, this.form.pro, this.form.city);
 
       if (this.form.tera == "") {
         this.isZhandian = false;
         this.isQuyu = true;
       } else {
-        // 说明  搜索 请求接口
-        this.isZhandian = true;
-        this.isQuyu = true;
-        // 渲染图标 传参数 走getTableData   就完事
-        // 渲染 表格
-        // 
-        
-        if (this.form.tera == "西北区") {
-
-            let d = ["青海", "甘肃", '宁夏', "新疆", "陕西"];
-            let x = [10, 900, 800, 700, 60, 500];
-            this.get_zhandian(d, x);
-        } else if (this.form.tera == "华北区") {
-            if(this.form.pro == '山西省'){
-                let d = ["临汾", "运城", "太原", "大同", "洪洞"];
-                let x = [100, 90, 80, 70, 600, 50];
-                this.get_zhandian(d, x);
-            }else if(this.form.pro == '北京'){
-                let d = ["海淀", "丰台", "朝阳", "顺义", "大兴"];
-                let x = [100, 90, 80, 70, 600, 50];
-                this.get_zhandian(d, x);
-            }else if(this.form.pro == '天津'){
-                let d = ["静海", "静海", "静海", "静海", "静海"];
-                let x = [100, 90, 80, 70, 600, 50];
-                this.get_zhandian(d, x);
-            }
-            
+        // 点击搜索   传值   父传子
+        let obj = {
+          tera: this.form.tera,
+          pro: this.form.pro,
+          city: this.form.city,
+          selectData:this.selectData
         }
-        // this.getTableData();
-        this.table1 = true;
-        this.tableData = [
-          {
-            UnitName: "ceshizhanghao1",
-            CountType: "北京",
-            abc: "111",
-            qq: "222"
-          },
-          {
-            UnitName: "ceshizhanghao1",
-            CountType: "搜索后",
-            abc: "111",
-            qq: "222"
-          }
-        ];
-      }
+        this.searchParams = JSON.stringify(obj);
 
-
-
-      
-    },
-
-    CLSD(val) {
-      if (Number(val) === 1) {
-        //全站点
-
-        this.table1 = true;
-        this.isZhandian = false;
-        this.isQuyu = true;
-        // 请求接口  走一个方法  然后  再走 this.get_zhandian(d,x);  一样得传这俩  渲染图标
-
-        new Promise((resolve, reject) => {
-          let data = this.getTableData("站点");
-          +resolve(data);
-          console.log(data, 9);
-        }).then(res => {
-          this.get_zhandian(res.a, res.b);
-        });
-        console.log("我要全站点的数据");
-      } else {
-        // 全区域
-        this.isZhandian = true;
-        this.isQuyu = false;
-
-        this.table1 = false;
-
-        new Promise((resolve, reject) => {
-          let data = this.getTableData("区域");
-          resolve(data);
-        }).then(res => {
-          this.get_zhandian(res.a, res.b);
-        });
-        console.log("我要全区域的数据");
       }
     },
-    //区域选择触发事件
-    selectTrigger() {
-        let val = this.selectData;
-        console.log(val)
-      if (val == "分控") {
-         this.qiehuan =false
-        //  alert("fenk");
-        //请求分控页面
-        this.echart_title = '全国货量排名-分控操作';
-      } else if (val == "员工") {
-        this.qiehuan =false;
-        // alert("yuangong");
-        //请求员工页面
-        this.echart_title = '全国货量排名-员工操作';
-
-        let d = ["北京", "上海", '重庆', "哈尔滨", "长春"];
-            let x = [10, 900, 800, 700, 60, 500];
-            this.get_zhandian(d, x);
-      } else {
-        // alert("zhandian");
-        // 站点
-        this.qiehuan =true
-        this.echart_title = '全国货量排名-站点操作';
-        this.getzhandianData();
-      }
-    },
-    getzhandianData(){
-      var tubiao = echarts.init(document.getElementById("tubiao"));
-      tubiao.setOption({
-                  "tooltip": {
-              "trigger": "axis"
-          },
-          "color": ["#37b70c", "#fae521", "#f29c00", "#dd3f36", "#b3013f", "#a00398"],
-      
-          "xAxis": [{
-              "name": "月份",
-              "type": "category",
-              "axisTick": {
-                  "alignWithLabel": true
-              },
-              "data": ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
-          }],
-          "yAxis": [{
-              "type": "value",
-              "name": "天数"
-          }],
-          "series": [{
-              "data": [5, 2, 5, 7, 5, 6, 9, 14],
-              "name": "优",
-              "stack": "one",
-              "type": "bar"
-          }, {
-              "data": [2, 5, 7, 5, 6, 5 ,0 ,6,8],
-              "name": "良",
-              "stack": "one",
-              "type": "bar"
-          }, {
-              "data": [5, 7, 5, 6, 5, 2, 5],
-              "name": "轻度",
-              "stack": "one",
-              "type": "bar"
-          }, {
-              "data": [7, 5, 6, 5, 2, 5],
-              "name": "中度",
-              "stack": "one",
-              "type": "bar"
-          }, {
-              "data": [5, 6, 5, 2, 5, 7],
-              "name": "重度",
-              "stack": "one",
-              "type": "bar"
-          }, {
-              "data": [6, 5, 2, 5, 7, 5],
-              "name": "严重",
-              "stack": "one",
-              "type": "bar"
-          }]
-      },true)
-    },
-    handleCurrentChange(val) {
-      this.loading = true;
-      this.cur_page = val;
-      this.getData();
-    },
-    handleSelectionChange(val) {
-      // 选中的  当前条 数据
-      this.multipleSelection = val;
-    },
-    handleSizeChange(val) {
-      this.loading = true;
-
-      // console.log(val); // 每页显示  条数
-      this.limit = val;
-      this.getData();
-    },
-    //  渲染图标
-    get_zhandian(xData, sData) {
-      var tubiao = echarts.init(document.getElementById("tubiao"));
-
-      tubiao.setOption({
-        grid: {
-          top: "10%",
-          left: "0",
-          right: "0",
-          bottom: "5%",
-          containLabel: true
-        },
-        xAxis: {
-          data: xData,
-          axisTick: {
-            show: false
-          },
-          axisLine: {
-            show: true,
-            lineStyle: {
-              color: "#ccc"
-            }
-          },
-          axisLabel: {
-            interval: 0,
-            rotate: 45
-          }
-        },
-        yAxis: {
-          show: false
-        },
-        series: [
-          {
-            name: "销量",
-            type: "bar",
-            barWidth: "10%",
-            data: sData,
-            itemStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  {
-                    offset: 0,
-                    color: "#00fcae"
-                  },
-                  {
-                    offset: 1,
-                    color: "#006388"
-                  }
-                ]),
-                opacity: 1
-              }
-            }
-          }
-        ]
-      },true);
-    },
-    // 请求接口
-    getTableData(type) {
-      // 到时候  接口  就写到这里
-      if (type == "站点") {
-        let d = [
-          "北京",
-          "上海",
-          "重庆",
-          "山西",
-          "南京",
-          "云南",
-          "河北",
-          "上海",
-          "湖南",
-          "湖北",
-          "东北",
-          "山东",
-          "江苏",
-          "安徽",
-          "上海",
-          "浙江",
-          "江西",
-          "福建",
-          "台湾"
-        ];
-        let x = [
-          1000,
-          900,
-          800,
-          700,
-          600,
-          500,
-          400,
-          300,
-          200,
-          100,
-          90,
-          80,
-          70,
-          60,
-          50,
-          40,
-          44,
-          43,
-          42,
-          60,
-          80,
-          100,
-          120,
-          100,
-          10,
-          20,
-          40,
-          60,
-          80,
-          100,
-          120,
-          100
-        ];
-        let obj = { a: d, b: x };
-        return obj;
-      } else if (type == "区域") {
-        let d = ["华北区", "东北区", "华中区", "华南区", "西南区", "西北区"];
-        let x = [1000, 900, 800, 700, 600, 500, 400, 300];
-        let obj = { a: d, b: x };
-        return obj;
-      }
-    }
   }
 };
 </script>
