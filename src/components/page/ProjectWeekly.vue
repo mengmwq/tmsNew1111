@@ -1529,11 +1529,33 @@
 
                     var eight1 = echarts.init(document.getElementById("eight1"));
                     this.loading = false;
+                    var colors = ['rgba(23, 255, 243', 'rgba(255,100,97'];
+
                     eight1.setOption({
-                        backgroundColor: "#eee",
+                        color:colors,
+                        backgroundColor: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#c86589'
+                        },
+                            {
+                                offset: 1,
+                                color: '#06a7ff'
+                            }
+                        ], false),
                         tooltip: {
                             trigger: 'axis',
 
+                        },
+                        toolbox: {
+                            feature: {
+                                dataZoom: {
+                                    yAxisIndex: 'none'
+                                },  //放缩功能
+                                dataView: {show: true, readOnly: false}, //清单功能
+                                magicType: {show: true, type: ['line', 'bar']}, //柱形/折线切换功能
+                                restore: {show: true},  //刷新功能
+                                saveAsImage: {show: true}  //下载功能
+                            }
                         },
                         "dataZoom": [{
                             "show": true,
@@ -1570,7 +1592,9 @@
                         series: [{
                             data: this.Total,
                             type: 'line'
-                        }]
+                        },
+
+                        ]
                     });
 
                     window.onresize = eight1.resize; // 基于准备好的dom，初始化echarts实例

@@ -249,11 +249,11 @@
                 tableData: [
 
                 ],
-                CountChae:'',
-                CountLastMoney: '',
-                CountThisMoney:'',
-                LastWeek:'',
-                ThisWeek:'',
+                CountChae:'0',
+                CountLastMoney: 0,
+                CountThisMoney:0,
+                LastWeek:'上',
+                ThisWeek:'本',
                 cur_page: 1,//当前页
                 limit: 20, //每页多少条
                 ccc: 0, //总页数
