@@ -40,6 +40,7 @@
                                         src="../../assets/img/查询.png"
                                         alt="查询图标"
                                         style="margin-left: 10px;margin-top: 3px;"
+                                        @click="getData"
                                 >
 
                             </el-col>
@@ -89,11 +90,13 @@
                                             src="../../assets/img/刷新.png"
 
                                             style="margin-left: 10px;"
+                                            @click="refresh()"
                                     >
                                     <img
                                             src="../../assets/img/导出.png"
                                             alt
                                             style="margin: 0 20px"
+                                            @click="dataExport()"
                                     >
 
                                 </div>
@@ -126,19 +129,20 @@
                           fixed
                   ></el-table-column>-->
                 <el-table-column
-                        prop="SaleName"
-                        label="销售员"
-                        align="center"
-                        fixed="right"
-                        :show-overflow-tooltip="true"
-                ></el-table-column>
-                <el-table-column
                         prop="AccountNumber"
                         label="客户账号"
                         align="center"
                         fixed="right"
                         :show-overflow-tooltip="true"
                 ></el-table-column>
+                <el-table-column
+                        prop="SaleName"
+                        label="销售员"
+                        align="center"
+                        fixed="right"
+                        :show-overflow-tooltip="true"
+                ></el-table-column>
+
                 <el-table-column
                         prop="UnitName"
                         label="公司名称"
@@ -254,15 +258,75 @@
                 limit: 20, //每页多少条
                 ccc: 0, //总页数
                 activeName: "second",
-
+                multipleSelection: [],
 
             };
         },
         created() {
          this.getData()
         },
-        methods:{
-            handleCurrentChange(val) {
+        methods:{    //导出   导出时需要依赖xlsx file-saver Blob.js  Export2Excel
+            dataExport() {
+                this.loading = true;
+                let import_file;
+                new Promise((resolve, reject) => {
+                    import_file = this.multipleSelection;
+                    if (import_file.length == 0) {
+                        //this.limit = 10000;
+                        // this.getData();
+                        import_file = this.tableData;
+
+                    }
+                    resolve(import_file);
+                }).then(res => {
+                    // console.log(res);return;
+                    require.ensure([], () => {
+                        const {export_json_to_excel} = require("../../assets/js/Export2Excel");
+                        // 这就是表头 展示的表头
+                        const tHeader = [
+                            "客户账号",
+                            "销售员",
+                            "公司名称",
+                            "客户类型",
+                            "业务类型",
+                            "结算类型",
+                            "上周收入",
+                            "本周收入",
+                            "差额",
+
+                        ];
+                        // 这就是 对应的 字段
+                        const filterVal = [
+                            "AccountNumber",
+                            "SaleName",
+                            "UnitName",
+                            "CompanyType",
+                            "UniteCode",
+                            "CountType",
+                            "LastMoney",
+                            "ThisMoney",
+                            "Chae",
+
+                        ];
+                        const list = res;
+                        this.loading = false;
+                        const data = this.formatJson(filterVal, list);
+                        export_json_to_excel(tHeader, data, "周报列表");  // 这是  excel文件名
+                    });
+                });
+
+            },
+            formatJson: function (filterVal, jsonData) {
+                return jsonData.map(v => filterVal.map(j => v[j]));
+            },
+
+            //刷新
+            refresh(){
+             this.AccountNumber='';//客户账号this.EndTime='';
+             this.SaleName='';
+             this.getData()
+            },
+          handleCurrentChange(val) {
                 this.loading = true;
                 this.cur_page = val;
                 this.getData();
