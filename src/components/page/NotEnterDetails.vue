@@ -309,8 +309,6 @@
                             CYNumber:this.CYNumber,
                             StateTime: this.time[0] || '',//开始时间
                             EndTime: this.time[1] || '', //结束时间
-
-
                             PayWay: PayWay
                         }
                     )
@@ -336,11 +334,6 @@
     .el-table tbody tr:hover>td { background-color: #ccc!important; }
 </style>
 <style scoped>
-
-
-
-
-
 
     .grid-con-1 .grid-num {
         color: #fff;

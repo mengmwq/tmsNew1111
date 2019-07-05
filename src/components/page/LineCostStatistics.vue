@@ -562,6 +562,11 @@
                         this.Jian = this.setJian  = res.data.Jian;
                         this.Piao = this.setPiao = res.data.Piao;
                         this.Cweight = this.setCweight = Number(res.data.Cweight).toFixed(2);
+                        this.time = '';
+                        this.StartCity ='';
+                        this.EndCity= '';
+
+
 
                         var eight = echarts.init(document.getElementById('eight'));
 

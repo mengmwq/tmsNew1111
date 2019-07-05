@@ -28,7 +28,7 @@
                             <el-form-item label="承运商">
                                 <el-autocomplete
                                         class="inline-input"
-                                        v-model="state2"
+                                        v-model="CYCompany"
                                         :fetch-suggestions="querySearch"
                                         placeholder="请输入内容"
                                         :trigger-on-focus="false"
@@ -197,7 +197,7 @@
         data() {
             return {
                 areaOptions: areaOptions,
-
+                CYCompany:'',
                 tableData: [],//table数据
                 cur_page: 1,//当前页
                 limit: 20, //每页多少条
@@ -366,6 +366,7 @@
                             StartCity:this.StartCity,
                             StateTime: this.time[0] || '',//开始时间
                             EndTime: this.time[1] || '', //结束时间
+                            CYCompany:this.CYCompany,
 
                         },
                     )
@@ -374,14 +375,18 @@
                         this.CountCweight  = res.data.CountCweight;
                         this.CyCountMoney = res.data.CyCountMoney;
                         this.CountJian = res.data.CountJian;
-                        this.CountPiao =res.data.CountPiao
+                        this.CountPiao =res.data.CountPiao;
+                        this.StartCity = '';
+                        this.EndCity = '';
+                        this.time = '';
+                        this.WayOut ='';
+                        this.CYCompany = '';
 
                             this.ccc = res.data.sum;
 
                         this.loading = false;
                         if (res.data.code == 0) {
                             this.tableData = res.data.data;
-
                             this.ccc = res.data.sum;
                             this.loading = false;
                         } else if (res.data.code == 450) {

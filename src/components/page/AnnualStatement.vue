@@ -292,7 +292,7 @@
                                             :show-overflow-tooltip="true"
                                     ></el-table-column>
                                     <el-table-column
-                                            prop="SaleName"
+                                            prop="ItemName"
                                             label="项目客服"
                                             align="center"
                                             fixed="right"
@@ -591,9 +591,9 @@
                                                     prop="WayOut"
                                                     label="运输方式"
                                                     align="center"
-                                                    class-name="curstomNum"
-                                                    width="120"
-                                                    label-class-name="aaa"
+
+
+
 
                                             ></el-table-column>
                                             <el-table-column

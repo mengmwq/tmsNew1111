@@ -136,7 +136,7 @@
                         :show-overflow-tooltip="true"
                 ></el-table-column>
                 <el-table-column
-                        prop="SaleName"
+                        prop="SaleName0"
                         label="销售员"
                         align="center"
                         fixed="right"
@@ -357,7 +357,7 @@
                             PageSize: this.limit,//每页条数
                             AccountNumber: this.AccountNumber,//客户账号
                             EndTime:this.EndTime,
-                            SaleName:this.SaleName
+                            SaleName0:this.SaleName
 
                         },
                     )
@@ -370,10 +370,13 @@
                         this.LastWeek =res.data.LastWeek;
                         this.ThisWeek =res.data.ThisWeek;
                         this.CountChae =res.data.CountChae;
-
+                        this.EndTime='';
+                        this.AccountNumber = '';
+                        this.SaleName = '';
                         if (res.data.code == 0) {
                             this.tableData = res.data.data;
                             this.ccc = res.data.sum;
+
                             this.loading = false;
                         } else if (res.data.code == 450) {
                             this.$message.success("登录时间过长，请重新登录");

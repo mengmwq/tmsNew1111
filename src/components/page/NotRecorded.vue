@@ -581,6 +581,10 @@
                     .then(res => {
                         this.tableData = res.data.data;
                         this.ccc = res.data.sum;
+                        this.AccountNumber = '';
+                        this.StateTime='';
+                        this.time = '';
+                        this.Bill = '';
                         this.loading = false;
                         if (res.data.code == 0) {
                             this.tableData = res.data.data;

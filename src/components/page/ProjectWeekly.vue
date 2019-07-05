@@ -738,7 +738,7 @@
                                                         </div>
                                                         <div class="grid-img">
                                                             <img
-                                                                    src="../../assets/img/收入合计上的图标.png"
+                                                                    src="../../assets/img/xmzb.png"
                                                                     alt=""
                                                             >
                                                         </div>
@@ -802,7 +802,7 @@
                                                         </div>
                                                         <div class="grid-img">
                                                             <img
-                                                                    src="../../assets/img/未录入运费票数合计.png"
+                                                                    src="../../assets/img/xmzb.png"
                                                                     alt=""
                                                             >
                                                         </div>
@@ -1108,7 +1108,6 @@
                                             prop="Condition"
                                             label="7月"
                                             align="center"
-
                                     >
                                         <el-table-column
                                                 prop="province"
@@ -1432,7 +1431,7 @@
             return {
                 loading:true,
                 isfive: true, // 53-50周
-                Year:'',
+                Year:'2019',
                 EndTime:'',
                 isMondy6:false,
                 isMondy5:false,
@@ -1447,10 +1446,10 @@
                 bbbb1 : 'el-icon-remove',
                 cccc : 'el-icon-circle-plus',
                 dddd : 'el-icon-circle-plus',
-                eeee : 'el-icon-circle-plus',
-                ffff : 'el-icon-circle-plus',
+                eeee : 'el-icon-circle-plus',                ffff : 'el-icon-circle-plus',
+
                 gggg : 'el-icon-circle-plus',
-                CountTotal:'',
+                CountTotal:0,
                 WayOut:'',
                 lineLine: lineActive,
                 lineExcel: excelDefault,

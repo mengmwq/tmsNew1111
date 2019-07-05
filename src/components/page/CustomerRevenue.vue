@@ -487,6 +487,10 @@
                         this.tableData = res.data.data;
 
                         this.ccc = res.data.sum;
+                        this.AccountNumber = '';
+                        this.StateTime='';
+                        this.time = '';
+                        this.Company = '';
 
                         this.loading = false;
                         if (res.data.code == 0) {
