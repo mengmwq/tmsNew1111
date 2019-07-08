@@ -237,19 +237,18 @@
                                             :show-overflow-tooltip="true"
                                     ></el-table-column>
                                     <el-table-column
-                                            show-summary
                                             prop="Condition"
                                             label="合计"
                                             align="center"
 
                                     >
                                         <el-table-column
-                                                prop="province"
+                                                prop="CountPay"
                                                 label="收入"
                                                 >
                                         </el-table-column>
                                         <el-table-column
-                                                prop="city"
+                                                prop="CountTotal"
                                                 label="支出"
 
                                         >
@@ -257,29 +256,34 @@
 
                                     </el-table-column>
                                     <el-table-column
-                                            v-for="(item,index) in monthData.ArrMonth"
+                                            v-for="(date,index) in monthData.ArrMonth"
                                             :key="index"                                
-                                            :label="item+'月'"
+                                            :label="date.label+'月'"
                                             align="center"
 
                                     >
+                                    <!-- :formatter="getPay" //  每一行 scope.$index 每一列  date.label    -->
                                         <el-table-column
-                                                prop="MonthInfo[1].pay"
+                                                
                                                 label="收入"
-                                                width="50">
+                                                
+                                                >
+                                                <template scope="scope">
+                                                    <span>{{date.Month[scope.$index].pay}}</span>
+                                                </template>
                                         </el-table-column>
                                         <el-table-column
-                                                prop="MonthInfo.index.Pay"
+                                                
                                                 label="支出"
-                                                width="50"
                                         >
+                                        <template scope="scope">
+                                                    <span>{{date.Month[scope.$index].total}}</span>
+                                                </template>
                                         </el-table-column>
-
                                     </el-table-column>
 
 
   
-
 
 
 
@@ -1094,7 +1098,112 @@
             return {
                 loading:true,
                 isLoading: false,
-                monthData:[],
+                monthData:{
+                    // ArrMonth   现在海宁接口 是  只有月份  
+                    //   改成  下边这样   就是  每一个月份对应的  列表所有数据           eg:   1月份  有3条  就是 列表有3条数据  
+                        ArrMonth:[
+                            {
+                                label:'1',
+                                Month:[
+                                    {
+                                        pay:'1收first',
+                                        total:'1支first'
+                                    },
+                                    {
+                                        pay:'1收two',
+                                        total:'1支two'
+                                    },
+                                    {
+                                        pay:'1收three',
+                                        total:'1支three'
+                                    }
+                                ]
+                            },
+                            {
+                                label:'2',
+                                Month:[
+                                    {
+                                        pay:'2收first',
+                                        total:'2支first'
+                                    },
+                                    {
+                                        pay:'2收two',
+                                        total:'2支two'
+                                    },
+                                    {
+                                        pay:'2收three',
+                                        total:'2支three'
+                                    }
+                                ]
+                            },
+                            {
+                                label:'3',
+                                Month:[
+                                    {
+                                        pay:'3收first',
+                                        total:'3支first'
+                                    },
+                                    {
+                                        pay:'3收two',
+                                        total:'3支two'
+                                    },
+                                    {
+                                        pay:'3收three',
+                                        total:'3支three'
+                                    }
+                                ]
+                            }
+                        ],
+                        //  data   这个    现在是多一个  monthInfo  这个   可以留也可以不留  咱们没用到它  别的字段 不动
+                        data:[
+                                {
+                                    AccountNumber:"zla0001",
+                                    CompanyType:"经销商和第三方物流",
+                                    CountPay:"456",
+                                    CountTotal:"123",
+                                    CountType:"月结",
+                                    DepartMent:"物流经理",
+                                    ItemName:"李洋",
+                                    SaleName:"老孟",
+                                    SaleName0:"老孟",
+                                    UnitName:"什么什么公司",
+                                    UnitCode:"产品租赁",
+                                    indate:"2017-02-12"
+                                },{
+                                    AccountNumber:"zla0001",
+                                    CompanyType:"经销商和第三方物流",
+                                    CountPay:"456",
+                                    CountTotal:"123",
+                                    CountType:"月结",
+                                    DepartMent:"物流经理",
+                                    ItemName:"李洋",
+                                    SaleName:"老孟",
+                                    SaleName0:"老孟",
+                                    UnitName:"什么什么公司",
+                                    UnitCode:"产品租赁",
+                                    indate:"2017-02-12"
+                                },{
+                                    AccountNumber:"zla0001",
+                                    CompanyType:"经销商和第三方物流",
+                                    CountPay:"456",
+                                    CountTotal:"123",
+                                    CountType:"月结",
+                                    DepartMent:"物流经理",
+                                    ItemName:"李洋",
+                                    SaleName:"老孟",
+                                    SaleName0:"老孟",
+                                    UnitName:"什么什么公司",
+                                    UnitCode:"产品租赁",
+                                    indate:"2017-02-12"
+                                }
+                            ]
+                    }
+
+
+
+
+                    ,
+                data_list:[[71,6,51,4,2,1,5],[72,6,52,4,3,2,1,4]],
                 StartCity:'',
                 EndCity:'',
              
@@ -1140,9 +1249,16 @@
             };
         },
         created() {
-            this.getEcharts()
+            this.getEcharts();
+
         },
         methods: {
+            // getPay(row,column,cellValue,index){
+                // console.log(row,column,cellValue,index);
+                // console.log(row.MonthInfo[index+1].Pay);
+                // console.log(index+1);
+                // return row.MonthInfo[index+1].Pay;
+            // },
             refresh(){
                 State:'Account';
                 this.EndTime='';
@@ -1188,7 +1304,7 @@
                              State:'Chart'
                      }
                      ).then(res=>{
-                         console.log(res,11111);
+                        //  console.log(res,11111);
                          this.Total =res.data.Total;
                          this.CountCweightYLR = res.data.CountCweightYLR;
                          this.CountJianYLR =res.data.CountJianYLR;
@@ -1365,7 +1481,7 @@
                     this.tableShow2 = true;
                     this.clientLine = this.lineDefault;
                     this.clientExcel = this.excelActive;
-                    this.getTableData();
+                    // this.getTableData();
                 }
             },
             getTableData(){
