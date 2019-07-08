@@ -584,7 +584,7 @@
                         this.AccountNumber = '';
                         this.StateTime='';
                         this.time = '';
-                        this.Bill = '';
+                        this.Bill = '';//dnaha
                         this.loading = false;
                         if (res.data.code == 0) {
                             this.tableData = res.data.data;

@@ -487,6 +487,9 @@
                         this.PayHb = res.data.PayHb;
                         this.TotalHb = res.data.TotalHb;
                         this.loading = false;
+                        this.AccountNumber = '';
+                        this.time='';
+                        this.Company= '';
                         if (res.data.code == 0) {
                             this.tableData = res.data.data;
                             this.ccc = res.data.sum;

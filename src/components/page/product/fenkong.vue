@@ -3,7 +3,7 @@
     <el-row :gutter="24">
 
       <div style="margin:15px 0">
-        <el-col :span="16">
+        <el-col :span="15">
           <span style="font-size: 18px;color:#333;  ;padding-left:5px;font-weight: 800;border-left: 3px solid green;font-family: cursive;">{{echart_title}}</span>
         </el-col>
 
