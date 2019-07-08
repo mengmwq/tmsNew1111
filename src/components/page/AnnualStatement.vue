@@ -296,7 +296,7 @@
                                             :show-overflow-tooltip="true"
                                     ></el-table-column>
                                     <el-table-column
-                                            prop="SaleName"
+                                            prop="ItemName"
                                             label="项目客服"
                                             align="center"
                                             fixed="right"
@@ -595,9 +595,9 @@
                                                     prop="WayOut"
                                                     label="运输方式"
                                                     align="center"
-                                                    class-name="curstomNum"
-                                                    width="120"
-                                                    label-class-name="aaa"
+
+
+
 
                                             ></el-table-column>
                                             <el-table-column
@@ -1208,15 +1208,15 @@
                 EndCity:'',
              
                 WayOut:'',
-                Total:'',
-                Pay:'',
+                Total:0,
+                Pay:0,
                 piao:'',
                 month:'',
                 JianYLR:'',
                 CweightYLR:'',
-                CountCweightYLR:'',
-                CountJianYLR:'',
-                CountPiaoYLR:'',
+                CountCweightYLR:0,
+                CountJianYLR:0,
+                CountPiaoYLR:0,
                 PiaoYLR:'',
                 lineLine: lineActive,
                 lineExcel: excelDefault,

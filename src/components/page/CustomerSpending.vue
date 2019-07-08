@@ -413,7 +413,11 @@
                     )
                     .then(res => {
                         this.tableData = res.data.data;
-
+                        this.AccountNumber = '';
+                        this.StateTime='';
+                        this.time = '';
+                        this.Company = '';
+                        this.PayWay = '';
                         this.ccc = res.data.sum;
 
                         this.loading = false;

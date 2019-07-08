@@ -738,7 +738,7 @@
                                                         </div>
                                                         <div class="grid-img">
                                                             <img
-                                                                    src="../../assets/img/收入合计上的图标.png"
+                                                                    src="../../assets/img/xmzb.png"
                                                                     alt=""
                                                             >
                                                         </div>
@@ -802,7 +802,7 @@
                                                         </div>
                                                         <div class="grid-img">
                                                             <img
-                                                                    src="../../assets/img/未录入运费票数合计.png"
+                                                                    src="../../assets/img/xmzb.png"
                                                                     alt=""
                                                             >
                                                         </div>
@@ -1108,7 +1108,6 @@
                                             prop="Condition"
                                             label="7月"
                                             align="center"
-
                                     >
                                         <el-table-column
                                                 prop="province"
@@ -1432,7 +1431,7 @@
             return {
                 loading:true,
                 isfive: true, // 53-50周
-                Year:'',
+                Year:'2019',
                 EndTime:'',
                 isMondy6:false,
                 isMondy5:false,
@@ -1447,10 +1446,10 @@
                 bbbb1 : 'el-icon-remove',
                 cccc : 'el-icon-circle-plus',
                 dddd : 'el-icon-circle-plus',
-                eeee : 'el-icon-circle-plus',
-                ffff : 'el-icon-circle-plus',
+                eeee : 'el-icon-circle-plus',                ffff : 'el-icon-circle-plus',
+
                 gggg : 'el-icon-circle-plus',
-                CountTotal:'',
+                CountTotal:0,
                 WayOut:'',
                 lineLine: lineActive,
                 lineExcel: excelDefault,
@@ -1529,11 +1528,33 @@
 
                     var eight1 = echarts.init(document.getElementById("eight1"));
                     this.loading = false;
+                    var colors = ['rgba(23, 255, 243', 'rgba(255,100,97'];
+
                     eight1.setOption({
-                        backgroundColor: "#eee",
+                        color:colors,
+                        backgroundColor: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#c86589'
+                        },
+                            {
+                                offset: 1,
+                                color: '#06a7ff'
+                            }
+                        ], false),
                         tooltip: {
                             trigger: 'axis',
 
+                        },
+                        toolbox: {
+                            feature: {
+                                dataZoom: {
+                                    yAxisIndex: 'none'
+                                },  //放缩功能
+                                dataView: {show: true, readOnly: false}, //清单功能
+                                magicType: {show: true, type: ['line', 'bar']}, //柱形/折线切换功能
+                                restore: {show: true},  //刷新功能
+                                saveAsImage: {show: true}  //下载功能
+                            }
                         },
                         "dataZoom": [{
                             "show": true,
@@ -1570,7 +1591,9 @@
                         series: [{
                             data: this.Total,
                             type: 'line'
-                        }]
+                        },
+
+                        ]
                     });
 
                     window.onresize = eight1.resize; // 基于准备好的dom，初始化echarts实例

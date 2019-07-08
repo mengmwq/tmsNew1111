@@ -368,6 +368,7 @@
                         this.CountXJ = res.data.CountXJ;
                         this.XJbfb = res.data.XJbfb;
                         this.YJbfb = res.data.YJbfb;
+                        this.time = '';
 
                         this.loading = false;
                         if (res.data.code == 0) {
