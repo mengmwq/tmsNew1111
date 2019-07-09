@@ -35,13 +35,14 @@
                                 ></el-autocomplete>
                             </el-form-item>
                             <el-form-item>
-                                <div class="block">
+                                <div class="block" >
                                     <el-date-picker
                                             v-model="time"
                                             type="daterange"
                                             value-format="yyyy-MM-dd"
                                             range-separator="至"
                                             start-placeholder="开始日期"
+
                                             end-placeholder="结束日期">
                                     </el-date-picker>
                                 </div>
@@ -509,7 +510,13 @@
         color: #649EFE !important;
 
     }
-
+    .el-card {
+         border: none!important;
+        background-color: #FFF;
+        color: #303133;
+        -webkit-transition: .3s;
+        transition: .3s;
+    }
     .el-icon-loading2 {
         background: url("../../assets/img/dongtu.gif") center no-repeat;
         background-size: cover;
